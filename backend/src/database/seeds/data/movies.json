@@ -1,0 +1,982 @@
+{
+  "genres": [
+    {
+      "name": "Action",
+      "slug": "action"
+    },
+    {
+      "name": "Adventure",
+      "slug": "adventure"
+    },
+    {
+      "name": "Animation",
+      "slug": "animation"
+    },
+    {
+      "name": "Comedy",
+      "slug": "comedy"
+    },
+    {
+      "name": "Crime",
+      "slug": "crime"
+    },
+    {
+      "name": "Documentary",
+      "slug": "documentary"
+    },
+    {
+      "name": "Drama",
+      "slug": "drama"
+    },
+    {
+      "name": "Family",
+      "slug": "family"
+    },
+    {
+      "name": "Fantasy",
+      "slug": "fantasy"
+    },
+    {
+      "name": "History",
+      "slug": "history"
+    },
+    {
+      "name": "Horror",
+      "slug": "horror"
+    },
+    {
+      "name": "Music",
+      "slug": "music"
+    },
+    {
+      "name": "Mystery",
+      "slug": "mystery"
+    },
+    {
+      "name": "Romance",
+      "slug": "romance"
+    },
+    {
+      "name": "Science Fiction",
+      "slug": "science-fiction"
+    },
+    {
+      "name": "Thriller",
+      "slug": "thriller"
+    },
+    {
+      "name": "TV Movie",
+      "slug": "tv-movie"
+    },
+    {
+      "name": "War",
+      "slug": "war"
+    },
+    {
+      "name": "Western",
+      "slug": "western"
+    }
+  ],
+  "movies": [
+    {
+      "title": "Hungry",
+      "slug": "hungry-2026",
+      "description": "A group of holidaymakers must fight for their lives against a rampaging hippo on the loose after becoming lost in the Louisiana swamplands.",
+      "releaseDate": "2026-06-03",
+      "runtimeMinutes": 93,
+      "genres": ["horror", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Love, Ngo",
+      "slug": "love-ngo-2026",
+      "description": "“Love, Ngo” follows Ngongo, a hardworking young man who volunteers at a cleft lip and palate foundation while helping at his mother’s burger stand. The film explores his struggles with love, family and self-acceptance after falling for a woman whose family disapproves of his condition and social status.",
+      "releaseDate": "2026-06-03",
+      "runtimeMinutes": 83,
+      "genres": ["comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Masters of the Universe",
+      "slug": "masters-of-the-universe-2026",
+      "description": "After being separated for 15 years, the Sword of Power leads Prince Adam back to Eternia, where he discovers his home shattered under the fiendish rule of Skeletor. To save his family and his world, Adam must join forces with his closest allies, Teela and Duncan/Man-At-Arms, and embrace his true destiny as He-Man — the most powerful man in the universe.",
+      "releaseDate": "2026-06-03",
+      "runtimeMinutes": 141,
+      "genres": ["action", "fantasy", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "Peddi",
+      "slug": "peddi-2026",
+      "description": "In a village that doesn't officially exist, a laborer's unmatched athletic talent becomes his weapon to fight for his people's right to be recognized.",
+      "releaseDate": "2026-06-03",
+      "runtimeMinutes": 189,
+      "genres": ["action", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Scary Movie",
+      "slug": "scary-movie-2026",
+      "description": "Twenty-six years after outrunning a suspiciously familiar masked killer, the Core Four are back in the killer's crosshairs and no horror movie IP is safe.",
+      "releaseDate": "2026-06-03",
+      "runtimeMinutes": 96,
+      "genres": ["comedy", "horror"],
+      "posterUrl": null
+    },
+    {
+      "title": "Office Romance",
+      "slug": "office-romance-2026",
+      "description": "Jackie, President and CEO of Air Cruz, runs a tight ship in her business, including a rigid anti-fraternization policy for all her employees. When a new sexy lawyer begins working for her, that policy becomes very tested.",
+      "releaseDate": "2026-06-04",
+      "runtimeMinutes": 115,
+      "genres": ["comedy", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Mollywood Times",
+      "slug": "mollywood-times-2026",
+      "description": "Vineeth Madhavan tries hard to become Malayalam cinema's greatest horror filmmaker, but will the toxic industry affect his dream?",
+      "releaseDate": "2026-06-05",
+      "runtimeMinutes": 167,
+      "genres": ["comedy", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Signal One",
+      "slug": "signal-one-2026",
+      "description": "A computer scientist is invited by a tech billionaire to join his private facility on a Caribbean island to investigate extraterrestrial matter on Earth. When they make contact beyond our world, chaos erupts as we’re left to wonder: do they come in peace?",
+      "releaseDate": "2026-06-05",
+      "runtimeMinutes": 112,
+      "genres": ["mystery", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Marked Woman",
+      "slug": "the-marked-woman-2026",
+      "description": "When a woman is found in a shipping container with no memory of who she is, two detectives race to figure out her identity — and who wants her dead.",
+      "releaseDate": "2026-06-05",
+      "runtimeMinutes": 109,
+      "genres": ["crime", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Detective Chen 2",
+      "slug": "detective-chen-2-2026",
+      "description": "In 1930s Shanghai, a wrongly accused hero escapes death row and unravels a deadly conspiracy, battling enemies and uncovering a foreign plot that threatens his nation.",
+      "releaseDate": "2026-06-06",
+      "runtimeMinutes": null,
+      "genres": ["action", "comedy", "crime", "mystery"],
+      "posterUrl": null
+    },
+    {
+      "title": "Pool Party",
+      "slug": "pool-party-2026",
+      "description": "On a hot day, when digital activity suddenly stopped, Adek whined to her family, asking to play in the inflatable pool. But sadly, there was no running water in their house.",
+      "releaseDate": "2026-06-06",
+      "runtimeMinutes": 14,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Summer House",
+      "slug": "summer-house-2026",
+      "description": "Selin travels back in time at a summer house and finds herself in her mother's youth, changing her family's fate and rebuilding her own life.",
+      "releaseDate": "2026-06-06",
+      "runtimeMinutes": null,
+      "genres": ["drama", "family", "mystery", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "They Fight",
+      "slug": "they-fight-2026",
+      "description": "Reformed ex-convict Walt Manigan returns home to rebuild his family with the love of his life, Ketta. His path leads him to a boxing gym inside a D.C. youth recreation center about to be closed. There, he works under the wise coach Slim to mentor a group of boys to train for the junior national boxing tournament, all leading to a showdown between best friends Quincey and Peanut as they battle for a spot on the U.S. Junior Olympic Team.",
+      "releaseDate": "2026-06-08",
+      "runtimeMinutes": 95,
+      "genres": ["action", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Sugar Mommy",
+      "slug": "sugar-mommy-2026",
+      "description": "When a non-committal sugar mommy takes in her three sugar babies, jealousy erupts as one of them becomes determined to be her one and only.",
+      "releaseDate": "2026-06-09",
+      "runtimeMinutes": 75,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Colors of Evil: Black",
+      "slug": "colors-of-evil-black-2026",
+      "description": "Investigating the disappearance of children in a remote Polish town, prosecutor Leopold Bilski must unravel a sinister local legend before it's too late.",
+      "releaseDate": "2026-06-10",
+      "runtimeMinutes": 110,
+      "genres": ["crime", "mystery", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Disclosure Day",
+      "slug": "disclosure-day-2026",
+      "description": "A cybersecurity expert becomes a whistleblower after uncovering secrets about aliens, putting him on the run from a corporation. Meanwhile, a meteorologist experiencing strange phenomena joins forces with him to prove there's life beyond our understanding.",
+      "releaseDate": "2026-06-10",
+      "runtimeMinutes": 146,
+      "genres": ["science-fiction", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Furious",
+      "slug": "the-furious-2026",
+      "description": "After a criminal network kidnaps Wang Wei's daughter and the corrupt police refuse to assist him, Wei sets out on his own to locate her. Navin, a tenacious journalist whose wife has mysteriously vanished, is his only ally. In this explosive martial arts showdown, the unlikely duo fights the kidnappers ruthlessly driven by a furious vengeance.",
+      "releaseDate": "2026-06-10",
+      "runtimeMinutes": 113,
+      "genres": ["action", "crime", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Stop! That! Train!",
+      "slug": "stop-that-train-2026",
+      "description": "Best friends and train stewardesses Tess and DeeDee trade their dreary shifts on the Stank Rail for the glitzy Glamazonian Express. However, when a catastrophic Stormaganza threatens to crash the high-speed train into Celebration, Florida, the duo in coach must join forces with the snobby first-class attendants, a hot but dimwitted co-conductor, and fabulous US President Judy Gagwell to save the day.",
+      "releaseDate": "2026-06-12",
+      "runtimeMinutes": 90,
+      "genres": ["action", "comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Husbands in Action",
+      "slug": "husbands-in-action-2026",
+      "description": "A detective teams up with his ex-wife's new husband to chase down her kidnappers. Can this unlikely duo put aside their differences for one wild rescue?",
+      "releaseDate": "2026-06-15",
+      "runtimeMinutes": 110,
+      "genres": ["action", "comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Leviticus",
+      "slug": "leviticus-2026",
+      "description": "Two teenage boys must escape a violent entity that takes the form of the person they desire most — each other.",
+      "releaseDate": "2026-06-17",
+      "runtimeMinutes": 88,
+      "genres": ["horror", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Toy Story 5",
+      "slug": "toy-story-5-2026",
+      "description": "When Bonnie receives a Lilypad tablet as a gift and becomes obsessed, Buzz, Woody, Jessie and the rest of the gang's jobs become exponentially harder when they have to go head to head with the all-new threat to playtime.",
+      "releaseDate": "2026-06-17",
+      "runtimeMinutes": 102,
+      "genres": ["adventure", "animation", "comedy", "family"],
+      "posterUrl": null
+    },
+    {
+      "title": "Your Fault: London",
+      "slug": "your-fault-london-2026",
+      "description": "Nick and Noah are both embarking on life-changing adventures that are threatening to pull them apart—Nick in business with his father and Noah starting a fresh chapter at Oxford University. Now living separate lives, and meeting new people, they find themselves entangled in temptations, rivalries, and betrayals and their bond is tested like never before. As secrets unravel and temptation rises, they must fight to hold onto each other—or risk losing everything.",
+      "releaseDate": "2026-06-17",
+      "runtimeMinutes": 123,
+      "genres": ["drama", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Girls Like Girls",
+      "slug": "girls-like-girls-2026",
+      "description": "Coley, 17, from rural Oregon, navigates intimacy after her mother's passing. Meeting Sonya sparks new feelings, but self-doubt hinders their connection. Sonya, unfamiliar with dating girls, is uncertain. They learn to embrace emotions.",
+      "releaseDate": "2026-06-18",
+      "runtimeMinutes": 95,
+      "genres": ["drama", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Little Brother",
+      "slug": "little-brother-2026",
+      "description": "A tightly wound realtor's picture-perfect life gets an extreme makeover when his lovably chaotic \"little brother\" suddenly reappears.",
+      "releaseDate": "2026-06-18",
+      "runtimeMinutes": 101,
+      "genres": ["comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Maa Inti Bangaram",
+      "slug": "maa-inti-bangaram-2026",
+      "description": "Through both her moments of fear and bravery, a woman discovers that embracing her vulnerabilities is as vital to her inner strength as facing challenges head-on.",
+      "releaseDate": "2026-06-18",
+      "runtimeMinutes": 158,
+      "genres": ["action", "drama", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Death of Robin Hood",
+      "slug": "the-death-of-robin-hood-2026",
+      "description": "Grappling with his past after a life of crime and murder, Robin Hood finds himself gravely injured after a battle he thought would be his last. In the hands of a mysterious woman, he is offered a chance at salvation.",
+      "releaseDate": "2026-06-18",
+      "runtimeMinutes": 123,
+      "genres": ["action", "adventure", "drama", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Get Out",
+      "slug": "the-get-out-2026",
+      "description": "A nightclub owner is on the verge of leaving his dangerous past behind for retirement with his girlfriend. When masked gunmen rob him and he finds himself squeezed by ruthless cartels, a mysterious newcomer arrives with an interest in buying the business. With danger closing in from all sides, he must navigate a deadly web of deception, power, and survival  -  where escape may no longer be an option.",
+      "releaseDate": "2026-06-18",
+      "runtimeMinutes": 111,
+      "genres": ["action", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Citizen Vigilante",
+      "slug": "citizen-vigilante-2026",
+      "description": "A man takes justice into his own hands, hunting down criminals. His vigilante crusade makes him a social media star but puts him at odds with the local police chief.",
+      "releaseDate": "2026-06-19",
+      "runtimeMinutes": 89,
+      "genres": ["action", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "I Know Who You Are",
+      "slug": "i-know-who-you-are-2026",
+      "description": "On 1949 October 1, the day of the founding ceremony of the People's Republic of China, Xiao Dali enters the city and is reorganized as the director of the public security police station. He finds that primary school teacher Feng Jingbo is full of doubts. With the high vigilance of a soldier and the sense of responsibility of a public security official, Dali insists on partnering with Feng and becomes his neighbor. He then spends his whole life carrying out a nearly four-decade pursuit without regrets.",
+      "releaseDate": "2026-06-19",
+      "runtimeMinutes": 142,
+      "genres": ["drama", "history"],
+      "posterUrl": null
+    },
+    {
+      "title": "Latina",
+      "slug": "latina-2026",
+      "description": "A story about a mysterious woman who shakes up a seemingly ordinary boarding house. As she charms both the boys and girls, secrets unravel, relationships collide, and chaos takes over.",
+      "releaseDate": "2026-06-19",
+      "runtimeMinutes": 75,
+      "genres": ["drama", "mystery", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Voicemails for Isabelle",
+      "slug": "voicemails-for-isabelle-2026",
+      "description": "A young woman's hilariously confessional voicemails to her late sister are unknowingly redirected to a stranger, who begins to fall in love from afar.",
+      "releaseDate": "2026-06-20",
+      "runtimeMinutes": 119,
+      "genres": ["comedy", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Minions & Monsters",
+      "slug": "minions-monsters-2026",
+      "description": "This is the rambunctious, ridiculous and totally true story of how the Minions conquered Hollywood, became movie stars, lost everything, unleashed monsters onto the world and then banded together to try and save the planet from the mayhem they had just created.",
+      "releaseDate": "2026-06-24",
+      "runtimeMinutes": 90,
+      "genres": ["adventure", "animation", "comedy", "family", "fantasy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Supergirl",
+      "slug": "supergirl-2026",
+      "description": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
+      "releaseDate": "2026-06-24",
+      "runtimeMinutes": 108,
+      "genres": ["action", "adventure", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "Black Box",
+      "slug": "black-box-2026",
+      "description": "A routine domestic flight turns into the flight from hell through a series of inexplicable phenomena and raw terror. Surreal encounters blur the boundaries between reality and nightmare. Passengers fight against all the odds in an attempt to survive while combating bizarre technological malfunctions, accelerating supernatural events and alien influences.",
+      "releaseDate": "2026-06-25",
+      "runtimeMinutes": 85,
+      "genres": ["horror", "science-fiction", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Jackass: Best and Last",
+      "slug": "jackass-best-and-last-2026",
+      "description": "The fifth and final installment to Jackass franchise where the crew go on one last insane crusade.",
+      "releaseDate": "2026-06-25",
+      "runtimeMinutes": 92,
+      "genres": ["action", "comedy", "documentary"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Invite",
+      "slug": "the-invite-2026",
+      "description": "Joe and Angela's marriage is on thin ice. When they invite their enigmatic upstairs neighbors for a dinner party, the night spirals into unexpected places.",
+      "releaseDate": "2026-06-25",
+      "runtimeMinutes": 107,
+      "genres": ["comedy", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Welcome to the Jungle",
+      "slug": "welcome-to-the-jungle-2026",
+      "description": "A group of quirky characters gets stuck in a dangerous jungle during a chaotic mission. Filled with confusion, criminals, and hilarious situations, they must work together to survive and find their way out.",
+      "releaseDate": "2026-06-25",
+      "runtimeMinutes": 170,
+      "genres": ["action", "adventure", "comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "CAMP",
+      "slug": "camp-2026",
+      "description": "Emily is the cause of two tragedies early in her life; her dad suggests she go to a Camp for troubled youth to ease her guilt. When Emily arrives, she is taken in by the other counsellors; they accept her as she is and wrap her in a veil of peace & forgiveness. Emily stands at the forefront of a new kind of life, but there’s a voice out there in the woods she can’t ignore, telling Emily to go home.",
+      "releaseDate": "2026-06-26",
+      "runtimeMinutes": 111,
+      "genres": ["drama", "horror"],
+      "posterUrl": null
+    },
+    {
+      "title": "Carry On Jatta 4",
+      "slug": "carry-on-jatta-4-2026",
+      "description": "A romantic deception spirals into household chaos when a family must construct an elaborate web of lies to conceal a secret relationship.",
+      "releaseDate": "2026-06-26",
+      "runtimeMinutes": 142,
+      "genres": ["comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Crossing",
+      "slug": "crossing-2026",
+      "description": "A retelling of the Red Army crossing the Chishui River four times to outmaneuver 400,000 enemy troops.",
+      "releaseDate": "2026-06-26",
+      "runtimeMinutes": 122,
+      "genres": ["history", "war"],
+      "posterUrl": null
+    },
+    {
+      "title": "Summerween",
+      "slug": "summerween-2026",
+      "description": "A former circus clown escapes a mental institution on the tenth anniversary of his first kills. Now, as unsuspecting high schoolers throw a Summerween party at the clown’s abandoned mansion, a police officer and father to one of the party goers must rescue his daughter before the clown kills again.",
+      "releaseDate": "2026-06-26",
+      "runtimeMinutes": 87,
+      "genres": ["horror", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Cheating Wife",
+      "slug": "the-cheating-wife-2026",
+      "description": "Two widows who find solace in each other and eventually fall in love. But when one of their supposedly dead husbands returns home blind, they are forced to hide their forbidden affair, testing the limits of love and loyalty.",
+      "releaseDate": "2026-06-26",
+      "runtimeMinutes": 76,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Three Kingdoms: The Beginning",
+      "slug": "three-kingdoms-the-beginning-2026",
+      "description": "Toward the end of the Eastern Han Dynasty, amid nationwide unrest, Cao Cao and Yuan Shao sought to enlist General-in-Chief He Jin’s support to check the power of the eunuchs and restore the Han Dynasty to its rightful order. Unexpectedly, Dong Zhuo seized the chaos to march his troops into the capital, plotting to dethrone the reigning emperor and install a new one.Swept up in the torrential tide of troubled times, a host of warlords emerged one after another: Yuan Shu, Lü Bu, Sun Jian, as well as Liu Bei, Guan Yu and Zhang Fei. Turmoil engulfed Luoyang, and the fate of the great Han Empire stood at a crossroads…",
+      "releaseDate": "2026-06-27",
+      "runtimeMinutes": 137,
+      "genres": ["animation", "history"],
+      "posterUrl": null
+    },
+    {
+      "title": "Enola Holmes 3",
+      "slug": "enola-holmes-3-2026",
+      "description": "Adventure follows detective Enola Holmes to Malta, where her plans to tie the knot unravel when Sherlock's disappearance plunges her into a perilous case.",
+      "releaseDate": "2026-06-30",
+      "runtimeMinutes": 109,
+      "genres": ["adventure", "crime", "mystery"],
+      "posterUrl": null
+    },
+    {
+      "title": "Hibla 2",
+      "slug": "hibla-2-2026",
+      "description": "Two VMX queens, Aliya Raymundo and Margaret Diaz, play reunited childhood friends who share a memorable past and a complicated present: one is a liberated city girl, the other a sheltered country virgin, and both are surrounded by men eager to get a taste of their youth.",
+      "releaseDate": "2026-06-30",
+      "runtimeMinutes": 80,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "23 000 Lives",
+      "slug": "23-000-lives-2026",
+      "description": "A group of young people sets sail for the Mediterranean to save the lives of refugees — a mission that puts their ideas of law and justice to the test.",
+      "releaseDate": "2026-07-02",
+      "runtimeMinutes": null,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Alpha",
+      "slug": "alpha-2026",
+      "description": "When Sita, a highly trained assassin raised in isolation as a super-soldier by a rogue commander, discovers the dark truth about her family and her stolen childhood, she teams up with her long lost sister to take down her creator and his illicit military program.",
+      "releaseDate": "2026-07-02",
+      "runtimeMinutes": 141,
+      "genres": ["action", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Morte Cucina",
+      "slug": "morte-cucina-2026",
+      "description": "Sao, a talented cook, accidentally meets the man who took advantage of her in the past. She sets her revenge plan in motion using her cooking skill to achieve a rather unexpected result.",
+      "releaseDate": "2026-07-02",
+      "runtimeMinutes": 96,
+      "genres": ["drama", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Bay",
+      "slug": "the-bay-2026",
+      "description": "Best friends Emma and Lani, attending a destination wedding in Thailand, find themselves trapped on a sinking tour boat in the heart of a tiger shark sanctuary.",
+      "releaseDate": "2026-07-02",
+      "runtimeMinutes": 87,
+      "genres": ["horror", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Young Washington",
+      "slug": "young-washington-2026",
+      "description": "Before he led a nation, George Washington was a young soldier thrown into a global conflict. With alliances crumbling and war closing in, he must choose who to trust and confront the leader he's becoming.",
+      "releaseDate": "2026-07-02",
+      "runtimeMinutes": 125,
+      "genres": ["drama", "history", "war"],
+      "posterUrl": null
+    },
+    {
+      "title": "Keep Real",
+      "slug": "keep-real-2026",
+      "description": "Thirty years ago, the Super Ying Association led by Superman Wang Changhai crushed the aliens. Years later, Wang Changhai was appointed to return to his hometown to set up a combat squad, but in the town of Rheinland, which had been peaceful for many years, human feelings and courtesies have left Wang Changhai overwhelmed, creating layers of obstacles to Wang's ability to complete his mission.",
+      "releaseDate": "2026-07-03",
+      "runtimeMinutes": null,
+      "genres": ["comedy", "drama", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "Man of War",
+      "slug": "man-of-war-2026",
+      "description": "When an aid worker vanishes in the first hours of war in Ukraine, a former Navy SEAL and CIA operative crosses into the shattered country to bring her home-facing mercenaries, shifting battle lines, and ghosts he thought he left behind.",
+      "releaseDate": "2026-07-03",
+      "runtimeMinutes": 111,
+      "genres": ["action", "thriller", "war"],
+      "posterUrl": null
+    },
+    {
+      "title": "Night of the Living Dead",
+      "slug": "night-of-the-living-dead-2026",
+      "description": "A ragtag group barricade themselves in an old Pennsylvania farmhouse to remain safe from a horde of flesh-eating ghouls ravaging the Northeast.",
+      "releaseDate": "2026-07-03",
+      "runtimeMinutes": 87,
+      "genres": ["horror"],
+      "posterUrl": null
+    },
+    {
+      "title": "Satluj",
+      "slug": "satluj-2026",
+      "description": "Triggered by the search for his missing aunt, human rights activist Jaswant Singh Khalra takes on a broken system in a courageous fight to uncover the conspiracy behind thousands of disappearances and extrajudicial killings during the nadir of Punjab’s period of insurgency.",
+      "releaseDate": "2026-07-03",
+      "runtimeMinutes": 164,
+      "genres": ["crime", "drama", "history"],
+      "posterUrl": null
+    },
+    {
+      "title": "Simpsley",
+      "slug": "simpsley-2026",
+      "description": "When penniless con-artist Marge Bouvier is sent to Italy to convince wealthy sap Seymour Skinner to come home, she’s tempted by the trappings of his affluent lifestyle. But there’s a big fat fly in the ointment: Skinner’s clingy, dim-witted mooch of a houseguest, Homer Simpsley. Lies, lust and Italian lira are abound.",
+      "releaseDate": "2026-07-03",
+      "runtimeMinutes": 24,
+      "genres": ["animation", "comedy", "crime"],
+      "posterUrl": null
+    },
+    {
+      "title": "Wings of Dread",
+      "slug": "wings-of-dread-2026",
+      "description": "Air police officer Gu Chaoyang encounters a hijacking crisis on his flight back to China. With his extremely high professional ethics, he fights desperately to stop the hijacker, and a life-and-death struggle that takes place at an altitude of ten thousand meters begins.",
+      "releaseDate": "2026-07-03",
+      "runtimeMinutes": 87,
+      "genres": ["action", "crime", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "ONE PIECE HEROINES",
+      "slug": "one-piece-heroines-2026",
+      "description": "After buying a pair of shoes that end up hurting her feet, Nami returns to the shop feeling dissatisfied. There, she meets Lebno, the designer, who tells her, \"I'll make you a brand-new pair from scratch—but only if you’ll be my model.\" The shoes are crafted by the artisan Miucha, leading to an unexpected and stylish encounter.",
+      "releaseDate": "2026-07-05",
+      "runtimeMinutes": 23,
+      "genres": ["action", "animation", "comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Evil Dead Burn",
+      "slug": "evil-dead-burn-2026",
+      "description": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death.",
+      "releaseDate": "2026-07-07",
+      "runtimeMinutes": 110,
+      "genres": ["horror", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Moana",
+      "slug": "moana-2026",
+      "description": "Teenage Moana answers the Ocean's call and, for the first time, voyages beyond the reef of her island of Motunui with infamous demigod Maui on an unforgettable journey to restore prosperity to her people.",
+      "releaseDate": "2026-07-08",
+      "runtimeMinutes": 115,
+      "genres": ["adventure", "comedy", "family", "fantasy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Nothing to Lose",
+      "slug": "nothing-to-lose-2026",
+      "description": "She gave everything to become a mother, so when her young son falls ill, Jada will stop at  nothing to find a donor and save him — no matter the cost.",
+      "releaseDate": "2026-07-08",
+      "runtimeMinutes": 102,
+      "genres": ["action", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Infiltrate",
+      "slug": "infiltrate-2026",
+      "description": "In a city overrun by crime, government Agent Lily Chen is forced to choose between her duty and her family when her husband is kidnapped, and she’s blackmailed into assassinating high-level criminals to save him. As she delves deeper into the criminal underworld, Lily’s relentless pursuit of justice unravels a web of corruption, leading to a final, life-altering decision that will change her world forever.",
+      "releaseDate": "2026-07-09",
+      "runtimeMinutes": 93,
+      "genres": ["action", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "All Wishes Come True!",
+      "slug": "all-wishes-come-true-2026",
+      "description": "Eight grassroot mortals use their street smarts and hilarious schemes to defy powerful gods, earning their title as the \"Eight Immortals.\"",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": null,
+      "genres": ["adventure", "animation", "comedy", "fantasy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Dhamaal 4",
+      "slug": "dhamaal-4-2026",
+      "description": "The Dhamaal boys are back for another treasure hunt, facing hilarious challenges in their quest for the Treasure of Life.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 143,
+      "genres": ["comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Idhayam Murali",
+      "slug": "idhayam-murali-2026",
+      "description": "A young man navigates the complexities of unrequited love, finding that even as years pass and life takes unexpected turns, certain emotions remain deeply embedded in his heart.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 164,
+      "genres": ["comedy", "drama", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Ikka",
+      "slug": "ikka-2026",
+      "description": "With a loved one's life at stake, a celebrated lawyer must defend a man he suspects is guilty — battling his conscience every step of the way.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 141,
+      "genres": ["drama", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Lenin",
+      "slug": "lenin-2026",
+      "description": "Young, urban-raised Lenin's peaceful romance with Bharathi inadvertently sparks a violent, large-scale village conflict.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 156,
+      "genres": ["action", "drama", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Miguel Ángel Blanco: The 48 Hours That Changed Spain",
+      "slug": "miguel-angel-blanco-the-48-hours-that-changed-spain-2026",
+      "description": "This documentary explores how Miguel Ángel Blanco's 1997 abduction turned fear into collective resistance and shaped Spain's fright Against ETA terrorism.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 93,
+      "genres": ["documentary"],
+      "posterUrl": null
+    },
+    {
+      "title": "Shipwrecked: Nightmare at Sea",
+      "slug": "shipwrecked-nightmare-at-sea-2026",
+      "description": "Never-before-seen footage and survivor accounts trace the 2012 shipwreck of a luxury cruise and the disaster that ensued, in this immersive documentary.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 87,
+      "genres": ["documentary"],
+      "posterUrl": null
+    },
+    {
+      "title": "Siping",
+      "slug": "siping-2026",
+      "description": "A gripping story about a woman wagered in a high-stakes card game. But the stakes get even hotter when she’s won by the man who’s long been obsessed with her.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 70,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Outer Threat",
+      "slug": "the-outer-threat-2026",
+      "description": "After making a groundbreaking extraterrestrial discovery, astrophysicists Daniel and Michelle are forced to flee from home with their family — pursued through the countryside by a relentless and anonymous assailant. As their flight unfolds, the line between cosmic revelation and human paranoia blurs, leading to a tense and emotional confrontation that challenges the boundaries of understanding, science, and survival.",
+      "releaseDate": "2026-07-10",
+      "runtimeMinutes": 94,
+      "genres": ["science-fiction", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Kung Fu Soccer",
+      "slug": "kung-fu-soccer-2026",
+      "description": "The \"Supreme Invincible Cup\" is about to begin, and a host of top teams are about to engage in an unprecedented showdown! But the Kung Fu Women's Soccer Team has been dealt a hellish script right from the start?! Their opponents are all highly skilled, and external pressure is mounting. The schemes on the field are one after another... Can they use their kung fu to turn the tide on the green field?",
+      "releaseDate": "2026-07-11",
+      "runtimeMinutes": 106,
+      "genres": ["action", "comedy", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Me Before Me",
+      "slug": "me-before-me-2026",
+      "description": "A young student battling pressure, panic and a demanding father uses a class project to discover that truth — not trophies — might finally set him free.",
+      "releaseDate": "2026-07-11",
+      "runtimeMinutes": 127,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Heartstopper Forever",
+      "slug": "heartstopper-forever-2026",
+      "description": "It's a new school year for the Truham-Higgs gang. As Nick and Charlie's relationship deepens, their thoughts turn to life after the last bell rings.",
+      "releaseDate": "2026-07-14",
+      "runtimeMinutes": 110,
+      "genres": ["drama", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Hope",
+      "slug": "hope-2026",
+      "description": "In the remote South Korean village of Hope Harbor, police chief Bum-seok and officer Sung-ae are called to investigate a mysterious creature wreaking havoc on the community. But all is not as it seems, and perceptions can be misleading. What begins as ignorance plants the seed of disaster, escalating through human conflict into a tragedy of cosmic proportions.",
+      "releaseDate": "2026-07-15",
+      "runtimeMinutes": 157,
+      "genres": ["action", "mystery", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Odyssey",
+      "slug": "the-odyssey-2026",
+      "description": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+      "releaseDate": "2026-07-15",
+      "runtimeMinutes": 173,
+      "genres": ["action", "adventure", "fantasy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Descendants: Wicked Wonderland",
+      "slug": "descendants-wicked-wonderland-2026",
+      "description": "Now that the Queen of Hearts is nice and Cinderella is safe, things seem perfect for Red and Chloe… But little do they know that changing the past created a new villain — Maddox Hatter. When Maddox captures the Queen of Hearts, Red and Chloe must work alongside Red’s new sister Pink, Luisa Madrigal’s son Luis, and Maddox’s son Max to save her and Wonderland.",
+      "releaseDate": "2026-07-16",
+      "runtimeMinutes": 98,
+      "genres": ["family", "fantasy", "tv-movie"],
+      "posterUrl": null
+    },
+    {
+      "title": "Borderline",
+      "slug": "borderline-2026",
+      "description": "Convinced they are our secret saviors, rogue U.S. operatives abduct Mexican gang members and seed them across major American cities, unleashing criminal chaos, swaying voters by playing on nativist prejudices, and forcing law enforcement into a race to expose the plot as the escalating carnage threatens democracy itself.",
+      "releaseDate": "2026-07-17",
+      "runtimeMinutes": 94,
+      "genres": ["thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Kill Trip",
+      "slug": "kill-trip-2026",
+      "description": "On the way to a Texas music festival, a group of friends catches a ride with a magnetic van driver. But when people start vanishing, the real headliner becomes survival.",
+      "releaseDate": "2026-07-17",
+      "runtimeMinutes": null,
+      "genres": ["horror", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Odyssemen",
+      "slug": "the-odyssemen-2026",
+      "description": "After undergoing the split of Meiosis, meiosisters Orchis and Semes awaken as sperm in the ethereal land of Test, where the annual Testy Festy welcomes them to what seems like heaven. Things take a turn when Seed, a strange sperm donning a condom mask, claims that their paradise is a lie and calls for the start of the Great Jac, a taboo event prophesied to lead either to the Promised Unknown or to death. A sperm civil war breaks out as rebels and loyalists fight over whether their world is truly heaven or merely the prelude to something far greater...",
+      "releaseDate": "2026-07-17",
+      "runtimeMinutes": 20,
+      "genres": ["action", "adventure", "comedy", "drama", "fantasy", "music"],
+      "posterUrl": null
+    },
+    {
+      "title": "레즈비언 부부의 아내 불륜",
+      "slug": "lesbian-couples-wife-affair-2026",
+      "description": "A relationship drama about a married couple whose trust is tested by an unexpected affair.",
+      "releaseDate": "2026-07-17",
+      "runtimeMinutes": null,
+      "genres": ["drama", "romance"],
+      "posterUrl": null
+    },
+    {
+      "title": "Ip Man: Kung Fu Legend",
+      "slug": "ip-man-kung-fu-legend-2026",
+      "description": "In 1950s Hong Kong, British merchants and Chinese triads have joined forces to expand their territory, forcibly demolishing factories without regard for public welfare. This move draws fierce opposition from Ip Man, standing up for the workers, he faces pressure from all sides. Framed for murder, he is sent to prison. Within the prison walls, the triads set multiple deadly traps. Can Ip Man overcome these trials, escape the danger, and clear his name?",
+      "releaseDate": "2026-07-22",
+      "runtimeMinutes": 94,
+      "genres": ["action"],
+      "posterUrl": null
+    },
+    {
+      "title": "Pinocchio: Unstrung",
+      "slug": "pinocchio-unstrung-2026",
+      "description": "Influenced by a sinister Cricket and created by Geppetto, Pinocchio launches a violent crusade to carve himself into a real boy like his brother James, one piece at a time.",
+      "releaseDate": "2026-07-22",
+      "runtimeMinutes": 82,
+      "genres": ["fantasy", "horror", "mystery"],
+      "posterUrl": null
+    },
+    {
+      "title": "Jana Nayagan",
+      "slug": "jana-nayagan-2026",
+      "description": "A clash of ideologies. One stands for the people, the other feeds on control. Their paths collided once before. Years later, a child’s silent fear ignites the past, drawing a former police officer into a battle far bigger than personal revenge.",
+      "releaseDate": "2026-07-23",
+      "runtimeMinutes": 183,
+      "genres": ["action", "drama", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "Motor City",
+      "slug": "motor-city-2026",
+      "description": "In 1970s Detroit, John Miller falls for a local gangster's girl and lands in prison for a crime he didn't commit. With his life ruined, Miller plots revenge against the man who took his girl away.",
+      "releaseDate": "2026-07-23",
+      "runtimeMinutes": 103,
+      "genres": ["action", "crime", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Avatar Aang: The Last Airbender",
+      "slug": "avatar-aang-the-last-airbender-2026",
+      "description": "Avatar Aang, the world's last Airbender, learns of an ancient power that could save his culture from extinction. With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands and threatens to upend the peace they sacrificed everything to achieve.",
+      "releaseDate": "2026-07-24",
+      "runtimeMinutes": 99,
+      "genres": ["action", "adventure", "animation", "fantasy"],
+      "posterUrl": null
+    },
+    {
+      "title": "Uprising",
+      "slug": "uprising-2026",
+      "description": "Through an AI-driven reinterpretation of Mexican Revolution footage captured by the country's cinema pioneers, this documentary offers a fresh look at a pivotal historical moment. It traces the movement's rise, peak, and fall, the birth of a new nation, and invites us to question the narratives that have shaped our identity and the present we inhabit.",
+      "releaseDate": "2026-07-24",
+      "runtimeMinutes": 95,
+      "genres": ["documentary", "history", "war"],
+      "posterUrl": null
+    },
+    {
+      "title": "Spider-Man: Brand New Day",
+      "slug": "spider-man-brand-new-day-2026",
+      "description": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+      "releaseDate": "2026-07-28",
+      "runtimeMinutes": 145,
+      "genres": ["action", "adventure", "science-fiction"],
+      "posterUrl": null
+    },
+    {
+      "title": "PAW Patrol: The Dino Movie",
+      "slug": "paw-patrol-the-dino-movie-2026",
+      "description": "The Paw Patrol lands on a mysterious dinosaur island after a storm, where they meet Rex, a stranded pup. When Humdinger's reckless mining triggers a volcano, the team faces their biggest rescue mission yet to save the island.",
+      "releaseDate": "2026-07-31",
+      "runtimeMinutes": 88,
+      "genres": ["adventure", "animation", "comedy", "family"],
+      "posterUrl": null
+    },
+    {
+      "title": "Ice Cream Man",
+      "slug": "ice-cream-man-2026",
+      "description": "An idyllic summer town descends into madness when an ice cream man serves kids sweet delights with horrifying results.",
+      "releaseDate": "2026-08-05",
+      "runtimeMinutes": 86,
+      "genres": ["horror", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "DELIVERY BOY",
+      "slug": "delivery-boy-2026",
+      "description": "A young food delivery rider, who dreams of becoming a police officer, is forced to steal money to save his critically injured mother. Months later, when he discovers that the same man has been falsely accused of murder, he risks everything to save the life he once unknowingly changed forever.",
+      "releaseDate": "2026-08-07",
+      "runtimeMinutes": 133,
+      "genres": ["action", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Hearing",
+      "slug": "hearing-2026",
+      "description": "Ninh lives with his mother and misses his ex-wife Ngoc and their young children. In his work as a mechanic who installs decibel meters in public spaces and homes, Ninh observes the silence that haunts relationships.",
+      "releaseDate": "2026-08-10",
+      "runtimeMinutes": 128,
+      "genres": ["drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "OK! Madam: Bon Voyage",
+      "slug": "ok-madam-bon-voyage-2026",
+      "description": "A family fresh off a daring high-altitude plane rescue gets mysteriously invited onto a luxury cruise, only to find themselves trapped in a wild, unpredictable new crisis.",
+      "releaseDate": "2026-08-12",
+      "runtimeMinutes": null,
+      "genres": ["action", "comedy"],
+      "posterUrl": null
+    },
+    {
+      "title": "The End of Oak Street",
+      "slug": "the-end-of-oak-street-2026",
+      "description": "After a mysterious cosmic event rips Oak Street from suburbia and transports their neighborhood to someplace unknown, the Platt family soon discovers that their very survival depends on them sticking together as they navigate their now unrecognizable surroundings.",
+      "releaseDate": "2026-08-12",
+      "runtimeMinutes": null,
+      "genres": ["mystery", "science-fiction", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Ice Skater",
+      "slug": "ice-skater-2026",
+      "description": "A survival drama about an ice skater stranded on an ice floe at the Arctic Sea. When the ice floe starts to float towards south and melt, the ice skater must use all means necessary to survive.",
+      "releaseDate": "2026-08-20",
+      "runtimeMinutes": 83,
+      "genres": ["drama", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Dog Stars",
+      "slug": "the-dog-stars-2026",
+      "description": "After the world's population has been ravaged by a pandemic, a man lives a lonesome existence in a Colorado airplane hangar with his dog and a dour gunman he has befriended. When a mysterious transmission comes through on the radio while he’s flying his old Cessna, it sparks a hunt for the provenance of the sound.",
+      "releaseDate": "2026-08-26",
+      "runtimeMinutes": 100,
+      "genres": ["adventure", "science-fiction", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "The Rope Curse 4: Kuntilanak",
+      "slug": "the-rope-curse-4-kuntilanak-2026",
+      "description": "A forbidden exorcism is livestreamed in Indonesia, awakening the legendary female spirit Kuntilanak. What begins as an online spectacle quickly turns deadly. In Taiwan, Mila watches the ritual—and becomes the curse’s first victim. Soon, mysterious deaths and violent possessions follow. When Yulan collapses and is found to have lost part of her soul, it becomes clear that this is not an isolated incident, but a transnational curse. Seeking answers, Mila’s son returns her ashes to Indonesia, hoping to uncover the truth behind her death. Instead, he steps into a nightmare rooted in ancient folklore and unresolved hatred. As supernatural violence escalates, the group realizes that once Kuntilanak is summoned, the curse will not stop—until it claims everything in its path.",
+      "releaseDate": "2026-08-27",
+      "runtimeMinutes": null,
+      "genres": ["horror", "mystery", "thriller"],
+      "posterUrl": null
+    },
+    {
+      "title": "Cowriters",
+      "slug": "cowriters-2026",
+      "description": "34-year-old Moscow writer Igor Angelevskiy for the third time failed to win Russia's main literary prize. After the award ceremony, the hero's wallet is stolen, which contains the only memory of his mother. Hearing the news about the theft, 20-year-old pickpocket Aldar decides to read Angelevskiy's books and is so fascinated by them that he becomes Igor's student. The writer sees in the young man a brilliant storyteller with rich life experience. After a while, Angelevskiy and Aldar become friends.",
+      "releaseDate": "2026-09-10",
+      "runtimeMinutes": 100,
+      "genres": ["comedy", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Digger",
+      "slug": "digger-2026",
+      "description": "The most powerful man in the world embarks on a frantic mission to prove he is humanity's savior before the disaster he's unleashed destroys everything.",
+      "releaseDate": "2026-09-30",
+      "runtimeMinutes": 106,
+      "genres": ["comedy", "drama"],
+      "posterUrl": null
+    },
+    {
+      "title": "Other Mommy",
+      "slug": "other-mommy-2026",
+      "description": "A young girl, her family and their home are haunted by a sinister entity that is determined to take up residence inside her. But first, it needs to persuade her to let it in…",
+      "releaseDate": "2026-10-08",
+      "runtimeMinutes": null,
+      "genres": ["horror"],
+      "posterUrl": null
+    },
+    {
+      "title": "Ramayana",
+      "slug": "ramayana-2026",
+      "description": "An ancient epic follows a young prince and princess whose marriage and subsequent exile mark the beginning of a legendary journey. Their story of love, duty and destiny sets the stage for greater challenges ahead.",
+      "releaseDate": "2026-11-08",
+      "runtimeMinutes": null,
+      "genres": ["action", "drama", "fantasy"],
+      "posterUrl": null
+    }
+  ]
+}
