@@ -6,12 +6,14 @@ import {
   type ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   useTransition,
 } from "react";
 
 type ListingNavigationValue = {
+  completeNavigation: () => void;
   destination: string | null;
   pending: boolean;
   navigate: (href: string) => void;
@@ -27,7 +29,10 @@ export function ListingNavigationProvider({
 }) {
   const router = useRouter();
   const [destination, setDestination] = useState<string | null>(null);
-  const [pending, startTransition] = useTransition();
+  const [transitionPending, startTransition] = useTransition();
+  const completeNavigation = useCallback(() => {
+    setDestination(null);
+  }, []);
   const navigate = useCallback(
     (href: string) => {
       setDestination(href);
@@ -37,9 +42,15 @@ export function ListingNavigationProvider({
     },
     [router],
   );
+  const pending = transitionPending && destination !== null;
   const value = useMemo(
-    () => ({ destination, pending, navigate }),
-    [destination, navigate, pending],
+    () => ({
+      completeNavigation,
+      destination,
+      pending,
+      navigate,
+    }),
+    [completeNavigation, destination, navigate, pending],
   );
 
   return (
@@ -47,6 +58,21 @@ export function ListingNavigationProvider({
       {children}
     </ListingNavigationContext>
   );
+}
+
+export function ListingNavigationCompletion({
+  navigationKey,
+}: {
+  navigationKey: string;
+}) {
+  const completeNavigation =
+    useListingNavigation()?.completeNavigation;
+
+  useEffect(() => {
+    completeNavigation?.();
+  }, [completeNavigation, navigationKey]);
+
+  return null;
 }
 
 export function ListingPendingContent({
