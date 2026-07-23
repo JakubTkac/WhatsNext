@@ -98,7 +98,7 @@ export function ReviewCard({
         <Link
           href={`/movies/${review.movie.slug}`}
           aria-label={`View ${review.movie.title}`}
-          className="group/poster aspect-[2/3] w-12 shrink-0 overflow-hidden rounded-lg bg-primary shadow-sm ring-2 ring-blue-100 outline-none transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:scale-[1.06] hover:shadow-[0_10px_24px_rgba(37,99,235,0.28)] hover:ring-primary/50 focus-visible:-translate-y-1 focus-visible:scale-[1.06] focus-visible:ring-primary/50 motion-reduce:transform-none"
+          className="group/poster relative aspect-[2/3] w-12 shrink-0 overflow-hidden rounded-lg bg-primary shadow-sm ring-2 ring-blue-100 outline-none transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:scale-[1.06] hover:shadow-[0_10px_24px_rgba(37,99,235,0.28)] hover:ring-primary/50 focus-visible:-translate-y-1 focus-visible:scale-[1.06] focus-visible:ring-primary/50 motion-reduce:transform-none"
         >
           {review.movie.posterUrl ? (
             <Image

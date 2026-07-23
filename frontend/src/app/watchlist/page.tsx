@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { MovieFilters } from "@/components/movies/movie-filters";
@@ -18,7 +19,15 @@ import {
   parseMoviesQuery,
 } from "@/lib/movie-list-query";
 import { createAuthHref } from "@/lib/return-to";
+import { createPrivatePageMetadata } from "@/lib/seo";
 import { getMovieWatchlist } from "@/lib/watchlist";
+
+export const metadata: Metadata = createPrivatePageMetadata({
+  title: "Your Watchlist",
+  description:
+    "View and manage the movies saved to your personal WhatsNext watchlist.",
+  path: "/watchlist",
+});
 
 type WatchlistPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

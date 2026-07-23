@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import {
   ReviewsPreview,
@@ -8,6 +9,14 @@ import { ProfileOverview } from "@/components/profile/profile-overview";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { getProfile } from "@/lib/profile";
 import { createAuthHref } from "@/lib/return-to";
+import { createPrivatePageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = createPrivatePageMetadata({
+  title: "Your Profile",
+  description:
+    "Manage your WhatsNext profile, upcoming watchlist, and recent movie reviews.",
+  path: "/profile",
+});
 
 export default async function ProfilePage() {
   const connection = await getProfile();

@@ -38,6 +38,8 @@ export type MovieDetails = MovieSummary & {
   reviews: MovieReview[];
 };
 
+export type MovieSitemapEntry = Pick<MovieSummary, "posterUrl" | "slug">;
+
 export type PaginationMeta = {
   page: number;
   limit: number;
@@ -237,6 +239,28 @@ export async function getMoviesPage(
   }
 }
 
+export async function getMoviesForSitemap(): Promise<MovieSitemapEntry[]> {
+  const firstPage = await getMovieSitemapPage(1);
+
+  if (!firstPage) {
+    return [];
+  }
+
+  const remainingPages = await Promise.all(
+    Array.from(
+      { length: Math.max(0, firstPage.meta.totalPages - 1) },
+      (_, index) => getMovieSitemapPage(index + 2),
+    ),
+  );
+  const entries = [firstPage, ...remainingPages]
+    .filter((page): page is MoviesResponse => page !== null)
+    .flatMap((page) =>
+      page.items.map(({ posterUrl, slug }) => ({ posterUrl, slug })),
+    );
+
+  return [...new Map(entries.map((entry) => [entry.slug, entry])).values()];
+}
+
 export async function getMovieDetails(
   slug: string,
 ): Promise<MovieDetailsConnection> {
@@ -266,6 +290,43 @@ export async function getMovieDetails(
     return { status: "online", movie: payload };
   } catch {
     return { status: "unavailable" };
+  }
+}
+
+async function getMovieSitemapPage(
+  page: number,
+): Promise<MoviesResponse | null> {
+  try {
+    const url = new URL(`${apiUrl}/movies`);
+    url.searchParams.set("page", String(page));
+    url.searchParams.set("limit", "24");
+    url.searchParams.set("release", "all");
+    url.searchParams.set("sort", "titleAsc");
+
+    const response = await fetch(url, {
+      next: { revalidate: 3_600 },
+      signal: AbortSignal.timeout(5_000),
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const payload: unknown = await response.json();
+
+    if (
+      !isRecord(payload) ||
+      !Array.isArray(payload.items) ||
+      !payload.items.every(isMovieSummary) ||
+      !isPaginationMeta(payload.meta) ||
+      !Array.isArray(payload.genres)
+    ) {
+      return null;
+    }
+
+    return payload as MoviesResponse;
+  } catch {
+    return null;
   }
 }
 

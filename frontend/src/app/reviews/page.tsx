@@ -16,12 +16,14 @@ import {
   getReviewWorkspace,
   type ReviewsQuery,
 } from "@/lib/api";
+import { createPublicPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPublicPageMetadata({
   title: "Movie Reviews",
   description:
     "Browse recent movie ratings and reviews from the WhatsNext community.",
-};
+  path: "/reviews",
+});
 
 type ReviewsPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

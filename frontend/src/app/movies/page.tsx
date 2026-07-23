@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { MovieFilters } from "@/components/movies/movie-filters";
 import { MovieGridCard } from "@/components/movies/movie-grid-card";
@@ -18,7 +19,15 @@ import {
   createMoviePaginationQuery,
   parseMoviesQuery,
 } from "@/lib/movie-list-query";
+import { createPublicPageMetadata } from "@/lib/seo";
 import { getMovieWatchlist } from "@/lib/watchlist";
+
+export const metadata: Metadata = createPublicPageMetadata({
+  title: "Browse Movies",
+  description:
+    "Browse the complete WhatsNext movie catalogue by title, genre, release status, and release date.",
+  path: "/movies",
+});
 
 type MoviesPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

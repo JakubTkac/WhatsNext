@@ -1,10 +1,13 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 import { MovieDetailHero } from "@/components/movies/movie-detail-hero";
 import { RecentlyViewedMovies } from "@/components/movies/recently-viewed-movies";
 import { RecentlyViewedMovieTracker } from "@/components/movies/recently-viewed-movie-tracker";
 import { MovieReviewAction } from "@/components/movies/movie-review-action";
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
 import { ReviewCard } from "@/components/reviews/review-card";
+import { JsonLd } from "@/components/seo/json-ld";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import {
   getMovieDetails,
@@ -14,9 +17,17 @@ import {
   type MovieReviewWorkspaceConnection,
 } from "@/lib/api";
 import {
+  absoluteUrl,
+  createMissingPageMetadata,
+  createPublicPageMetadata,
+  shortenSeoDescription,
+} from "@/lib/seo";
+import {
   getMovieWatchlist,
   type MovieWatchlistConnection,
 } from "@/lib/watchlist";
+
+const getMoviePageData = cache(getMovieDetails);
 
 const releaseDateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
@@ -29,6 +40,49 @@ type MoviePageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export async function generateMetadata({
+  params,
+}: MoviePageProps): Promise<Metadata> {
+  const slug = normalizeSlug((await params).slug);
+
+  if (!slug) {
+    notFound();
+  }
+
+  const connection = await getMoviePageData(slug);
+
+  if (connection.status === "not-found") {
+    notFound();
+  }
+
+  if (connection.status === "unavailable") {
+    return createMissingPageMetadata({
+      title: "Movie Unavailable",
+      description: "This movie could not be loaded from WhatsNext right now.",
+      path: `/movies/${slug}`,
+    });
+  }
+
+  const { movie } = connection;
+  const description = shortenSeoDescription(movie.description);
+
+  return createPublicPageMetadata({
+    title: movie.title,
+    description,
+    path: `/movies/${movie.slug}`,
+    images: movie.posterUrl
+      ? [
+          {
+            url: movie.posterUrl,
+            width: 500,
+            height: 750,
+            alt: `${movie.title} poster`,
+          },
+        ]
+      : undefined,
+  });
+}
+
 export default async function MoviePage({ params }: MoviePageProps) {
   const slug = normalizeSlug((await params).slug);
 
@@ -38,7 +92,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
   const [movieConnection, reviewWorkspace, watchlistConnection] =
     await Promise.all([
-      getMovieDetails(slug),
+      getMoviePageData(slug),
       getMovieReviewWorkspace(slug),
       getMovieWatchlist(),
     ]);
@@ -61,6 +115,8 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
   return (
     <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+      <JsonLd data={createMovieJsonLd(movie)} />
+
       <RecentlyViewedMovieTracker
         movie={{
           slug: movie.slug,
@@ -223,4 +279,48 @@ function currentDate(): string {
 
 function toUtcDate(date: string): Date {
   return new Date(`${date}T00:00:00Z`);
+}
+
+function createMovieJsonLd(movie: MovieDetails): Record<string, unknown> {
+  const movieUrl = absoluteUrl(`/movies/${movie.slug}`);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Movie",
+    name: movie.title,
+    description: shortenSeoDescription(movie.description),
+    url: movieUrl,
+    mainEntityOfPage: movieUrl,
+    image: movie.posterUrl ?? undefined,
+    datePublished: movie.releaseDate,
+    duration: movie.runtimeMinutes
+      ? `PT${movie.runtimeMinutes}M`
+      : undefined,
+    genre: movie.genres.map((genre) => genre.name),
+    aggregateRating:
+      movie.averageRating !== null && movie.reviewCount > 0
+        ? {
+            "@type": "AggregateRating",
+            ratingValue: movie.averageRating,
+            bestRating: 10,
+            worstRating: 1,
+            ratingCount: movie.reviewCount,
+          }
+        : undefined,
+    review: movie.reviews.map((review) => ({
+      "@type": "Review",
+      author: {
+        "@type": "Person",
+        name: review.author.displayName,
+      },
+      datePublished: review.createdAt,
+      reviewBody: review.body,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: review.rating,
+        bestRating: 10,
+        worstRating: 1,
+      },
+    })),
+  };
 }
