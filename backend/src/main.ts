@@ -36,7 +36,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('WhatsNext API')
     .setDescription('OpenAPI documentation for the WhatsNext backend.')
-    .setVersion('1.0')
+    .setVersion('1.0.0')
     .addBearerAuth(
       {
         type: 'http',
