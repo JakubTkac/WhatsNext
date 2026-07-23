@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { httpLoggerMiddleware } from './common/middleware/http-logger.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: false });
@@ -15,6 +16,7 @@ async function bootstrap() {
     .map((url) => url.trim());
 
   app.setGlobalPrefix('api');
+  app.use(httpLoggerMiddleware);
   app.use(json({ limit: '512kb' }));
   app.use(urlencoded({ extended: true, limit: '512kb' }));
   app.enableCors({
