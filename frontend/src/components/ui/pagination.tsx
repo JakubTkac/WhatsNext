@@ -40,7 +40,7 @@ export function Pagination({
 
   return (
     <nav
-      className={`mt-10 flex flex-wrap items-center justify-center gap-2 transition-opacity ${
+      className={`mt-10 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 transition-opacity sm:flex sm:flex-wrap sm:justify-center ${
         navigationPending ? "pointer-events-none opacity-60" : ""
       }`}
       aria-label="Pagination"
@@ -57,52 +57,62 @@ export function Pagination({
           )}
           onClick={createNavigationHandler(navigate)}
           rel="prev"
+          className="w-full sm:w-auto"
         >
           Previous
         </SecondaryButtonLink>
       ) : (
         <span
-          className="inline-flex min-h-11 items-center rounded-xl border border-border px-5 py-2.5 text-sm font-semibold text-subtle opacity-60"
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-border px-3 py-2.5 text-sm font-semibold text-subtle opacity-60 sm:w-auto sm:px-5"
           aria-disabled="true"
         >
           Previous
         </span>
       )}
 
-      {pages.map((page, index) =>
-        page === null ? (
-          <span
-            key={`ellipsis-${index}`}
-            className="inline-flex min-h-11 min-w-8 items-center justify-center text-subtle"
-            aria-hidden="true"
-          >
-            &hellip;
-          </span>
-        ) : page === currentPage ? (
-          <span
-            key={page}
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl bg-primary px-3 text-sm font-semibold text-white"
-            aria-current="page"
-          >
-            {page}
-          </span>
-        ) : (
-          <GhostButtonLink
-            key={page}
-            href={createPageHref(
-              pathname,
-              query,
-              page,
-              pageParameter,
-              hash,
-            )}
-            onClick={createNavigationHandler(navigate)}
-            className="min-w-11 px-3"
-          >
-            {page}
-          </GhostButtonLink>
-        ),
-      )}
+      <span
+        className="text-center text-xs font-semibold text-subtle sm:hidden"
+        aria-live="polite"
+      >
+        Page {currentPage} of {totalPages}
+      </span>
+
+      <div className="hidden items-center gap-2 sm:flex">
+        {pages.map((page, index) =>
+          page === null ? (
+            <span
+              key={`ellipsis-${index}`}
+              className="inline-flex min-h-11 min-w-8 items-center justify-center text-subtle"
+              aria-hidden="true"
+            >
+              &hellip;
+            </span>
+          ) : page === currentPage ? (
+            <span
+              key={page}
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl bg-primary px-3 text-sm font-semibold text-white"
+              aria-current="page"
+            >
+              {page}
+            </span>
+          ) : (
+            <GhostButtonLink
+              key={page}
+              href={createPageHref(
+                pathname,
+                query,
+                page,
+                pageParameter,
+                hash,
+              )}
+              onClick={createNavigationHandler(navigate)}
+              className="min-w-11 px-3"
+            >
+              {page}
+            </GhostButtonLink>
+          ),
+        )}
+      </div>
 
       {currentPage < totalPages ? (
         <SecondaryButtonLink
@@ -115,12 +125,13 @@ export function Pagination({
           )}
           onClick={createNavigationHandler(navigate)}
           rel="next"
+          className="w-full sm:w-auto"
         >
           Next
         </SecondaryButtonLink>
       ) : (
         <span
-          className="inline-flex min-h-11 items-center rounded-xl border border-border px-5 py-2.5 text-sm font-semibold text-subtle opacity-60"
+          className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-border px-3 py-2.5 text-sm font-semibold text-subtle opacity-60 sm:w-auto sm:px-5"
           aria-disabled="true"
         >
           Next

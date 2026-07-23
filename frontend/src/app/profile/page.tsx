@@ -3,6 +3,7 @@ import {
   ReviewsPreview,
   WatchlistPreview,
 } from "@/components/profile/profile-activity";
+import { RecentlyViewedMovies } from "@/components/movies/recently-viewed-movies";
 import { ProfileOverview } from "@/components/profile/profile-overview";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { getProfile } from "@/lib/profile";
@@ -48,6 +49,7 @@ export default async function ProfilePage() {
           reviews={profile.recentReviews}
           total={profile.stats.reviewCount}
         />
+        <RecentlyViewedMovies />
       </div>
     </main>
   );

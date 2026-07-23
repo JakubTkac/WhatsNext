@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { MovieDetailHero } from "@/components/movies/movie-detail-hero";
+import { RecentlyViewedMovieTracker } from "@/components/movies/recently-viewed-movie-tracker";
 import { MovieReviewAction } from "@/components/movies/movie-review-action";
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
 import { ReviewCard } from "@/components/reviews/review-card";
@@ -59,6 +60,14 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
   return (
     <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+      <RecentlyViewedMovieTracker
+        movie={{
+          slug: movie.slug,
+          title: movie.title,
+          posterUrl: movie.posterUrl,
+        }}
+      />
+
       <MovieDetailHero movie={movie}>
         <MovieWatchlistAction
           {...getWatchlistActionProps(

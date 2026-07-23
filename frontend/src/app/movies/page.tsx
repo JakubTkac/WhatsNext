@@ -3,6 +3,7 @@ import { MovieFilters } from "@/components/movies/movie-filters";
 import { MovieGridCard } from "@/components/movies/movie-grid-card";
 import { MovieListingResults } from "@/components/movies/movie-listing-results";
 import { MovieListingPageSkeleton } from "@/components/movies/movie-listing-skeleton";
+import { RecentlyViewedMovies } from "@/components/movies/recently-viewed-movies";
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { SectionEmptyState } from "@/components/ui/section-state";
@@ -66,6 +67,8 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
           Find out when your movie is coming out
         </p>
       </div>
+
+      <RecentlyViewedMovies className="mt-12 sm:mt-14" />
 
       <ListingNavigationProvider>
         <MovieFilters

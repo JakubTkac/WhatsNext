@@ -35,7 +35,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-3 sm:items-end">
           <nav
             aria-label="Developer resources"
-            className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium"
+            className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium"
           >
             <a
               href={swaggerUrl}
@@ -52,6 +52,13 @@ export function SiteFooter() {
               className="text-muted transition-colors duration-150 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
             >
               OpenAPI JSON
+            </a>
+            <a
+              href="/openapi.json"
+              download="whatsnext-openapi.json"
+              className="inline-flex min-h-8 cursor-pointer items-center rounded-lg border border-border bg-white px-3 py-1 text-xs font-semibold text-foreground transition-[background-color,border-color,color] duration-150 hover:border-blue-200 hover:bg-blue-50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+            >
+              Download JSON
             </a>
           </nav>
 

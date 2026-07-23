@@ -3,6 +3,7 @@ import { LatestReviewsSection } from "@/components/landing/latest-reviews-sectio
 import { LatestReviewsSkeleton } from "@/components/landing/latest-reviews-skeleton";
 import { UpcomingMoviesSection } from "@/components/landing/upcoming-movies-section";
 import { UpcomingMoviesSkeleton } from "@/components/landing/upcoming-movies-skeleton";
+import { RecentlyViewedMovies } from "@/components/movies/recently-viewed-movies";
 
 type HomeProps = {
   searchParams: Promise<{ search?: string | string[] }>;
@@ -31,9 +32,12 @@ export default async function Home({ searchParams }: HomeProps) {
       </Suspense>
 
       {search ? null : (
-        <Suspense fallback={<LatestReviewsSkeleton />}>
-          <LatestReviewsSection />
-        </Suspense>
+        <>
+          <Suspense fallback={<LatestReviewsSkeleton />}>
+            <LatestReviewsSection />
+          </Suspense>
+          <RecentlyViewedMovies className="mt-20" />
+        </>
       )}
     </main>
   );

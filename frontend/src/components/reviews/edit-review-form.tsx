@@ -27,6 +27,9 @@ export function EditReviewForm({
     updateReviewAction,
     initialState,
   );
+  const hasChanges =
+    rating !== String(review.rating) ||
+    body.trim() !== review.body.trim();
 
   useEffect(() => {
     setRating(String(review.rating));
@@ -92,8 +95,12 @@ export function EditReviewForm({
       <div className="mt-4 flex justify-end">
         <PrimaryButton
           type="submit"
-          disabled={pending}
-          className="disabled:cursor-wait"
+          disabled={pending || !hasChanges}
+          className={
+            pending
+              ? "disabled:cursor-wait"
+              : "disabled:cursor-not-allowed"
+          }
         >
           {pending ? "Saving..." : "Save review"}
         </PrimaryButton>

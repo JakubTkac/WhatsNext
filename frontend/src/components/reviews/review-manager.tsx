@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteReviewModal } from "@/components/reviews/delete-review-modal";
 import { EditReviewForm } from "@/components/reviews/edit-review-form";
 import { OwnedReviewFilters } from "@/components/reviews/review-filters";
@@ -36,6 +36,17 @@ export function ReviewManager({
   preservedQuery: Record<string, string | number | undefined>;
 }) {
   const navigation = useListingNavigation();
+  const connectionStatus = connection.status;
+
+  useEffect(() => {
+    if (connectionStatus !== "online" || !initialEditReviewId) {
+      return;
+    }
+
+    document
+      .getElementById(`review-${initialEditReviewId}`)
+      ?.scrollIntoView({ block: "start" });
+  }, [connectionStatus, initialEditReviewId]);
 
   if (connection.status === "unauthenticated") {
     return (
