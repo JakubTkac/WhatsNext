@@ -1,4 +1,9 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import {
+  AccountNavigation,
+  AccountNavigationSkeleton,
+} from "@/components/auth/account-navigation";
 import { SearchForm } from "@/components/ui/search-form";
 
 type SiteHeaderProps = {
@@ -21,22 +26,10 @@ export function SiteHeader({ search = "" }: SiteHeaderProps) {
           <SearchForm defaultValue={search} />
         </div>
 
-        <div
-          className="flex items-center gap-1 justify-self-end"
-          aria-label="Account actions coming soon"
-        >
-          <span
-            className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground"
-            title="Login will be implemented with authentication"
-          >
-            Log in
-          </span>
-          <span
-            className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm"
-            title="Registration will be implemented with authentication"
-          >
-            Register
-          </span>
+        <div className="justify-self-end">
+          <Suspense fallback={<AccountNavigationSkeleton />}>
+            <AccountNavigation />
+          </Suspense>
         </div>
       </div>
     </header>

@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
 import { Genre } from './genres/entities/genre.entity';
 import { Movie } from './movies/entities/movie.entity';
 import { MoviesModule } from './movies/movies.module';
@@ -33,6 +34,7 @@ import { WatchlistItem } from './watchlist/entities/watchlist-item.entity';
             : false,
       }),
     }),
+    AuthModule,
     MoviesModule,
     ReviewsModule,
   ],
