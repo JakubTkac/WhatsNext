@@ -1,0 +1,106 @@
+{
+  "users": [
+    {
+      "email": "user123@example.com",
+      "displayName": "user123",
+      "bio": "Always looking for the next great movie.",
+      "avatarUrl": null
+    },
+    {
+      "email": "maya.chen@example.com",
+      "displayName": "Maya Chen",
+      "bio": "Animation, science fiction, and ambitious adventures.",
+      "avatarUrl": null
+    },
+    {
+      "email": "daniel.ross@example.com",
+      "displayName": "Daniel Ross",
+      "bio": "Here for character-driven blockbusters.",
+      "avatarUrl": null
+    },
+    {
+      "email": "sofia.novak@example.com",
+      "displayName": "Sofia Novak",
+      "bio": "Big-screen epics and quiet dramas in equal measure.",
+      "avatarUrl": null
+    },
+    {
+      "email": "leo.martin@example.com",
+      "displayName": "Leo Martin",
+      "bio": "A good soundtrack can save almost anything.",
+      "avatarUrl": null
+    },
+    {
+      "email": "priya.shah@example.com",
+      "displayName": "Priya Shah",
+      "bio": "Thrillers, mysteries, and stories worth discussing.",
+      "avatarUrl": null
+    }
+  ],
+  "reviews": [
+    {
+      "userEmail": "sofia.novak@example.com",
+      "movieSlug": "the-odyssey-2026",
+      "rating": 9,
+      "body": "A huge, patient adventure with images that stayed with me long after the credits.",
+      "watchedAt": "2026-07-23T16:30:00.000Z",
+      "createdAt": "2026-07-23T18:42:00.000Z"
+    },
+    {
+      "userEmail": "maya.chen@example.com",
+      "movieSlug": "toy-story-5-2026",
+      "rating": 8,
+      "body": "Funny, warm, and surprisingly thoughtful. It earns the nostalgia instead of simply leaning on it.",
+      "watchedAt": "2026-07-23T12:20:00.000Z",
+      "createdAt": "2026-07-23T15:10:00.000Z"
+    },
+    {
+      "userEmail": "daniel.ross@example.com",
+      "movieSlug": "supergirl-2026",
+      "rating": 8,
+      "body": "The cosmic scale works, but the quieter character moments are what made it memorable.",
+      "watchedAt": "2026-07-22T18:00:00.000Z",
+      "createdAt": "2026-07-22T21:18:00.000Z"
+    },
+    {
+      "userEmail": "leo.martin@example.com",
+      "movieSlug": "moana-2026",
+      "rating": 7,
+      "body": "Beautifully staged and easy to enjoy, even when the story takes the safest route.",
+      "watchedAt": "2026-07-21T17:45:00.000Z",
+      "createdAt": "2026-07-21T20:05:00.000Z"
+    },
+    {
+      "userEmail": "priya.shah@example.com",
+      "movieSlug": "disclosure-day-2026",
+      "rating": 9,
+      "body": "Tense from the opening scene and confident enough to leave a few questions unanswered.",
+      "watchedAt": "2026-07-20T18:15:00.000Z",
+      "createdAt": "2026-07-20T21:32:00.000Z"
+    },
+    {
+      "userEmail": "user123@example.com",
+      "movieSlug": "masters-of-the-universe-2026",
+      "rating": 8,
+      "body": "Big, colorful fantasy that understands exactly how playful this world should be.",
+      "watchedAt": "2026-07-19T16:10:00.000Z",
+      "createdAt": "2026-07-19T19:24:00.000Z"
+    },
+    {
+      "userEmail": "maya.chen@example.com",
+      "movieSlug": "the-odyssey-2026",
+      "rating": 10,
+      "body": "A rare spectacle where the scale never overwhelms the human story at its center.",
+      "watchedAt": "2026-07-18T17:20:00.000Z",
+      "createdAt": "2026-07-18T20:40:00.000Z"
+    },
+    {
+      "userEmail": "daniel.ross@example.com",
+      "movieSlug": "scary-movie-2026",
+      "rating": 6,
+      "body": "Uneven, but the best jokes land hard enough to make the slower stretches worthwhile.",
+      "watchedAt": "2026-07-17T18:30:00.000Z",
+      "createdAt": "2026-07-17T21:05:00.000Z"
+    }
+  ]
+}

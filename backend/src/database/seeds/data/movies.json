@@ -85,7 +85,7 @@
       "releaseDate": "2026-06-03",
       "runtimeMinutes": 93,
       "genres": ["horror", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/4uNhvGxBDiO0mU5UhxuXBsJwKF3.jpg"
     },
     {
       "title": "Love, Ngo",
@@ -94,7 +94,7 @@
       "releaseDate": "2026-06-03",
       "runtimeMinutes": 83,
       "genres": ["comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/qA7FX4vp2qWfkMd2R3JrbGP6vbu.jpg"
     },
     {
       "title": "Masters of the Universe",
@@ -103,7 +103,7 @@
       "releaseDate": "2026-06-03",
       "runtimeMinutes": 141,
       "genres": ["action", "fantasy", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/oRuyGUHdoaQxWP3SDfafGkStxTC.jpg"
     },
     {
       "title": "Peddi",
@@ -112,7 +112,7 @@
       "releaseDate": "2026-06-03",
       "runtimeMinutes": 189,
       "genres": ["action", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/kJAJNNBYlbqAcpTDxBNnaILSMTy.jpg"
     },
     {
       "title": "Scary Movie",
@@ -121,7 +121,7 @@
       "releaseDate": "2026-06-03",
       "runtimeMinutes": 96,
       "genres": ["comedy", "horror"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/znHT8peERZRWG1ME3r0Db0EV8k8.jpg"
     },
     {
       "title": "Office Romance",
@@ -130,7 +130,7 @@
       "releaseDate": "2026-06-04",
       "runtimeMinutes": 115,
       "genres": ["comedy", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/1HRUTqEVDmJC4L6tp6zd85MI6uH.jpg"
     },
     {
       "title": "Mollywood Times",
@@ -139,7 +139,7 @@
       "releaseDate": "2026-06-05",
       "runtimeMinutes": 167,
       "genres": ["comedy", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/zUBCBtMsQ8dxnhJhhng4C8U80IU.jpg"
     },
     {
       "title": "Signal One",
@@ -148,7 +148,7 @@
       "releaseDate": "2026-06-05",
       "runtimeMinutes": 112,
       "genres": ["mystery", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/bi7Aeaozl51cd5K6vAn8tI1lOW0.jpg"
     },
     {
       "title": "The Marked Woman",
@@ -157,7 +157,7 @@
       "releaseDate": "2026-06-05",
       "runtimeMinutes": 109,
       "genres": ["crime", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/dyUZ6IKbzmgtdshHevJahpH51Eq.jpg"
     },
     {
       "title": "Detective Chen 2",
@@ -166,7 +166,7 @@
       "releaseDate": "2026-06-06",
       "runtimeMinutes": null,
       "genres": ["action", "comedy", "crime", "mystery"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/yJjVE6MBMfqy7PE6i9iBqdl4eP2.jpg"
     },
     {
       "title": "Pool Party",
@@ -175,7 +175,7 @@
       "releaseDate": "2026-06-06",
       "runtimeMinutes": 14,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/l1X7Ia8DYIladNuKpLEZjTUGbBZ.jpg"
     },
     {
       "title": "Summer House",
@@ -184,7 +184,7 @@
       "releaseDate": "2026-06-06",
       "runtimeMinutes": null,
       "genres": ["drama", "family", "mystery", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/81xUChgVphBFehihIgbXbyneZXP.jpg"
     },
     {
       "title": "They Fight",
@@ -193,7 +193,7 @@
       "releaseDate": "2026-06-08",
       "runtimeMinutes": 95,
       "genres": ["action", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/46X9sBM0L4z2y6AkFKxpH4X8O77.jpg"
     },
     {
       "title": "Sugar Mommy",
@@ -202,7 +202,7 @@
       "releaseDate": "2026-06-09",
       "runtimeMinutes": 75,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/2FBvobFZGibenqKerk786qg9AHD.jpg"
     },
     {
       "title": "Colors of Evil: Black",
@@ -211,7 +211,7 @@
       "releaseDate": "2026-06-10",
       "runtimeMinutes": 110,
       "genres": ["crime", "mystery", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/reeKdj7BSznr7wSGzAtIMrPFgKo.jpg"
     },
     {
       "title": "Disclosure Day",
@@ -220,7 +220,7 @@
       "releaseDate": "2026-06-10",
       "runtimeMinutes": 146,
       "genres": ["science-fiction", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/AnJ8IQJI23hNpYXVNaythu061Ru.jpg"
     },
     {
       "title": "The Furious",
@@ -229,7 +229,7 @@
       "releaseDate": "2026-06-10",
       "runtimeMinutes": 113,
       "genres": ["action", "crime", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/zP19YO60jwEsfKd5Qf1UvA5uJu8.jpg"
     },
     {
       "title": "Stop! That! Train!",
@@ -238,7 +238,7 @@
       "releaseDate": "2026-06-12",
       "runtimeMinutes": 90,
       "genres": ["action", "comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/w90dGS6D2lVO4aO5rdQ8QECrUGY.jpg"
     },
     {
       "title": "Husbands in Action",
@@ -247,7 +247,7 @@
       "releaseDate": "2026-06-15",
       "runtimeMinutes": 110,
       "genres": ["action", "comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/ciLsGoyr0B8demTLDbLJmEUOHI5.jpg"
     },
     {
       "title": "Leviticus",
@@ -256,7 +256,7 @@
       "releaseDate": "2026-06-17",
       "runtimeMinutes": 88,
       "genres": ["horror", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/cu0XnXLzJGPeI0msCoJKgnEecKz.jpg"
     },
     {
       "title": "Toy Story 5",
@@ -265,7 +265,7 @@
       "releaseDate": "2026-06-17",
       "runtimeMinutes": 102,
       "genres": ["adventure", "animation", "comedy", "family"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/sfQtVlIHljToOwYjhe21KPGzZWK.jpg"
     },
     {
       "title": "Your Fault: London",
@@ -274,7 +274,7 @@
       "releaseDate": "2026-06-17",
       "runtimeMinutes": 123,
       "genres": ["drama", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/nLxu237EJAisFCYKK48hN9Plobx.jpg"
     },
     {
       "title": "Girls Like Girls",
@@ -283,7 +283,7 @@
       "releaseDate": "2026-06-18",
       "runtimeMinutes": 95,
       "genres": ["drama", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/m1hSTBv3qLeywznEGsnqVSln1Tg.jpg"
     },
     {
       "title": "Little Brother",
@@ -292,7 +292,7 @@
       "releaseDate": "2026-06-18",
       "runtimeMinutes": 101,
       "genres": ["comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/hIJpXb7Xaje2mebN9ylsS7blQzP.jpg"
     },
     {
       "title": "Maa Inti Bangaram",
@@ -301,7 +301,7 @@
       "releaseDate": "2026-06-18",
       "runtimeMinutes": 158,
       "genres": ["action", "drama", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/v8JvcEmBfszcvEzwlB8FN1aPVaK.jpg"
     },
     {
       "title": "The Death of Robin Hood",
@@ -310,7 +310,7 @@
       "releaseDate": "2026-06-18",
       "runtimeMinutes": 123,
       "genres": ["action", "adventure", "drama", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/13MmRwmG5NmaMfU8qNrtgGXisiD.jpg"
     },
     {
       "title": "The Get Out",
@@ -319,7 +319,7 @@
       "releaseDate": "2026-06-18",
       "runtimeMinutes": 111,
       "genres": ["action", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/zlkeH0s7dDxcnuPcHBqAyXFUxqN.jpg"
     },
     {
       "title": "Citizen Vigilante",
@@ -328,7 +328,7 @@
       "releaseDate": "2026-06-19",
       "runtimeMinutes": 89,
       "genres": ["action", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/6LmJD3Wohe0g4U62wgi7RyJqfE4.jpg"
     },
     {
       "title": "I Know Who You Are",
@@ -337,7 +337,7 @@
       "releaseDate": "2026-06-19",
       "runtimeMinutes": 142,
       "genres": ["drama", "history"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/dzS3PxisVd9y9BrLPiFfA2MvcI8.jpg"
     },
     {
       "title": "Latina",
@@ -346,7 +346,7 @@
       "releaseDate": "2026-06-19",
       "runtimeMinutes": 75,
       "genres": ["drama", "mystery", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/awm0GzYGa1uVAccRqHzNLAcRUZm.jpg"
     },
     {
       "title": "Voicemails for Isabelle",
@@ -355,7 +355,7 @@
       "releaseDate": "2026-06-20",
       "runtimeMinutes": 119,
       "genres": ["comedy", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/canZTWSxACSnAluir3dCtMxKpA1.jpg"
     },
     {
       "title": "Minions & Monsters",
@@ -364,7 +364,7 @@
       "releaseDate": "2026-06-24",
       "runtimeMinutes": 90,
       "genres": ["adventure", "animation", "comedy", "family", "fantasy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/nz7i42yhLIJ4ve9JKgM6NthoLHO.jpg"
     },
     {
       "title": "Supergirl",
@@ -373,7 +373,7 @@
       "releaseDate": "2026-06-24",
       "runtimeMinutes": 108,
       "genres": ["action", "adventure", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/niSvU02l2BONH9ivubV6K1a5QiK.jpg"
     },
     {
       "title": "Black Box",
@@ -382,7 +382,7 @@
       "releaseDate": "2026-06-25",
       "runtimeMinutes": 85,
       "genres": ["horror", "science-fiction", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/O7vJPEWsnLrKqPYHIHKG8zlEK1.jpg"
     },
     {
       "title": "Jackass: Best and Last",
@@ -391,7 +391,7 @@
       "releaseDate": "2026-06-25",
       "runtimeMinutes": 92,
       "genres": ["action", "comedy", "documentary"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/tfgccePxnswMqhmtxafliLlcCVR.jpg"
     },
     {
       "title": "The Invite",
@@ -400,7 +400,7 @@
       "releaseDate": "2026-06-25",
       "runtimeMinutes": 107,
       "genres": ["comedy", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/b7Dr8Chzse8VagexAporUu2RtLx.jpg"
     },
     {
       "title": "Welcome to the Jungle",
@@ -409,7 +409,7 @@
       "releaseDate": "2026-06-25",
       "runtimeMinutes": 170,
       "genres": ["action", "adventure", "comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/1JlfUuvvX5xLP2LIDah4JhWUtTx.jpg"
     },
     {
       "title": "CAMP",
@@ -418,7 +418,7 @@
       "releaseDate": "2026-06-26",
       "runtimeMinutes": 111,
       "genres": ["drama", "horror"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/pQrlFAiakpphxCrR5lmHT3GR7Td.jpg"
     },
     {
       "title": "Carry On Jatta 4",
@@ -427,7 +427,7 @@
       "releaseDate": "2026-06-26",
       "runtimeMinutes": 142,
       "genres": ["comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/bKa9qAg71Kkjz0tOT1gxSAX9Nfv.jpg"
     },
     {
       "title": "Crossing",
@@ -436,7 +436,7 @@
       "releaseDate": "2026-06-26",
       "runtimeMinutes": 122,
       "genres": ["history", "war"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/wlnltvu01zZvcC2dVAp4Xdwb1JG.jpg"
     },
     {
       "title": "Summerween",
@@ -445,7 +445,7 @@
       "releaseDate": "2026-06-26",
       "runtimeMinutes": 87,
       "genres": ["horror", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/oCsyamu5ixofd3yyK9gD7pGfCiF.jpg"
     },
     {
       "title": "The Cheating Wife",
@@ -454,7 +454,7 @@
       "releaseDate": "2026-06-26",
       "runtimeMinutes": 76,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/3KVI4XvSTnGeUf5UriMN12uw4qj.jpg"
     },
     {
       "title": "Three Kingdoms: The Beginning",
@@ -463,7 +463,7 @@
       "releaseDate": "2026-06-27",
       "runtimeMinutes": 137,
       "genres": ["animation", "history"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/vsDiLRTjXmK75PXG2jPn575yCnj.jpg"
     },
     {
       "title": "Enola Holmes 3",
@@ -472,7 +472,7 @@
       "releaseDate": "2026-06-30",
       "runtimeMinutes": 109,
       "genres": ["adventure", "crime", "mystery"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/7kRYHH9H9PjBFwz1FprbHB2AAjI.jpg"
     },
     {
       "title": "Hibla 2",
@@ -481,7 +481,7 @@
       "releaseDate": "2026-06-30",
       "runtimeMinutes": 80,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/drDsk2ES8YvWFwgWaY9foKaE5xv.jpg"
     },
     {
       "title": "23 000 Lives",
@@ -490,7 +490,7 @@
       "releaseDate": "2026-07-02",
       "runtimeMinutes": null,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/cNYTQKXvlSI62WacK35SfL22xs2.jpg"
     },
     {
       "title": "Alpha",
@@ -499,7 +499,7 @@
       "releaseDate": "2026-07-02",
       "runtimeMinutes": 141,
       "genres": ["action", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/bPtRt3ajQ0EkyeQ1O6iJwAIi9Py.jpg"
     },
     {
       "title": "Morte Cucina",
@@ -508,7 +508,7 @@
       "releaseDate": "2026-07-02",
       "runtimeMinutes": 96,
       "genres": ["drama", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/xlPJ8Wp9mm10bWmKdydkuOyxrHU.jpg"
     },
     {
       "title": "The Bay",
@@ -517,7 +517,7 @@
       "releaseDate": "2026-07-02",
       "runtimeMinutes": 87,
       "genres": ["horror", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/6F1UlF8YCtSDAoTpPY7WIkpm9sw.jpg"
     },
     {
       "title": "Young Washington",
@@ -526,7 +526,7 @@
       "releaseDate": "2026-07-02",
       "runtimeMinutes": 125,
       "genres": ["drama", "history", "war"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/ntW9zzhDmbt3sXDyPXb7SHVuDdB.jpg"
     },
     {
       "title": "Keep Real",
@@ -535,7 +535,7 @@
       "releaseDate": "2026-07-03",
       "runtimeMinutes": null,
       "genres": ["comedy", "drama", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/cyzcsp95W2Op3G5Gb8S2cPEnSc2.jpg"
     },
     {
       "title": "Man of War",
@@ -544,7 +544,7 @@
       "releaseDate": "2026-07-03",
       "runtimeMinutes": 111,
       "genres": ["action", "thriller", "war"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/vt0RqHlqfUzeiBEVQvp43yY2076.jpg"
     },
     {
       "title": "Night of the Living Dead",
@@ -553,7 +553,7 @@
       "releaseDate": "2026-07-03",
       "runtimeMinutes": 87,
       "genres": ["horror"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/5l0klDtj2v4FMFOGGCEH23AQb30.jpg"
     },
     {
       "title": "Satluj",
@@ -562,7 +562,7 @@
       "releaseDate": "2026-07-03",
       "runtimeMinutes": 164,
       "genres": ["crime", "drama", "history"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/7ia3nAM4q9sBy8g3SVEVgRAcsKd.jpg"
     },
     {
       "title": "Simpsley",
@@ -571,7 +571,7 @@
       "releaseDate": "2026-07-03",
       "runtimeMinutes": 24,
       "genres": ["animation", "comedy", "crime"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/qkJefER6Ym4v2KC1v4qK34AlcVo.jpg"
     },
     {
       "title": "Wings of Dread",
@@ -580,7 +580,7 @@
       "releaseDate": "2026-07-03",
       "runtimeMinutes": 87,
       "genres": ["action", "crime", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/iCnTJwkAMwIvaZgwpPHJJHfV0Er.jpg"
     },
     {
       "title": "ONE PIECE HEROINES",
@@ -589,7 +589,7 @@
       "releaseDate": "2026-07-05",
       "runtimeMinutes": 23,
       "genres": ["action", "animation", "comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/mrONQ5gkWIVSf3hp5n6w7qoK2oN.jpg"
     },
     {
       "title": "Evil Dead Burn",
@@ -598,7 +598,7 @@
       "releaseDate": "2026-07-07",
       "runtimeMinutes": 110,
       "genres": ["horror", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/ztadKzIIR0ERYqpHteaPFtk7inP.jpg"
     },
     {
       "title": "Moana",
@@ -607,7 +607,7 @@
       "releaseDate": "2026-07-08",
       "runtimeMinutes": 115,
       "genres": ["adventure", "comedy", "family", "fantasy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/zKVgiv5qHCvCLT4A2ymJi5QeXDH.jpg"
     },
     {
       "title": "Nothing to Lose",
@@ -616,7 +616,7 @@
       "releaseDate": "2026-07-08",
       "runtimeMinutes": 102,
       "genres": ["action", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/3SKN8QZptMm8KfCCQtEmyh1Zkgz.jpg"
     },
     {
       "title": "Infiltrate",
@@ -625,7 +625,7 @@
       "releaseDate": "2026-07-09",
       "runtimeMinutes": 93,
       "genres": ["action", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/8Cw8GF9wG63kF8pRRXwOx2kXGt.jpg"
     },
     {
       "title": "All Wishes Come True!",
@@ -634,7 +634,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": null,
       "genres": ["adventure", "animation", "comedy", "fantasy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/hJfr2tjMGUVCxuzjSrdQgEywC1S.jpg"
     },
     {
       "title": "Dhamaal 4",
@@ -643,7 +643,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 143,
       "genres": ["comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/5d7hpbefNiuebl5eqP5cRrckVxs.jpg"
     },
     {
       "title": "Idhayam Murali",
@@ -652,7 +652,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 164,
       "genres": ["comedy", "drama", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/iZzR7fYiJ3bGew8liRPxipPDEfj.jpg"
     },
     {
       "title": "Ikka",
@@ -661,7 +661,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 141,
       "genres": ["drama", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/fp5EAKE8nTx402n1fWz55QsuYY9.jpg"
     },
     {
       "title": "Lenin",
@@ -670,7 +670,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 156,
       "genres": ["action", "drama", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/rAHQviBq8Fxi20hNtHPGLnr4L0f.jpg"
     },
     {
       "title": "Miguel Ángel Blanco: The 48 Hours That Changed Spain",
@@ -679,7 +679,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 93,
       "genres": ["documentary"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/y8PN5CRJZf6PSbY5teEMR4eBHcw.jpg"
     },
     {
       "title": "Shipwrecked: Nightmare at Sea",
@@ -688,7 +688,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 87,
       "genres": ["documentary"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/z9z9e5HgOTPuFVIVhxnHnbk89U2.jpg"
     },
     {
       "title": "Siping",
@@ -697,7 +697,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 70,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/wNzRyplxryB8s6jb8Be5dYAKZb5.jpg"
     },
     {
       "title": "The Outer Threat",
@@ -706,7 +706,7 @@
       "releaseDate": "2026-07-10",
       "runtimeMinutes": 94,
       "genres": ["science-fiction", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/3ZaO8yZwGo4PJSgwLwSowD4EBbN.jpg"
     },
     {
       "title": "Kung Fu Soccer",
@@ -715,7 +715,7 @@
       "releaseDate": "2026-07-11",
       "runtimeMinutes": 106,
       "genres": ["action", "comedy", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/6QgJQrClh9ej357yzLWgCxrjAmJ.jpg"
     },
     {
       "title": "Me Before Me",
@@ -724,7 +724,7 @@
       "releaseDate": "2026-07-11",
       "runtimeMinutes": 127,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/oFMbldhgyFsaMK3tiycccFyKksQ.jpg"
     },
     {
       "title": "Heartstopper Forever",
@@ -733,7 +733,7 @@
       "releaseDate": "2026-07-14",
       "runtimeMinutes": 110,
       "genres": ["drama", "romance"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/r4lVJVO1BeBb11cBcXBdbHc9e9k.jpg"
     },
     {
       "title": "Hope",
@@ -742,7 +742,7 @@
       "releaseDate": "2026-07-15",
       "runtimeMinutes": 157,
       "genres": ["action", "mystery", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/1n37BJchWHLiSYQkuFxe5KjB951.jpg"
     },
     {
       "title": "The Odyssey",
@@ -751,7 +751,7 @@
       "releaseDate": "2026-07-15",
       "runtimeMinutes": 173,
       "genres": ["action", "adventure", "fantasy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg"
     },
     {
       "title": "Descendants: Wicked Wonderland",
@@ -760,7 +760,7 @@
       "releaseDate": "2026-07-16",
       "runtimeMinutes": 98,
       "genres": ["family", "fantasy", "tv-movie"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/xdhLAADGSse8KCrsDLBuM5b68Cg.jpg"
     },
     {
       "title": "Borderline",
@@ -769,7 +769,7 @@
       "releaseDate": "2026-07-17",
       "runtimeMinutes": 94,
       "genres": ["thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/sAA2mjpYJFAKydtzG4P4aHC4mZk.jpg"
     },
     {
       "title": "Kill Trip",
@@ -778,7 +778,7 @@
       "releaseDate": "2026-07-17",
       "runtimeMinutes": null,
       "genres": ["horror", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/qHEXW63p1NcuoyCGQHDroi4HV9V.jpg"
     },
     {
       "title": "The Odyssemen",
@@ -787,7 +787,7 @@
       "releaseDate": "2026-07-17",
       "runtimeMinutes": 20,
       "genres": ["action", "adventure", "comedy", "drama", "fantasy", "music"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/3wSVQ155T4tcYmLXedKosvmrvhU.jpg"
     },
     {
       "title": "레즈비언 부부의 아내 불륜",
@@ -805,7 +805,7 @@
       "releaseDate": "2026-07-22",
       "runtimeMinutes": 94,
       "genres": ["action"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/m3Low6jJrKXHSYFpXNkmYsG1Q6I.jpg"
     },
     {
       "title": "Pinocchio: Unstrung",
@@ -814,7 +814,7 @@
       "releaseDate": "2026-07-22",
       "runtimeMinutes": 82,
       "genres": ["fantasy", "horror", "mystery"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/sqhfUrPEeAlFf684FsVa8v1GYCD.jpg"
     },
     {
       "title": "Jana Nayagan",
@@ -823,7 +823,7 @@
       "releaseDate": "2026-07-23",
       "runtimeMinutes": 183,
       "genres": ["action", "drama", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/jt8pfSIdi47YpFMMWVRr8w5u2S0.jpg"
     },
     {
       "title": "Motor City",
@@ -832,7 +832,7 @@
       "releaseDate": "2026-07-23",
       "runtimeMinutes": 103,
       "genres": ["action", "crime", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/lGovcOtxugJPhfJjFKud9EbWtOA.jpg"
     },
     {
       "title": "Avatar Aang: The Last Airbender",
@@ -841,7 +841,7 @@
       "releaseDate": "2026-07-24",
       "runtimeMinutes": 99,
       "genres": ["action", "adventure", "animation", "fantasy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/3sgnSfNT27Bx5O5ukr7B26mhEQq.jpg"
     },
     {
       "title": "Uprising",
@@ -850,7 +850,7 @@
       "releaseDate": "2026-07-24",
       "runtimeMinutes": 95,
       "genres": ["documentary", "history", "war"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/zeSO9ZDWaDuG3nTcijaoJ2V4UWU.jpg"
     },
     {
       "title": "Spider-Man: Brand New Day",
@@ -859,7 +859,7 @@
       "releaseDate": "2026-07-28",
       "runtimeMinutes": 145,
       "genres": ["action", "adventure", "science-fiction"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/6Q21yptoOCUq4ErwVncesLPVplb.jpg"
     },
     {
       "title": "PAW Patrol: The Dino Movie",
@@ -868,7 +868,7 @@
       "releaseDate": "2026-07-31",
       "runtimeMinutes": 88,
       "genres": ["adventure", "animation", "comedy", "family"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/mVx2O7ikolw0lQC3XEIM4C2uYwd.jpg"
     },
     {
       "title": "Ice Cream Man",
@@ -877,7 +877,7 @@
       "releaseDate": "2026-08-05",
       "runtimeMinutes": 86,
       "genres": ["horror", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/c987gxFjXqYOxZEZKcTkS1ONTWH.jpg"
     },
     {
       "title": "DELIVERY BOY",
@@ -886,7 +886,7 @@
       "releaseDate": "2026-08-07",
       "runtimeMinutes": 133,
       "genres": ["action", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/5JykVg5yWm5QiFyeEBq3diDmI5.jpg"
     },
     {
       "title": "Hearing",
@@ -895,7 +895,7 @@
       "releaseDate": "2026-08-10",
       "runtimeMinutes": 128,
       "genres": ["drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/g4qevrND8zSVYqiTGklnR9vPDsz.jpg"
     },
     {
       "title": "OK! Madam: Bon Voyage",
@@ -904,7 +904,7 @@
       "releaseDate": "2026-08-12",
       "runtimeMinutes": null,
       "genres": ["action", "comedy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/xDbrWXB9yb5aEdt4peVy8OWNP2Y.jpg"
     },
     {
       "title": "The End of Oak Street",
@@ -913,7 +913,7 @@
       "releaseDate": "2026-08-12",
       "runtimeMinutes": null,
       "genres": ["mystery", "science-fiction", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg"
     },
     {
       "title": "Ice Skater",
@@ -922,7 +922,7 @@
       "releaseDate": "2026-08-20",
       "runtimeMinutes": 83,
       "genres": ["drama", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/m93BKabB7Je8WQACed58BXeHNNR.jpg"
     },
     {
       "title": "The Dog Stars",
@@ -931,7 +931,7 @@
       "releaseDate": "2026-08-26",
       "runtimeMinutes": 100,
       "genres": ["adventure", "science-fiction", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/5O616X9vmRzQdB68PHzBewPittd.jpg"
     },
     {
       "title": "The Rope Curse 4: Kuntilanak",
@@ -940,7 +940,7 @@
       "releaseDate": "2026-08-27",
       "runtimeMinutes": null,
       "genres": ["horror", "mystery", "thriller"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/tOZB3OFrxAxPkcJ5AE5S01I0udt.jpg"
     },
     {
       "title": "Cowriters",
@@ -949,7 +949,7 @@
       "releaseDate": "2026-09-10",
       "runtimeMinutes": 100,
       "genres": ["comedy", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/oTG2mOUPt2Dx8uk3nDfCM4khd0R.jpg"
     },
     {
       "title": "Digger",
@@ -958,7 +958,7 @@
       "releaseDate": "2026-09-30",
       "runtimeMinutes": 106,
       "genres": ["comedy", "drama"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/1ATXKrIPJyKNwnJ6lcG088Sa6zi.jpg"
     },
     {
       "title": "Other Mommy",
@@ -967,7 +967,7 @@
       "releaseDate": "2026-10-08",
       "runtimeMinutes": null,
       "genres": ["horror"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/8CXwxpyvQiz9COMLZov4Oae8NKb.jpg"
     },
     {
       "title": "Ramayana",
@@ -976,7 +976,7 @@
       "releaseDate": "2026-11-08",
       "runtimeMinutes": null,
       "genres": ["action", "drama", "fantasy"],
-      "posterUrl": null
+      "posterUrl": "https://image.tmdb.org/t/p/w500/f3yZZw7zIsWo6m9xJStfjDauIZX.jpg"
     }
   ]
 }

@@ -3,24 +3,97 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --surface: #ffffff;
+  --secondary: #f3f4f6;
+  --muted: #5f6672;
+  --subtle: #8b929d;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --border: #d7dbe1;
+  --success: #087443;
+  --danger: #b42318;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #dbeafe;
+  color: var(--foreground);
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-surface {
+  background: linear-gradient(100deg, #dfe3e8 20%, #f1f3f5 40%, #dfe3e8 60%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+.movie-strip {
+  scrollbar-width: none;
+}
+
+.movie-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-strip-list {
+  display: grid;
+  grid-auto-columns: 82%;
+  grid-auto-flow: column;
+  gap: clamp(0.875rem, 2vw, 1.5rem);
+}
+
+@media (min-width: 40rem) {
+  .movie-strip-list {
+    grid-auto-columns: 47%;
+  }
+}
+
+@media (min-width: 64rem) {
+  .movie-strip-list {
+    grid-auto-columns: 31.5%;
+  }
+}
+
+@media (min-width: 80rem) {
+  .movie-strip-list {
+    grid-auto-columns: 23.5%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-surface {
+    animation: none;
+    background: #dfe3e8;
+  }
 }

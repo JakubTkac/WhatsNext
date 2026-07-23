@@ -16,6 +16,7 @@ import { User } from '../../users/entities/user.entity';
 @Entity({ name: 'reviews' })
 @Index('UQ_reviews_user_movie', ['userId', 'movieId'], { unique: true })
 @Index('IDX_reviews_movie_id', ['movieId'])
+@Index('IDX_reviews_created_at_id', ['createdAt', 'id'])
 @Check('CHK_reviews_rating', '"rating" BETWEEN 1 AND 10')
 export class Review {
   @PrimaryGeneratedColumn('uuid')
