@@ -3,8 +3,9 @@ import {
   SectionEmptyState,
   SectionErrorState,
 } from "@/components/ui/section-state";
+import { SecondaryButtonLink } from "@/components/ui/action-button";
+import { UpcomingMovieCarousel } from "@/components/movies/upcoming-movie-carousel";
 import { FeaturedMovie } from "./featured-movie";
-import { UpcomingMovieCarousel } from "./movie-carousel";
 
 type UpcomingMoviesSectionProps = {
   search?: string;
@@ -62,15 +63,12 @@ export async function UpcomingMoviesSection({
           </div>
 
           {search ? null : (
-            <span
-              className="inline-flex shrink-0 rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground shadow-sm"
-              title="The movie catalogue will be implemented later"
-            >
+            <SecondaryButtonLink href="/movies" className="shrink-0">
               Browse all
               <span className="ml-2 text-primary" aria-hidden="true">
                 &rarr;
               </span>
-            </span>
+            </SecondaryButtonLink>
           )}
         </div>
 

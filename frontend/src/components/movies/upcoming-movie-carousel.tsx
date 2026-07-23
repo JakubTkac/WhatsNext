@@ -10,7 +10,17 @@ const releaseDateFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 type UpcomingMovieCarouselProps = {
-  movies: MovieSummary[];
+  movies: Array<
+    Pick<
+      MovieSummary,
+      | "genres"
+      | "posterUrl"
+      | "releaseDate"
+      | "runtimeMinutes"
+      | "slug"
+      | "title"
+    >
+  >;
 };
 
 export function UpcomingMovieCarousel({
@@ -35,7 +45,7 @@ function MoviePosterCard({
   movie,
   eager,
 }: {
-  movie: MovieSummary;
+  movie: UpcomingMovieCarouselProps["movies"][number];
   eager: boolean;
 }) {
   const releaseDate = toUtcDate(movie.releaseDate);

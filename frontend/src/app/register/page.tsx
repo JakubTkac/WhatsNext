@@ -3,10 +3,20 @@ import { redirect } from "next/navigation";
 import { AuthPageShell } from "@/components/auth/auth-page-shell";
 import { RegisterForm } from "@/components/auth/register-form";
 import { getCurrentUser } from "@/lib/auth";
+import { createAuthHref, normalizeReturnTo } from "@/lib/return-to";
 
-export default async function RegisterPage() {
+type RegisterPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function RegisterPage({
+  searchParams,
+}: RegisterPageProps) {
+  const params = await searchParams;
+  const returnTo = normalizeReturnTo(readString(params.returnTo));
+
   if (await getCurrentUser()) {
-    redirect("/");
+    redirect(returnTo);
   }
 
   return (
@@ -17,7 +27,7 @@ export default async function RegisterPage() {
         <p>
           Already have an account?{" "}
           <Link
-            href="/login"
+            href={createAuthHref("/login", returnTo)}
             className="font-semibold text-primary hover:text-primary-hover"
           >
             Log in
@@ -25,7 +35,11 @@ export default async function RegisterPage() {
         </p>
       }
     >
-      <RegisterForm />
+      <RegisterForm returnTo={returnTo} />
     </AuthPageShell>
   );
+}
+
+function readString(value: string | string[] | undefined): string {
+  return typeof value === "string" ? value : "";
 }

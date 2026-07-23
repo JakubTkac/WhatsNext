@@ -1,38 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { logoutAction } from "@/app/actions/auth";
-import {
-  GhostButton,
-  GhostButtonLink,
-  PrimaryButtonLink,
-} from "@/components/ui/action-button";
 import { getCurrentUser } from "@/lib/auth";
+import {
+  LoggedOutAccountActions,
+  LogoutAction,
+} from "./account-actions";
 
 export async function AccountNavigation() {
   const user = await getCurrentUser();
 
   if (!user) {
-    return (
-      <nav className="flex items-center gap-1" aria-label="Account">
-        <GhostButtonLink href="/login">
-          Log in
-        </GhostButtonLink>
-        <PrimaryButtonLink href="/register">
-          Register
-        </PrimaryButtonLink>
-      </nav>
-    );
+    return <LoggedOutAccountActions />;
   }
 
   const initial = user.displayName.trim().charAt(0).toUpperCase();
 
   return (
     <div className="flex items-center gap-2" aria-label="Account">
-      <form action={logoutAction}>
-        <GhostButton type="submit">
-          Log out
-        </GhostButton>
-      </form>
+      <LogoutAction />
       <Link
         href="/profile"
         aria-label={`Open ${user.displayName}'s profile`}

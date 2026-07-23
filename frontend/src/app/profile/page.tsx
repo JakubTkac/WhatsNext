@@ -6,12 +6,13 @@ import {
 import { ProfileOverview } from "@/components/profile/profile-overview";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { getProfile } from "@/lib/profile";
+import { createAuthHref } from "@/lib/return-to";
 
 export default async function ProfilePage() {
   const connection = await getProfile();
 
   if (connection.status === "unauthenticated") {
-    redirect("/login");
+    redirect(createAuthHref("/login", "/profile"));
   }
 
   if (connection.status === "unavailable") {
@@ -36,12 +37,16 @@ export default async function ProfilePage() {
         stats={profile.stats}
       />
 
-      <div className="mt-8 grid items-start gap-8 lg:grid-cols-2">
+      <div className="mt-12 space-y-14">
         <WatchlistPreview
           items={profile.watchlistPreview}
           total={profile.stats.watchlistCount}
         />
         <ReviewsPreview
+          author={{
+            displayName: profile.displayName,
+            avatarUrl: profile.avatarUrl,
+          }}
           reviews={profile.recentReviews}
           total={profile.stats.reviewCount}
         />

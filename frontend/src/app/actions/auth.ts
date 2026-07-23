@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { AuthFormState, AuthFieldErrors } from "@/lib/auth-form";
 import { createAuthSession, deleteAuthSession } from "@/lib/auth";
+import { normalizeReturnTo } from "@/lib/return-to";
 
 type AuthApiResponse = {
   accessToken: string;
@@ -19,6 +20,7 @@ export async function loginAction(
 ): Promise<AuthFormState> {
   const email = readString(formData, "email").trim().toLowerCase();
   const password = readString(formData, "password");
+  const returnTo = normalizeReturnTo(readString(formData, "returnTo"));
   const fieldErrors = validateLogin(email, password);
 
   if (hasErrors(fieldErrors)) {
@@ -33,7 +35,7 @@ export async function loginAction(
 
   await createAuthSession(result.accessToken, result.expiresIn);
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect(returnTo);
 }
 
 export async function registerAction(
@@ -43,6 +45,7 @@ export async function registerAction(
   const displayName = readString(formData, "displayName").trim();
   const email = readString(formData, "email").trim().toLowerCase();
   const password = readString(formData, "password");
+  const returnTo = normalizeReturnTo(readString(formData, "returnTo"));
   const fieldErrors = validateRegistration(displayName, email, password);
 
   if (hasErrors(fieldErrors)) {
@@ -61,13 +64,15 @@ export async function registerAction(
 
   await createAuthSession(result.accessToken, result.expiresIn);
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect(returnTo);
 }
 
-export async function logoutAction(): Promise<void> {
+export async function logoutAction(formData: FormData): Promise<void> {
+  const returnTo = normalizeReturnTo(readString(formData, "returnTo"));
+
   await deleteAuthSession();
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect(returnTo);
 }
 
 async function requestAuth(

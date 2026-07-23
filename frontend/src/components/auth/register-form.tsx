@@ -11,7 +11,7 @@ import {
 
 const initialState: AuthFormState = {};
 
-export function RegisterForm() {
+export function RegisterForm({ returnTo }: { returnTo: string }) {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,7 @@ export function RegisterForm() {
 
   return (
     <form action={formAction} className="space-y-5" noValidate>
+      <input type="hidden" name="returnTo" value={returnTo} />
       <AuthFormError message={state.formError} pending={pending} />
       <AuthField
         name="displayName"

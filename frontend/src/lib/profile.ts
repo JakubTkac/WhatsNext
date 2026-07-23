@@ -7,6 +7,11 @@ export type ProfileMovie = {
   title: string;
   releaseDate: string;
   posterUrl: string | null;
+  runtimeMinutes: number | null;
+  genres: Array<{
+    name: string;
+    slug: string;
+  }>;
 };
 
 export type ProfileReview = {
@@ -127,7 +132,19 @@ function isProfileMovie(value: unknown): value is ProfileMovie {
     typeof value.slug === "string" &&
     typeof value.title === "string" &&
     typeof value.releaseDate === "string" &&
-    (typeof value.posterUrl === "string" || value.posterUrl === null)
+    (typeof value.posterUrl === "string" || value.posterUrl === null) &&
+    (typeof value.runtimeMinutes === "number" ||
+      value.runtimeMinutes === null) &&
+    Array.isArray(value.genres) &&
+    value.genres.every(isProfileGenre)
+  );
+}
+
+function isProfileGenre(value: unknown): boolean {
+  return (
+    isRecord(value) &&
+    typeof value.name === "string" &&
+    typeof value.slug === "string"
   );
 }
 

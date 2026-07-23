@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { PrimaryButton } from "@/components/ui/action-button";
 
@@ -13,6 +14,7 @@ export function SectionErrorState({
   description,
 }: SectionStateProps) {
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
 
   return (
     <div className="flex flex-col gap-5 rounded-2xl border border-red-200 bg-red-50/70 px-6 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-8">
@@ -29,10 +31,11 @@ export function SectionErrorState({
         </div>
       </div>
       <PrimaryButton
-        onClick={() => router.refresh()}
+        onClick={() => startTransition(() => router.refresh())}
+        disabled={pending}
         className="shrink-0 self-start sm:self-auto"
       >
-        Try again
+        {pending ? "Trying again..." : "Try again"}
       </PrimaryButton>
     </div>
   );

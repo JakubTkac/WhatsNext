@@ -1,15 +1,15 @@
-import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { UpcomingMovieCarousel } from "@/components/movies/upcoming-movie-carousel";
+import { ReviewCard } from "@/components/reviews/review-card";
+import {
+  SecondaryButton,
+  SecondaryButtonLink,
+} from "@/components/ui/action-button";
 import type {
   ProfileReview,
   ProfileWatchlistItem,
 } from "@/lib/profile";
-
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  day: "numeric",
-  month: "short",
-  year: "numeric",
-  timeZone: "UTC",
-});
 
 export function WatchlistPreview({
   items,
@@ -19,76 +19,66 @@ export function WatchlistPreview({
   total: number;
 }) {
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 shadow-sm sm:p-7">
-      <SectionHeading title="Watchlist" count={total} />
+    <section aria-labelledby="upcoming-watchlist-heading">
+      <ActivitySectionHeading
+        id="upcoming-watchlist-heading"
+        title="Your upcoming movies"
+        description="The next releases saved in your watchlist."
+      >
+        <SecondaryButton
+          disabled
+          title="The full watchlist page is coming next."
+        >
+          View watchlist ({total})
+        </SecondaryButton>
+      </ActivitySectionHeading>
+
       {items.length === 0 ? (
-        <EmptyActivity message="Your watchlist is empty. Movies you save later will appear here." />
+        <EmptyActivity message="You have no upcoming releases in your watchlist." />
       ) : (
-        <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-          {items.map((item) => (
-            <li
-              key={item.id}
-              className="grid grid-cols-[3.5rem_minmax(0,1fr)] gap-4 rounded-xl bg-secondary/70 p-3"
-            >
-              <MoviePoster
-                posterUrl={item.movie.posterUrl}
-                title={item.movie.title}
-              />
-              <div className="min-w-0 self-center">
-                <p className="line-clamp-2 text-sm font-semibold text-foreground">
-                  {item.movie.title}
-                </p>
-                <p className="mt-1 text-xs text-muted">
-                  Releases {formatMovieDate(item.movie.releaseDate)}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <UpcomingMovieCarousel movies={items.map((item) => item.movie)} />
       )}
     </section>
   );
 }
 
 export function ReviewsPreview({
+  author,
   reviews,
   total,
 }: {
+  author: {
+    displayName: string;
+    avatarUrl: string | null;
+  };
   reviews: ProfileReview[];
   total: number;
 }) {
   return (
-    <section className="rounded-2xl border border-border bg-white p-5 shadow-sm sm:p-7">
-      <SectionHeading title="Your reviews" count={total} />
+    <section aria-labelledby="profile-reviews-heading">
+      <ActivitySectionHeading
+        id="profile-reviews-heading"
+        title="Your recent reviews"
+        description="Open a review to update its rating or text."
+      >
+        <SecondaryButtonLink href="/reviews#your-reviews-heading">
+          View all reviews ({total})
+        </SecondaryButtonLink>
+      </ActivitySectionHeading>
+
       {reviews.length === 0 ? (
         <EmptyActivity message="You have not reviewed a movie yet. Your latest reviews will appear here." />
       ) : (
-        <div className="mt-6 space-y-3">
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {reviews.map((review) => (
-            <article
+            <Link
               key={review.id}
-              className="grid grid-cols-[auto_minmax(0,1fr)] gap-4 rounded-xl bg-secondary/70 p-4"
+              href={`/reviews?edit=${encodeURIComponent(review.id)}#review-${review.id}`}
+              aria-label={`Edit your review of ${review.movie.title}`}
+              className="block rounded-2xl transition-transform duration-150 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
             >
-              <span className="flex h-11 min-w-11 items-center justify-center rounded-full bg-primary px-2 text-xs font-semibold text-white">
-                {review.rating}/10
-              </span>
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-foreground">
-                    {review.movie.title}
-                  </h3>
-                  <time
-                    dateTime={review.createdAt}
-                    className="text-xs text-subtle"
-                  >
-                    {dateFormatter.format(new Date(review.createdAt))}
-                  </time>
-                </div>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted">
-                  {review.body}
-                </p>
-              </div>
-            </article>
+              <ReviewCard review={{ ...review, author }} />
+            </Link>
           ))}
         </div>
       )}
@@ -96,47 +86,37 @@ export function ReviewsPreview({
   );
 }
 
-function SectionHeading({ title, count }: { title: string; count: number }) {
+function ActivitySectionHeading({
+  id,
+  title,
+  description,
+  children,
+}: {
+  id: string;
+  title: string;
+  description: string;
+  children: ReactNode;
+}) {
   return (
-    <div className="flex items-center justify-between gap-4">
-      <h2 className="text-2xl font-semibold tracking-[-0.04em]">{title}</h2>
-      <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-primary">
-        {count}
-      </span>
+    <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+      <div>
+        <h2
+          id={id}
+          className="text-2xl font-semibold tracking-[-0.04em] sm:text-3xl"
+        >
+          {title}
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+      </div>
+      {children}
     </div>
   );
 }
 
 function EmptyActivity({ message }: { message: string }) {
   return (
-    <div className="mt-6 rounded-xl border border-dashed border-border bg-secondary/45 px-5 py-8 text-center text-sm leading-6 text-muted">
+    <div className="mt-6 border-y border-border py-8 text-sm leading-6 text-muted">
       {message}
     </div>
   );
-}
-
-function MoviePoster({
-  posterUrl,
-  title,
-}: {
-  posterUrl: string | null;
-  title: string;
-}) {
-  return (
-    <div className="relative aspect-[2/3] w-14 overflow-hidden rounded-lg bg-primary shadow-sm">
-      {posterUrl ? (
-        <Image
-          src={posterUrl}
-          alt={`${title} poster`}
-          fill
-          sizes="56px"
-          className="object-cover"
-        />
-      ) : null}
-    </div>
-  );
-}
-
-function formatMovieDate(value: string): string {
-  return dateFormatter.format(new Date(`${value}T00:00:00Z`));
 }

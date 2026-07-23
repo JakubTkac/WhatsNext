@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   PrimaryButton,
@@ -16,6 +17,8 @@ export function PageErrorState({
   onRetry?: () => void;
 }) {
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const retry = onRetry ?? (() => router.refresh());
 
   return (
     <main className="mx-auto flex min-h-[calc(100vh-5rem)] w-full max-w-4xl items-center px-4 py-16 sm:px-8">
@@ -36,8 +39,11 @@ export function PageErrorState({
           {description}
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <PrimaryButton onClick={onRetry ?? (() => router.refresh())}>
-            Try again
+          <PrimaryButton
+            onClick={() => startTransition(retry)}
+            disabled={pending}
+          >
+            {pending ? "Trying again..." : "Try again"}
           </PrimaryButton>
           <SecondaryButtonLink href="/">
             Back to homepage

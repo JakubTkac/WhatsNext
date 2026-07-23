@@ -112,6 +112,7 @@ function AvatarActionsModal({
   onSuccess: (message: string) => void;
 }) {
   const uploadFormRef = useRef<HTMLFormElement>(null);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
   const [state, formAction, pending] = useActionState(
     updateAvatarAction,
     initialState,
@@ -131,52 +132,60 @@ function AvatarActionsModal({
 
   return (
     <Modal title="Change profile photo" onClose={onClose}>
-      <div className="p-3">
-        <form ref={uploadFormRef} action={formAction}>
-          <label
-            className={`flex min-h-14 cursor-pointer items-center justify-center rounded-2xl px-4 text-sm font-semibold text-primary transition-colors hover:bg-blue-50 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary ${
-              pending ? "pointer-events-none opacity-60" : ""
-            }`}
-          >
-            <input
-              type="file"
-              name="avatar"
-              accept="image/png,image/jpeg,image/webp"
-              disabled={pending}
-              aria-invalid={state.fieldError ? true : undefined}
-              aria-describedby={
-                state.fieldError ? "avatar-action-error" : "avatar-action-help"
+      <div className="space-y-3 p-5 sm:p-6">
+        <form
+          ref={uploadFormRef}
+          action={formAction}
+          className="space-y-2"
+        >
+          <input
+            ref={avatarInputRef}
+            type="file"
+            name="avatar"
+            accept="image/png,image/jpeg,image/webp"
+            disabled={pending}
+            aria-invalid={state.fieldError ? true : undefined}
+            aria-describedby={
+              state.fieldError ? "avatar-action-error" : "avatar-action-help"
+            }
+            className="sr-only"
+            onChange={(event) => {
+              if (event.currentTarget.files?.length) {
+                uploadFormRef.current?.requestSubmit();
               }
-              className="sr-only"
-              onChange={(event) => {
-                if (event.currentTarget.files?.length) {
-                  uploadFormRef.current?.requestSubmit();
-                }
-              }}
-            />
+            }}
+          />
+          <SecondaryButton
+            onClick={() => avatarInputRef.current?.click()}
+            disabled={pending}
+            aria-describedby={
+              state.fieldError ? "avatar-action-error" : "avatar-action-help"
+            }
+            className="min-h-14 w-full disabled:cursor-wait"
+          >
             {pending ? "Saving..." : "Upload photo"}
-          </label>
+          </SecondaryButton>
+
+          {state.fieldError ? (
+            <p
+              id="avatar-action-error"
+              role="alert"
+              className="text-center text-sm text-danger"
+            >
+              {state.fieldError}
+            </p>
+          ) : (
+            <p
+              id="avatar-action-help"
+              className="text-center text-xs text-subtle"
+            >
+              PNG, JPEG, or WebP up to 256 KB.
+            </p>
+          )}
         </form>
 
-        {state.fieldError ? (
-          <p
-            id="avatar-action-error"
-            role="alert"
-            className="px-4 pb-3 text-center text-sm text-danger"
-          >
-            {state.fieldError}
-          </p>
-        ) : (
-          <p
-            id="avatar-action-help"
-            className="px-4 pb-3 text-center text-xs text-subtle"
-          >
-            PNG, JPEG, or WebP up to 256 KB.
-          </p>
-        )}
-
         {hasAvatar ? (
-          <form action={formAction} className="border-t border-border">
+          <form action={formAction}>
             <input type="hidden" name="removeAvatar" value="true" />
             <DangerButton
               type="submit"
@@ -188,15 +197,13 @@ function AvatarActionsModal({
           </form>
         ) : null}
 
-        <div className="border-t border-border">
-          <SecondaryButton
-            onClick={onClose}
-            disabled={pending}
-            className="min-h-14 w-full disabled:cursor-wait"
-          >
-            Cancel
-          </SecondaryButton>
-        </div>
+        <SecondaryButton
+          onClick={onClose}
+          disabled={pending}
+          className="min-h-14 w-full disabled:cursor-wait"
+        >
+          Cancel
+        </SecondaryButton>
       </div>
     </Modal>
   );

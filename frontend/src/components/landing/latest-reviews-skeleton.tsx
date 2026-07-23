@@ -3,14 +3,13 @@ const reviewSkeletons = [0, 1, 2];
 export function LatestReviewsSkeleton() {
   return (
     <section
-      className="mt-20 rounded-[2rem] bg-secondary px-5 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12"
+      className="mt-20"
       aria-label="Loading latest reviews"
       aria-busy="true"
     >
       <span className="sr-only">Loading latest reviews</span>
       <div aria-hidden="true">
-        <div className="h-4 w-40 rounded-full bg-slate-300" />
-        <div className="mt-3 h-10 w-64 rounded-xl bg-slate-300" />
+        <div className="h-10 w-64 rounded-xl bg-slate-300" />
 
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {reviewSkeletons.map((item) => (
