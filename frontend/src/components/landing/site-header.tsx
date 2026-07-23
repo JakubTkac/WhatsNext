@@ -6,11 +6,7 @@ import {
 } from "@/components/auth/account-navigation";
 import { SearchForm } from "@/components/ui/search-form";
 
-type SiteHeaderProps = {
-  search?: string;
-};
-
-export function SiteHeader({ search = "" }: SiteHeaderProps) {
+export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-white/90 backdrop-blur-xl">
       <div className="mx-auto grid min-h-20 w-full max-w-[92rem] grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 px-4 py-3 sm:px-8 md:grid-cols-[auto_minmax(20rem,42rem)_auto] md:justify-between lg:px-12">
@@ -23,7 +19,9 @@ export function SiteHeader({ search = "" }: SiteHeaderProps) {
         </Link>
 
         <div className="order-3 col-span-2 md:order-none md:col-span-1">
-          <SearchForm defaultValue={search} />
+          <Suspense fallback={<SearchFormFallback />}>
+            <SearchForm />
+          </Suspense>
         </div>
 
         <div className="justify-self-end">
@@ -33,5 +31,21 @@ export function SiteHeader({ search = "" }: SiteHeaderProps) {
         </div>
       </div>
     </header>
+  );
+}
+
+function SearchFormFallback() {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex min-h-[3.25rem] min-w-0 items-center justify-between overflow-hidden rounded-xl bg-secondary p-1"
+    >
+      <span className="px-4 text-sm text-subtle">
+        Search upcoming movies
+      </span>
+      <span className="inline-flex min-h-11 items-center rounded-xl bg-primary px-5 text-sm font-semibold text-white">
+        Search
+      </span>
+    </div>
   );
 }

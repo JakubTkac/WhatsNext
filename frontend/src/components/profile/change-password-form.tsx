@@ -2,6 +2,7 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { changePasswordAction } from "@/app/actions/profile";
+import { PrimaryButton } from "@/components/ui/action-button";
 import {
   ErrorToast,
   SuccessToast,
@@ -73,13 +74,13 @@ export function ChangePasswordForm() {
       </div>
 
       <div className="mt-6 flex justify-end border-t border-border pt-5">
-        <button
+        <PrimaryButton
           type="submit"
           disabled={pending}
-          className="w-full rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-sm transition-[background-color,transform] duration-150 hover:-translate-y-px hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-wait disabled:translate-y-0 disabled:opacity-65 sm:w-auto sm:min-w-48"
+          className="w-full disabled:cursor-wait sm:w-auto sm:min-w-48"
         >
           {pending ? "Changing password..." : "Change password"}
-        </button>
+        </PrimaryButton>
       </div>
     </form>
   );

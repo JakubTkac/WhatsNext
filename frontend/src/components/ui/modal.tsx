@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, type ReactNode } from "react";
+import { IconButton } from "@/components/ui/action-button";
 
 type ModalProps = {
   title: string;
@@ -48,14 +49,13 @@ export function Modal({ title, children, onClose }: ModalProps) {
         >
           {title}
         </h2>
-        <button
-          type="button"
+        <IconButton
           onClick={onClose}
           aria-label="Close dialog"
-          className="flex h-9 w-9 items-center justify-center rounded-full text-xl text-muted transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="h-9 w-9 text-xl"
         >
           <span aria-hidden="true">&times;</span>
-        </button>
+        </IconButton>
       </div>
       {children}
     </dialog>

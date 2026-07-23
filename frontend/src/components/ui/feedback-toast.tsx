@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { IconButton } from "@/components/ui/action-button";
 
 type FeedbackTone = "success" | "warning" | "error";
 
@@ -110,14 +111,13 @@ function FeedbackToast({
           {message}
         </p>
       </div>
-      <button
-        type="button"
+      <IconButton
         onClick={() => setVisible(false)}
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xl text-subtle transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="h-10 w-10 text-xl text-subtle"
         aria-label="Dismiss notification"
       >
         <span aria-hidden="true">&times;</span>
-      </button>
+      </IconButton>
     </div>
   );
 }

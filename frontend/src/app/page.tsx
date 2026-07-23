@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { LatestReviewsSection } from "@/components/landing/latest-reviews-section";
 import { LatestReviewsSkeleton } from "@/components/landing/latest-reviews-skeleton";
-import { SiteHeader } from "@/components/landing/site-header";
 import { UpcomingMoviesSection } from "@/components/landing/upcoming-movies-section";
 import { UpcomingMoviesSkeleton } from "@/components/landing/upcoming-movies-skeleton";
 
@@ -14,33 +13,30 @@ export default async function Home({ searchParams }: HomeProps) {
   const search = normalizeSearch(params.search);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader search={search} />
-      <main className="mx-auto w-full max-w-[92rem] px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
-        <div className="max-w-3xl">
-          <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-            Find your next watch
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-            Discover movies arriving soon and keep the ones you care about in
-            sight
-          </p>
-        </div>
+    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+      <div className="max-w-3xl">
+        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-7xl">
+          Find your next watch
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+          Discover movies arriving soon and keep the ones you care about in
+          sight
+        </p>
+      </div>
 
-        <Suspense
-          key={search}
-          fallback={<UpcomingMoviesSkeleton showFeatured={!search} />}
-        >
-          <UpcomingMoviesSection search={search} />
+      <Suspense
+        key={search}
+        fallback={<UpcomingMoviesSkeleton showFeatured={!search} />}
+      >
+        <UpcomingMoviesSection search={search} />
+      </Suspense>
+
+      {search ? null : (
+        <Suspense fallback={<LatestReviewsSkeleton />}>
+          <LatestReviewsSection />
         </Suspense>
-
-        {search ? null : (
-          <Suspense fallback={<LatestReviewsSkeleton />}>
-            <LatestReviewsSection />
-          </Suspense>
-        )}
-      </main>
-    </div>
+      )}
+    </main>
   );
 }
 

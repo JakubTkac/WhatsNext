@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { SiteHeader } from "@/components/landing/site-header";
 import {
   ReviewsPreview,
   WatchlistPreview,
@@ -17,42 +16,36 @@ export default async function ProfilePage() {
 
   if (connection.status === "unavailable") {
     return (
-      <div className="min-h-screen bg-background text-foreground">
-        <SiteHeader />
-        <PageErrorState
-          title="Profile unavailable"
-          description="We could not load your account details. The service may be temporarily unavailable."
-        />
-      </div>
+      <PageErrorState
+        title="Profile unavailable"
+        description="We could not load your account details. The service may be temporarily unavailable."
+      />
     );
   }
 
   const { profile } = connection;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
-      <main className="mx-auto w-full max-w-[92rem] px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
-        <ProfileOverview
-          displayName={profile.displayName}
-          email={profile.email}
-          bio={profile.bio}
-          avatarUrl={profile.avatarUrl}
-          createdAt={profile.createdAt}
-          stats={profile.stats}
-        />
+    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+      <ProfileOverview
+        displayName={profile.displayName}
+        email={profile.email}
+        bio={profile.bio}
+        avatarUrl={profile.avatarUrl}
+        createdAt={profile.createdAt}
+        stats={profile.stats}
+      />
 
-        <div className="mt-8 grid items-start gap-8 lg:grid-cols-2">
-          <WatchlistPreview
-            items={profile.watchlistPreview}
-            total={profile.stats.watchlistCount}
-          />
-          <ReviewsPreview
-            reviews={profile.recentReviews}
-            total={profile.stats.reviewCount}
-          />
-        </div>
-      </main>
-    </div>
+      <div className="mt-8 grid items-start gap-8 lg:grid-cols-2">
+        <WatchlistPreview
+          items={profile.watchlistPreview}
+          total={profile.stats.watchlistCount}
+        />
+        <ReviewsPreview
+          reviews={profile.recentReviews}
+          total={profile.stats.reviewCount}
+        />
+      </div>
+    </main>
   );
 }

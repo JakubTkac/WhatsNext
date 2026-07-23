@@ -4,6 +4,11 @@ import { useState } from "react";
 import { ChangePasswordForm } from "@/components/profile/change-password-form";
 import { ProfileAvatar } from "@/components/profile/profile-avatar";
 import { ProfileEditForm } from "@/components/profile/profile-edit-form";
+import {
+  IconButton,
+  PrimaryButton,
+  SecondaryButton,
+} from "@/components/ui/action-button";
 
 type ProfileEditor = "details" | "password";
 
@@ -60,32 +65,40 @@ export function ProfileOverview({
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3 border-t border-border/80 pt-6">
-              <button
-                type="button"
-                onClick={() => toggleEditor("details")}
-                aria-expanded={activeEditor === "details"}
-                aria-controls="profile-editor-panel"
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,color,transform] duration-150 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  activeEditor === "details"
-                    ? "bg-primary text-white"
-                    : "border border-border bg-white text-foreground hover:bg-blue-50 hover:text-primary"
-                }`}
-              >
-                Edit profile
-              </button>
-              <button
-                type="button"
-                onClick={() => toggleEditor("password")}
-                aria-expanded={activeEditor === "password"}
-                aria-controls="profile-editor-panel"
-                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,color,transform] duration-150 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                  activeEditor === "password"
-                    ? "bg-primary text-white"
-                    : "border border-border bg-white text-foreground hover:bg-blue-50 hover:text-primary"
-                }`}
-              >
-                Change password
-              </button>
+              {activeEditor === "details" ? (
+                <PrimaryButton
+                  onClick={() => toggleEditor("details")}
+                  aria-expanded="true"
+                  aria-controls="profile-editor-panel"
+                >
+                  Edit profile
+                </PrimaryButton>
+              ) : (
+                <SecondaryButton
+                  onClick={() => toggleEditor("details")}
+                  aria-expanded="false"
+                  aria-controls="profile-editor-panel"
+                >
+                  Edit profile
+                </SecondaryButton>
+              )}
+              {activeEditor === "password" ? (
+                <PrimaryButton
+                  onClick={() => toggleEditor("password")}
+                  aria-expanded="true"
+                  aria-controls="profile-editor-panel"
+                >
+                  Change password
+                </PrimaryButton>
+              ) : (
+                <SecondaryButton
+                  onClick={() => toggleEditor("password")}
+                  aria-expanded="false"
+                  aria-controls="profile-editor-panel"
+                >
+                  Change password
+                </SecondaryButton>
+              )}
             </div>
           </div>
 
@@ -114,14 +127,13 @@ export function ProfileOverview({
                   : "Confirm your current password before choosing a new one."}
               </p>
             </div>
-            <button
-              type="button"
+            <IconButton
               onClick={() => setActiveEditor(null)}
               aria-label="Close settings"
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xl text-muted transition-colors hover:bg-white hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="h-10 w-10 bg-white text-xl"
             >
               <span aria-hidden="true">&times;</span>
-            </button>
+            </IconButton>
           </div>
 
           <div className="px-5 py-6 sm:px-7 sm:py-7">

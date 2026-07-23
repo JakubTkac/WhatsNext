@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import { updateProfileAction } from "@/app/actions/profile";
+import { PrimaryButton } from "@/components/ui/action-button";
 import {
   ErrorToast,
   SuccessToast,
@@ -97,15 +98,15 @@ export function ProfileEditForm({
       </div>
 
       <div className="mt-6 flex justify-end border-t border-border pt-5">
-        <button
+        <PrimaryButton
           type="submit"
           disabled={pending || !isDirty}
-          className={`w-full rounded-xl bg-primary px-7 py-3 text-sm font-semibold text-white shadow-sm transition-[background-color,transform] duration-150 hover:-translate-y-px hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:translate-y-0 disabled:opacity-65 sm:w-auto sm:min-w-44 ${
+          className={`w-full sm:w-auto sm:min-w-44 ${
             pending ? "cursor-wait" : !isDirty ? "cursor-not-allowed" : ""
           }`}
         >
           {pending ? "Saving..." : isDirty ? "Save changes" : "No changes"}
-        </button>
+        </PrimaryButton>
       </div>
     </form>
   );

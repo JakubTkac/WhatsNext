@@ -69,7 +69,7 @@ export async function updateProfileAction(
       };
     }
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     revalidatePath("/profile");
     return {
       successRevision: previousState.successRevision + 1,
@@ -135,7 +135,7 @@ export async function updateAvatarAction(
       };
     }
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     revalidatePath("/profile");
     return {
       successRevision: previousState.successRevision + 1,

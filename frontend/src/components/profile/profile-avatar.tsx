@@ -10,6 +10,11 @@ import {
 } from "react";
 import { updateAvatarAction } from "@/app/actions/profile";
 import {
+  DangerButton,
+  SecondaryButton,
+  UnstyledButton,
+} from "@/components/ui/action-button";
+import {
   ErrorToast,
   SuccessToast,
 } from "@/components/ui/feedback-toast";
@@ -53,8 +58,7 @@ export function ProfileAvatar({
 
   return (
     <>
-      <button
-        type="button"
+      <UnstyledButton
         onClick={() => setModalOpen(true)}
         aria-label="Change profile photo"
         className="group relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-blue-100 text-4xl font-bold text-primary ring-8 ring-white focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary sm:h-32 sm:w-32"
@@ -74,7 +78,7 @@ export function ProfileAvatar({
         <span className="absolute inset-0 flex items-center justify-center bg-slate-950/0 text-sm font-semibold text-white opacity-0 transition-[background-color,opacity] duration-200 group-hover:bg-slate-950/55 group-hover:opacity-100 group-focus-visible:bg-slate-950/55 group-focus-visible:opacity-100">
           Change photo
         </span>
-      </button>
+      </UnstyledButton>
 
       {modalOpen ? (
         <AvatarActionsModal
@@ -174,25 +178,24 @@ function AvatarActionsModal({
         {hasAvatar ? (
           <form action={formAction} className="border-t border-border">
             <input type="hidden" name="removeAvatar" value="true" />
-            <button
+            <DangerButton
               type="submit"
               disabled={pending}
-              className="flex min-h-14 w-full items-center justify-center rounded-2xl px-4 text-sm font-semibold text-danger transition-colors hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger disabled:cursor-wait disabled:opacity-60"
+              className="min-h-14 w-full disabled:cursor-wait"
             >
               Remove current photo
-            </button>
+            </DangerButton>
           </form>
         ) : null}
 
         <div className="border-t border-border">
-          <button
-            type="button"
+          <SecondaryButton
             onClick={onClose}
             disabled={pending}
-            className="flex min-h-14 w-full items-center justify-center rounded-2xl px-4 text-sm font-semibold text-foreground transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-wait disabled:opacity-60"
+            className="min-h-14 w-full disabled:cursor-wait"
           >
             Cancel
-          </button>
+          </SecondaryButton>
         </div>
       </div>
     </Modal>

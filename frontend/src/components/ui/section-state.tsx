@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { PrimaryButton } from "@/components/ui/action-button";
 
 type SectionStateProps = {
   title: string;
@@ -27,13 +28,12 @@ export function SectionErrorState({
           <p className="mt-1 text-sm leading-6 text-muted">{description}</p>
         </div>
       </div>
-      <button
-        type="button"
+      <PrimaryButton
         onClick={() => router.refresh()}
-        className="shrink-0 self-start rounded-xl border border-border bg-white px-4 py-2.5 text-sm font-semibold text-foreground transition-colors duration-150 hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:self-auto"
+        className="shrink-0 self-start sm:self-auto"
       >
         Try again
-      </button>
+      </PrimaryButton>
     </div>
   );
 }

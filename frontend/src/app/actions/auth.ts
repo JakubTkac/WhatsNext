@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { AuthFormState, AuthFieldErrors } from "@/lib/auth-form";
 import { createAuthSession, deleteAuthSession } from "@/lib/auth";
@@ -31,6 +32,7 @@ export async function loginAction(
   }
 
   await createAuthSession(result.accessToken, result.expiresIn);
+  revalidatePath("/", "layout");
   redirect("/");
 }
 
@@ -58,11 +60,13 @@ export async function registerAction(
   }
 
   await createAuthSession(result.accessToken, result.expiresIn);
+  revalidatePath("/", "layout");
   redirect("/");
 }
 
 export async function logoutAction(): Promise<void> {
   await deleteAuthSession();
+  revalidatePath("/", "layout");
   redirect("/");
 }
 

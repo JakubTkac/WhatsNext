@@ -1,4 +1,5 @@
 import type { ChangeEventHandler, ReactNode } from "react";
+import { PrimaryButton } from "@/components/ui/action-button";
 import { ErrorToast } from "@/components/ui/feedback-toast";
 
 type AuthFieldProps = {
@@ -77,12 +78,12 @@ export function AuthSubmitButton({
   children: ReactNode;
 }) {
   return (
-    <button
+    <PrimaryButton
       type="submit"
       disabled={pending}
-      className="w-full rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white shadow-sm transition-[background-color,transform] duration-150 hover:-translate-y-px hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-wait disabled:translate-y-0 disabled:opacity-65"
+      className="w-full disabled:cursor-wait"
     >
       {pending ? pendingLabel : children}
-    </button>
+    </PrimaryButton>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { UnstyledButton } from "@/components/ui/action-button";
 
 type HorizontalScrollerProps = {
   children: React.ReactNode;
@@ -77,25 +78,23 @@ export function HorizontalScroller({
         {children}
       </div>
 
-      <button
-        type="button"
+      <UnstyledButton
         onClick={() => scrollByPage(-1)}
         disabled={!canScrollPrevious}
         aria-label="Show previous movies"
         className="absolute left-2 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-2xl text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-md transition-[background-color,color,opacity,transform] duration-150 hover:-translate-x-0.5 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-0 sm:left-3"
       >
         <span aria-hidden="true">&larr;</span>
-      </button>
+      </UnstyledButton>
 
-      <button
-        type="button"
+      <UnstyledButton
         onClick={() => scrollByPage(1)}
         disabled={!canScrollNext}
         aria-label="Show more movies"
         className="absolute right-2 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/95 text-2xl text-foreground shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-md transition-[background-color,color,opacity,transform] duration-150 hover:translate-x-0.5 hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-0 sm:right-3"
       >
         <span aria-hidden="true">&rarr;</span>
-      </button>
+      </UnstyledButton>
     </div>
   );
 }

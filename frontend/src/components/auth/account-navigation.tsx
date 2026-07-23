@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { logoutAction } from "@/app/actions/auth";
+import {
+  GhostButton,
+  GhostButtonLink,
+  PrimaryButtonLink,
+} from "@/components/ui/action-button";
 import { getCurrentUser } from "@/lib/auth";
 
 export async function AccountNavigation() {
@@ -9,18 +14,12 @@ export async function AccountNavigation() {
   if (!user) {
     return (
       <nav className="flex items-center gap-1" aria-label="Account">
-        <Link
-          href="/login"
-          className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors duration-150 hover:bg-blue-50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
+        <GhostButtonLink href="/login">
           Log in
-        </Link>
-        <Link
-          href="/register"
-          className="rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-[background-color,transform] duration-150 hover:-translate-y-px hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
+        </GhostButtonLink>
+        <PrimaryButtonLink href="/register">
           Register
-        </Link>
+        </PrimaryButtonLink>
       </nav>
     );
   }
@@ -30,12 +29,9 @@ export async function AccountNavigation() {
   return (
     <div className="flex items-center gap-2" aria-label="Account">
       <form action={logoutAction}>
-        <button
-          type="submit"
-          className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted transition-colors duration-150 hover:bg-blue-50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-        >
+        <GhostButton type="submit">
           Log out
-        </button>
+        </GhostButton>
       </form>
       <Link
         href="/profile"

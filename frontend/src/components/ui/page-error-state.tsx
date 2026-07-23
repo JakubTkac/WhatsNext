@@ -1,7 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  PrimaryButton,
+  SecondaryButtonLink,
+} from "@/components/ui/action-button";
 
 export function PageErrorState({
   title,
@@ -33,19 +36,12 @@ export function PageErrorState({
           {description}
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <button
-            type="button"
-            onClick={onRetry ?? (() => router.refresh())}
-            className="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white shadow-sm transition-[background-color,transform] duration-150 hover:-translate-y-px hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
+          <PrimaryButton onClick={onRetry ?? (() => router.refresh())}>
             Try again
-          </button>
-          <Link
-            href="/"
-            className="rounded-xl border border-border bg-white px-5 py-3 text-sm font-semibold text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
+          </PrimaryButton>
+          <SecondaryButtonLink href="/">
             Back to homepage
-          </Link>
+          </SecondaryButtonLink>
         </div>
       </section>
     </main>
