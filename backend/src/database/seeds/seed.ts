@@ -12,6 +12,16 @@ import seedData from './data/movies.json';
 
 const SEED_USER_EMAIL = 'user123@example.com';
 const SEED_USER_PASSWORD = 'password123';
+const DAY_IN_MILLISECONDS = 24 * 60 * 60 * 1000;
+
+interface ReviewSeedData {
+  userEmail: string;
+  movieSlug: string;
+  rating: number;
+  body: string;
+  watchedAt: string;
+  createdAt: string;
+}
 
 interface SeedResult {
   genres: number;
@@ -135,6 +145,8 @@ async function seedDatabase(
       review,
     ]),
   );
+  const reviewSeedData = createReviewSeedData();
+  const seededWatchlistRelations = new Set<string>();
   let reviewsCreated = 0;
   let reviewsUpdated = 0;
 
@@ -156,6 +168,7 @@ async function seedDatabase(
 
     const watchedAt = new Date(watchedMovieData.watchedAt);
     const relationKey = createRelationKey(user.id, movie.id);
+    seededWatchlistRelations.add(relationKey);
     const existingWatchlistItem = watchlistByUserAndMovie.get(relationKey);
     const watchlistItem =
       existingWatchlistItem ?? watchlistRepository.create();
@@ -171,7 +184,7 @@ async function seedDatabase(
     watchlistByUserAndMovie.set(relationKey, savedWatchlistItem);
   }
 
-  for (const reviewData of communityData.reviews) {
+  for (const reviewData of reviewSeedData) {
     const user = userByEmail.get(reviewData.userEmail);
     const movie = movieBySlug.get(reviewData.movieSlug);
 
@@ -197,6 +210,7 @@ async function seedDatabase(
     }
 
     const relationKey = createRelationKey(user.id, movie.id);
+    seededWatchlistRelations.add(relationKey);
     const existingWatchlistItem = watchlistByUserAndMovie.get(relationKey);
     const watchlistItem =
       existingWatchlistItem ?? watchlistRepository.create();
@@ -236,15 +250,181 @@ async function seedDatabase(
     moviesUpdated,
     usersCreated,
     usersUpdated,
-    watchlistItems:
-      communityData.watchedMovies.length + communityData.reviews.length,
+    watchlistItems: seededWatchlistRelations.size,
     reviewsCreated,
     reviewsUpdated,
   };
 }
 
+function createReviewSeedData(): ReviewSeedData[] {
+  const generation = communityData.generatedReviews;
+  const seededUserEmails = new Set(
+    communityData.users.map((user) => user.email),
+  );
+  const movieBySlug = new Map(
+    seedData.movies.map((movie) => [movie.slug, movie]),
+  );
+  const reviewKeys = new Set<string>();
+  const reviewCountByUser = new Map(
+    communityData.users.map((user) => [user.email, 0]),
+  );
+  const reviews: ReviewSeedData[] = [];
+
+  validateReviewGenerationConfiguration();
+
+  for (const review of communityData.reviews) {
+    if (!seededUserEmails.has(review.userEmail)) {
+      throw new Error(
+        `Review seed references missing user: ${review.userEmail}.`,
+      );
+    }
+
+    if (!movieBySlug.has(review.movieSlug)) {
+      throw new Error(
+        `Review seed references missing movie: ${review.movieSlug}.`,
+      );
+    }
+
+    const relationKey = createSeedRelationKey(
+      review.userEmail,
+      review.movieSlug,
+    );
+
+    if (reviewKeys.has(relationKey)) {
+      throw new Error(
+        `Review seed contains a duplicate user and movie pair: ${review.userEmail}, ${review.movieSlug}.`,
+      );
+    }
+
+    reviewKeys.add(relationKey);
+    reviewCountByUser.set(
+      review.userEmail,
+      (reviewCountByUser.get(review.userEmail) ?? 0) + 1,
+    );
+    reviews.push(review);
+  }
+
+  const eligibleMovies = seedData.movies
+    .filter(
+      (movie) => movie.releaseDate <= generation.latestMovieReleaseDate,
+    )
+    .sort(
+      (left, right) =>
+        left.releaseDate.localeCompare(right.releaseDate) ||
+        left.slug.localeCompare(right.slug),
+    );
+
+  if (eligibleMovies.length < generation.reviewsPerUser) {
+    throw new Error(
+      `Review generation needs at least ${generation.reviewsPerUser} eligible movies, but only ${eligibleMovies.length} are available.`,
+    );
+  }
+
+  for (const [userIndex, user] of communityData.users.entries()) {
+    let reviewCount = reviewCountByUser.get(user.email) ?? 0;
+    let candidateOffset = 0;
+
+    while (
+      reviewCount < generation.reviewsPerUser &&
+      candidateOffset < eligibleMovies.length
+    ) {
+      const movieIndex =
+        (userIndex * 11 + candidateOffset) % eligibleMovies.length;
+      const movie = eligibleMovies[movieIndex];
+      const relationKey = createSeedRelationKey(user.email, movie.slug);
+
+      candidateOffset += 1;
+
+      if (reviewKeys.has(relationKey)) {
+        continue;
+      }
+
+      const rating =
+        generation.ratings[
+          (userIndex * 3 + reviewCount) % generation.ratings.length
+        ];
+      const bodyTemplate =
+        generation.bodies[
+          (userIndex * 5 + reviewCount) % generation.bodies.length
+        ];
+      const releaseAt = new Date(`${movie.releaseDate}T18:00:00.000Z`);
+      const watchedAt = new Date(
+        releaseAt.getTime() +
+          ((userIndex + candidateOffset) % 3) * DAY_IN_MILLISECONDS +
+          userIndex * 7 * 60 * 1000,
+      );
+      const createdAt = new Date(
+        watchedAt.getTime() +
+          (90 + ((userIndex * 17 + candidateOffset) % 120)) * 60 * 1000,
+      );
+
+      reviews.push({
+        userEmail: user.email,
+        movieSlug: movie.slug,
+        rating,
+        body: bodyTemplate.replace('{title}', movie.title),
+        watchedAt: watchedAt.toISOString(),
+        createdAt: createdAt.toISOString(),
+      });
+      reviewKeys.add(relationKey);
+      reviewCount += 1;
+    }
+
+    if (reviewCount < generation.reviewsPerUser) {
+      throw new Error(
+        `Could not generate ${generation.reviewsPerUser} unique reviews for ${user.email}.`,
+      );
+    }
+  }
+
+  return reviews;
+}
+
+function validateReviewGenerationConfiguration(): void {
+  const generation = communityData.generatedReviews;
+
+  if (
+    !Number.isInteger(generation.reviewsPerUser) ||
+    generation.reviewsPerUser < 1
+  ) {
+    throw new Error(
+      'generatedReviews.reviewsPerUser must be a positive integer.',
+    );
+  }
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(generation.latestMovieReleaseDate)) {
+    throw new Error(
+      'generatedReviews.latestMovieReleaseDate must use YYYY-MM-DD.',
+    );
+  }
+
+  if (
+    generation.ratings.length === 0 ||
+    generation.ratings.some(
+      (rating) => !Number.isInteger(rating) || rating < 1 || rating > 10,
+    )
+  ) {
+    throw new Error(
+      'generatedReviews.ratings must contain integers from 1 through 10.',
+    );
+  }
+
+  if (
+    generation.bodies.length === 0 ||
+    generation.bodies.some((body) => body.length < 10 || body.length > 2000)
+  ) {
+    throw new Error(
+      'generatedReviews.bodies must contain text between 10 and 2000 characters.',
+    );
+  }
+}
+
 function createRelationKey(userId: string, movieId: string): string {
   return `${userId}:${movieId}`;
+}
+
+function createSeedRelationKey(userEmail: string, movieSlug: string): string {
+  return `${userEmail}:${movieSlug}`;
 }
 
 function readBcryptRounds(): number {

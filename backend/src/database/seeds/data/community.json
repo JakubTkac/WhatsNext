@@ -44,6 +44,27 @@
       "watchedAt": "2026-07-22T19:30:00.000Z"
     }
   ],
+  "generatedReviews": {
+    "reviewsPerUser": 24,
+    "latestMovieReleaseDate": "2026-07-12",
+    "ratings": [8, 7, 9, 6, 10, 5, 4, 8, 7, 9, 6, 3, 2, 1],
+    "bodies": [
+      "{title} has a clear point of view and enough memorable moments to make the whole experience worthwhile.",
+      "The performances carry {title}, especially when the story slows down and gives the characters room to breathe.",
+      "{title} is visually confident, sharply paced, and more emotionally engaging than I expected.",
+      "Not every idea lands, but {title} remains entertaining because its strongest scenes are genuinely effective.",
+      "The direction gives {title} a distinct personality, even when the plot follows a familiar path.",
+      "{title} starts slowly, then builds into a satisfying final act with several well-earned payoffs.",
+      "I admired the ambition behind {title}, although a tighter middle section would have made it much stronger.",
+      "The cast has excellent chemistry, and that energy keeps {title} moving through its weaker moments.",
+      "{title} balances humor and drama well without letting either side overwhelm the characters.",
+      "There is a lot to enjoy in {title}, from the production design to a soundtrack that fits every major scene.",
+      "{title} is uneven but never boring, and I would gladly revisit its best sequences.",
+      "A focused screenplay and convincing performances make {title} an easy film to recommend.",
+      "{title} did not completely work for me, but its strongest ideas stayed in my mind after the credits.",
+      "The story in {title} feels predictable at times, yet the execution is polished enough to keep it engaging."
+    ]
+  },
   "reviews": [
     {
       "userEmail": "sofia.novak@example.com",
