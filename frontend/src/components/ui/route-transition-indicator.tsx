@@ -101,7 +101,7 @@ export function RouteTransitionIndicator() {
   }, [start]);
 
   return pending ? (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white px-4">
+    <div className="absolute inset-0 z-[100] flex items-center justify-center bg-white px-4">
       <LoadingSpinner />
     </div>
   ) : null;
@@ -111,6 +111,7 @@ function findInternalNavigationAnchor(
   event: MouseEvent,
 ): HTMLAnchorElement | null {
   if (
+    event.defaultPrevented ||
     event.button !== 0 ||
     event.metaKey ||
     event.ctrlKey ||

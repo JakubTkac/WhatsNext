@@ -1,30 +1,28 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { MovieResultsSkeleton } from "@/components/movies/movie-listing-skeleton";
+import { ReviewResultsSkeleton } from "@/components/reviews/reviews-page-skeleton";
 import {
   readListingDestinationPage,
   useListingNavigation,
 } from "@/components/ui/listing-navigation";
 import { Pagination } from "@/components/ui/pagination";
 
-type MovieListingResultsProps = {
+type ReviewListingResultsProps = {
   children: ReactNode;
   currentPage: number;
   totalItems: number;
   totalPages: number;
-  pathname: string;
   query: Record<string, string | number | undefined>;
 };
 
-export function MovieListingResults({
+export function ReviewListingResults({
   children,
   currentPage,
   totalItems,
   totalPages,
-  pathname,
   query,
-}: MovieListingResultsProps) {
+}: ReviewListingResultsProps) {
   const navigation = useListingNavigation();
   const pending = navigation?.pending === true;
   const displayedPage = pending
@@ -35,7 +33,7 @@ export function MovieListingResults({
     <div aria-busy={pending}>
       <div className="mt-8 flex items-center justify-between gap-4">
         <p className="text-sm text-muted">
-          {totalItems} {totalItems === 1 ? "movie" : "movies"}
+          {totalItems} {totalItems === 1 ? "review" : "reviews"}
         </p>
         <p className="text-sm text-subtle" aria-live="polite">
           Page {displayedPage}
@@ -43,12 +41,12 @@ export function MovieListingResults({
         </p>
       </div>
 
-      {pending ? <MovieResultsSkeleton /> : children}
+      {pending ? <ReviewResultsSkeleton /> : children}
 
       <Pagination
         currentPage={displayedPage}
         totalPages={totalPages}
-        pathname={pathname}
+        pathname="/reviews"
         query={query}
         pending={pending}
         onNavigate={navigation?.navigate}

@@ -6,6 +6,7 @@ import { MovieListingPageSkeleton } from "@/components/movies/movie-listing-skel
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { SectionEmptyState } from "@/components/ui/section-state";
+import { ListingNavigationProvider } from "@/components/ui/listing-navigation";
 import {
   getMoviesPage,
   type MoviesQuery,
@@ -66,63 +67,56 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
         </p>
       </div>
 
-      <MovieFilters
-        key={createMovieFiltersKey(query)}
-        query={query}
-        genres={connection.genres}
-        pathname="/movies"
-      />
+      <ListingNavigationProvider>
+        <MovieFilters
+          key={createMovieFiltersKey(query)}
+          query={query}
+          genres={connection.genres}
+          pathname="/movies"
+        />
 
-      <MovieListingResults
-        currentPage={connection.meta.page}
-        totalPages={connection.meta.totalPages}
-        pathname="/movies"
-        query={createMoviePaginationQuery(query)}
-      >
-        <div className="mt-8 flex items-center justify-between gap-4">
-          <p className="text-sm text-muted">
-            {connection.meta.totalItems}{" "}
-            {connection.meta.totalItems === 1 ? "movie" : "movies"}
-          </p>
-          <p className="text-sm text-subtle">
-            Page {connection.meta.page}
-            {connection.meta.totalPages > 0
-              ? ` of ${connection.meta.totalPages}`
-              : ""}
-          </p>
-        </div>
-
-        {connection.movies.length === 0 ? (
-          <div className="mt-6">
-            <SectionEmptyState
-              title="No movies match these filters"
-              description="Adjust the title, genre, or release filter and try again."
-            />
-          </div>
-        ) : (
-          <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            {connection.movies.map((movie) => (
-              <MovieGridCard key={movie.slug} movie={movie}>
-                {watchlistConnection.status === "online" ? (
-                  <MovieWatchlistAction
-                    state="available"
-                    movieSlug={movie.slug}
-                    returnTo={returnTo}
-                    initiallySaved={savedMovieSlugs?.has(movie.slug) ?? false}
-                  />
-                ) : watchlistConnection.status === "unauthenticated" ? (
-                  <MovieWatchlistAction
-                    state="unauthenticated"
-                    returnTo={returnTo}
-                  />
-                ) : (
-                  <MovieWatchlistAction state="unavailable" />
-                )}
-              </MovieGridCard>
-            ))}
-          </div>
-        )}
-      </MovieListingResults>
+        <MovieListingResults
+          currentPage={connection.meta.page}
+          totalItems={connection.meta.totalItems}
+          totalPages={connection.meta.totalPages}
+          pathname="/movies"
+          query={createMoviePaginationQuery(query)}
+        >
+          {connection.movies.length === 0 ? (
+            <div className="mt-6">
+              <SectionEmptyState
+                title="No movies match these filters"
+                description="Adjust the title, genre, or release filter and try again."
+              />
+            </div>
+          ) : (
+            <div className="mt-6 grid gap-5 lg:grid-cols-2">
+              {connection.movies.map((movie) => (
+                <MovieGridCard key={movie.slug} movie={movie}>
+                  {watchlistConnection.status === "online" ? (
+                    <MovieWatchlistAction
+                      state="available"
+                      movieSlug={movie.slug}
+                      returnTo={returnTo}
+                      initiallySaved={
+                        savedMovieSlugs?.has(movie.slug) ?? false
+                      }
+                    />
+                  ) : watchlistConnection.status ===
+                    "unauthenticated" ? (
+                    <MovieWatchlistAction
+                      state="unauthenticated"
+                      returnTo={returnTo}
+                    />
+                  ) : (
+                    <MovieWatchlistAction state="unavailable" />
+                  )}
+                </MovieGridCard>
+              ))}
+            </div>
+          )}
+        </MovieListingResults>
+      </ListingNavigationProvider>
     </main>
   );
 }

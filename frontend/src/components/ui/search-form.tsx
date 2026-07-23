@@ -12,7 +12,7 @@ export function SearchForm() {
   return (
     <Form
       key={search}
-      action="/"
+      action="/movies"
       role="search"
       onSubmit={(event) => {
         beginFormRouteTransition(event.currentTarget);
@@ -20,7 +20,7 @@ export function SearchForm() {
       className="flex min-w-0 overflow-hidden rounded-xl border border-transparent bg-secondary p-1 transition-[border-color,box-shadow] duration-150 focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]"
     >
       <label className="sr-only" htmlFor="site-search">
-        Search upcoming movies
+        Search all movies
       </label>
       <input
         id="site-search"
@@ -28,7 +28,7 @@ export function SearchForm() {
         type="search"
         defaultValue={search}
         maxLength={80}
-        placeholder="Search upcoming movies"
+        placeholder="Search all movies"
         className="min-w-0 flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-subtle sm:px-4"
       />
       <PrimaryButton type="submit">Search</PrimaryButton>

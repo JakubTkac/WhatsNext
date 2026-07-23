@@ -7,11 +7,12 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useState,
   useTransition,
 } from "react";
-import { beginRouteTransition } from "@/components/ui/route-transition-indicator";
 
 type ListingNavigationValue = {
+  destination: string | null;
   pending: boolean;
   navigate: (href: string) => void;
 };
@@ -25,10 +26,11 @@ export function ListingNavigationProvider({
   children: ReactNode;
 }) {
   const router = useRouter();
+  const [destination, setDestination] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const navigate = useCallback(
     (href: string) => {
-      beginRouteTransition(href);
+      setDestination(href);
       startTransition(() => {
         router.push(href);
       });
@@ -36,8 +38,8 @@ export function ListingNavigationProvider({
     [router],
   );
   const value = useMemo(
-    () => ({ pending, navigate }),
-    [navigate, pending],
+    () => ({ destination, pending, navigate }),
+    [destination, navigate, pending],
   );
 
   return (
@@ -61,4 +63,21 @@ export function ListingPendingContent({
 
 export function useListingNavigation(): ListingNavigationValue | null {
   return useContext(ListingNavigationContext);
+}
+
+export function readListingDestinationPage(
+  destination: string | null,
+  pageParameter = "page",
+): number {
+  if (!destination) {
+    return 1;
+  }
+
+  const page = Number(
+    new URL(destination, "http://localhost").searchParams.get(
+      pageParameter,
+    ) ?? 1,
+  );
+
+  return Number.isInteger(page) && page > 0 ? page : 1;
 }

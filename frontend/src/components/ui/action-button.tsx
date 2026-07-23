@@ -5,7 +5,7 @@ import type {
 } from "react";
 
 const baseClassName =
-  "inline-flex min-h-11 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,border-color,color,transform] duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+  "inline-flex min-h-11 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,border-color,color,transform] duration-150 enabled:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
 
 const primaryClassName =
   "bg-primary text-white shadow-sm hover:-translate-y-px hover:bg-primary-hover disabled:translate-y-0 disabled:opacity-65";
@@ -20,7 +20,10 @@ const dangerClassName =
   "border border-red-200 bg-white text-danger hover:-translate-y-px hover:bg-red-50 disabled:translate-y-0 disabled:opacity-65";
 
 const iconClassName =
-  "inline-flex shrink-0 items-center justify-center rounded-full text-muted transition-[background-color,color] duration-150 hover:bg-blue-50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-60";
+  "inline-flex shrink-0 items-center justify-center rounded-full text-muted transition-[background-color,color] duration-150 enabled:cursor-pointer hover:bg-blue-50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-60";
+
+const unstyledClassName = "enabled:cursor-pointer";
+const linkCursorClassName = "cursor-pointer";
 
 type ButtonProps = ComponentPropsWithoutRef<"button">;
 type LinkProps = ComponentProps<typeof Link>;
@@ -77,7 +80,12 @@ export function UnstyledButton(props: ButtonProps) {
 export function PrimaryButtonLink({ className, ...props }: LinkProps) {
   return (
     <Link
-      className={joinClassNames(baseClassName, primaryClassName, className)}
+      className={joinClassNames(
+        baseClassName,
+        primaryClassName,
+        linkCursorClassName,
+        className,
+      )}
       {...props}
     />
   );
@@ -86,7 +94,12 @@ export function PrimaryButtonLink({ className, ...props }: LinkProps) {
 export function GhostButtonLink({ className, ...props }: LinkProps) {
   return (
     <Link
-      className={joinClassNames(baseClassName, ghostClassName, className)}
+      className={joinClassNames(
+        baseClassName,
+        ghostClassName,
+        linkCursorClassName,
+        className,
+      )}
       {...props}
     />
   );
@@ -95,7 +108,12 @@ export function GhostButtonLink({ className, ...props }: LinkProps) {
 export function SecondaryButtonLink({ className, ...props }: LinkProps) {
   return (
     <Link
-      className={joinClassNames(baseClassName, secondaryClassName, className)}
+      className={joinClassNames(
+        baseClassName,
+        secondaryClassName,
+        linkCursorClassName,
+        className,
+      )}
       {...props}
     />
   );
@@ -118,6 +136,6 @@ function getButtonClassName(variant: ButtonVariant): string | undefined {
     case "icon":
       return iconClassName;
     case "unstyled":
-      return undefined;
+      return unstyledClassName;
   }
 }

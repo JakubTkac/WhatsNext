@@ -47,6 +47,9 @@ export async function updateReviewAction(
   formData: FormData,
 ): Promise<ReviewFormState> {
   const reviewId = readString(formData, "reviewId");
+  const movieSlug = normalizeMovieSlug(
+    readString(formData, "movieSlug"),
+  );
   const rating = Number(readString(formData, "rating"));
   const body = readString(formData, "body").trim();
   const fieldErrors = validateReview("", rating, body, false);
@@ -74,7 +77,7 @@ export async function updateReviewAction(
     };
   }
 
-  revalidateReviewViews();
+  revalidateReviewViews(movieSlug);
   return {
     successRevision: previousState.successRevision + 1,
     successMessage: "Review updated.",
@@ -86,6 +89,9 @@ export async function deleteReviewAction(
   formData: FormData,
 ): Promise<ReviewFormState> {
   const reviewId = readString(formData, "reviewId");
+  const movieSlug = normalizeMovieSlug(
+    readString(formData, "movieSlug"),
+  );
 
   if (!isUuid(reviewId)) {
     return {
@@ -106,7 +112,7 @@ export async function deleteReviewAction(
     };
   }
 
-  revalidateReviewViews();
+  revalidateReviewViews(movieSlug);
   return {
     successRevision: previousState.successRevision + 1,
     successMessage: "Review deleted.",
@@ -201,6 +207,13 @@ function isUuid(value: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
     value,
   );
+}
+
+function normalizeMovieSlug(value: string): string | undefined {
+  const normalized = value.trim().toLowerCase();
+  return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(normalized)
+    ? normalized
+    : undefined;
 }
 
 function readApiError(value: unknown, fallback: string): string {

@@ -40,9 +40,7 @@ function SearchFormFallback() {
       aria-hidden="true"
       className="flex min-h-[3.25rem] min-w-0 items-center justify-between overflow-hidden rounded-xl bg-secondary p-1"
     >
-      <span className="px-4 text-sm text-subtle">
-        Search upcoming movies
-      </span>
+      <span className="px-4 text-sm text-subtle">Search all movies</span>
       <span className="inline-flex min-h-11 items-center rounded-xl bg-primary px-5 text-sm font-semibold text-white">
         Search
       </span>

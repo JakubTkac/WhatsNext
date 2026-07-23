@@ -20,10 +20,25 @@ export function ReviewsPageSkeleton() {
 
       <ReviewFiltersSkeleton />
 
-      <ReviewResultsSkeleton />
+      <ReviewResultsBlockSkeleton />
 
       <OwnedReviewsSkeleton />
     </main>
+  );
+}
+
+export function ReviewResultsBlockSkeleton() {
+  return (
+    <>
+      <div
+        className="mt-8 flex items-center justify-between gap-4"
+        aria-hidden="true"
+      >
+        <div className="skeleton-surface h-4 w-20 rounded-full" />
+        <div className="skeleton-surface h-4 w-24 rounded-full" />
+      </div>
+      <ReviewResultsSkeleton />
+    </>
   );
 }
 
@@ -34,14 +49,6 @@ export function ReviewResultsSkeleton() {
       aria-label="Loading review results"
     >
       <span className="sr-only">Loading review results</span>
-      <div
-        className="mt-8 flex items-center justify-between gap-4"
-        aria-hidden="true"
-      >
-        <div className="skeleton-surface h-4 w-20 rounded-full" />
-        <div className="skeleton-surface h-4 w-24 rounded-full" />
-      </div>
-
       <div
         className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"
         aria-hidden="true"
@@ -81,28 +88,45 @@ export function OwnedReviewsSkeleton() {
     <section className="mt-20" aria-hidden="true">
       <div className="flex items-baseline justify-between gap-4">
         <div className="skeleton-surface h-10 w-52 rounded-xl" />
-        <div className="skeleton-surface h-4 w-20 rounded-full" />
+        <div>
+          <div className="skeleton-surface h-4 w-20 rounded-full" />
+          <div className="skeleton-surface mt-2 h-4 w-16 rounded-full" />
+        </div>
       </div>
 
-      <div className="mt-8 divide-y divide-border border-y border-border">
-        {ownedReviewSkeletons.map((item) => (
-          <div
-            key={item}
-            className="flex items-start justify-between gap-4 py-6"
-          >
-            <div className="min-w-0 flex-1">
-              <div className="skeleton-surface h-5 w-56 max-w-full rounded-full" />
-              <div className="skeleton-surface mt-3 h-4 w-12 rounded-full" />
-              <div className="skeleton-surface mt-5 h-4 w-full max-w-3xl rounded-full" />
-              <div className="skeleton-surface mt-3 h-4 w-2/3 max-w-2xl rounded-full" />
-            </div>
-            <div className="hidden gap-2 sm:flex">
-              <div className="skeleton-surface h-10 w-16 rounded-xl" />
-              <div className="skeleton-surface h-10 w-20 rounded-xl" />
-            </div>
-          </div>
-        ))}
-      </div>
+      <ReviewFiltersSkeleton />
+
+      <OwnedReviewResultsSkeleton />
     </section>
+  );
+}
+
+export function OwnedReviewResultsSkeleton() {
+  return (
+    <div
+      className="mt-8 divide-y divide-border border-y border-border"
+      aria-busy="true"
+      aria-label="Loading your reviews"
+    >
+      <span className="sr-only">Loading your reviews</span>
+      {ownedReviewSkeletons.map((item) => (
+        <div
+          key={item}
+          className="flex items-start justify-between gap-4 py-6"
+          aria-hidden="true"
+        >
+          <div className="min-w-0 flex-1">
+            <div className="skeleton-surface h-5 w-56 max-w-full rounded-full" />
+            <div className="skeleton-surface mt-3 h-4 w-12 rounded-full" />
+            <div className="skeleton-surface mt-5 h-4 w-full max-w-3xl rounded-full" />
+            <div className="skeleton-surface mt-3 h-4 w-2/3 max-w-2xl rounded-full" />
+          </div>
+          <div className="hidden gap-2 sm:flex">
+            <div className="skeleton-surface h-10 w-16 rounded-xl" />
+            <div className="skeleton-surface h-10 w-20 rounded-xl" />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

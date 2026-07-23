@@ -331,7 +331,7 @@ export async function getReviewsPage(
 }
 
 export async function getReviewWorkspace(
-  page = 1,
+  query: ReviewsQuery,
 ): Promise<ReviewWorkspaceConnection> {
   const accessToken = await getAccessToken();
 
@@ -342,8 +342,17 @@ export async function getReviewWorkspace(
   try {
     const headers = { Authorization: `Bearer ${accessToken}` };
     const url = new URL(`${apiUrl}/reviews/mine`);
-    url.searchParams.set("page", String(page));
+    url.searchParams.set("page", String(query.page));
     url.searchParams.set("limit", "5");
+
+    if (query.movie) {
+      url.searchParams.set("movie", query.movie);
+    }
+
+    if (query.rating) {
+      url.searchParams.set("rating", String(query.rating));
+    }
+
     const reviewsResponse = await fetch(url, {
       cache: "no-store",
       headers,

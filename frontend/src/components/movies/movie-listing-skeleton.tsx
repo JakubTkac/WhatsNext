@@ -31,6 +31,7 @@ export function MovieListingPageSkeleton() {
 
       <MovieFiltersSkeleton />
 
+      <MovieResultsSummarySkeleton />
       <MovieResultsSkeleton />
     </main>
   );
@@ -44,14 +45,6 @@ export function MovieResultsSkeleton() {
     >
       <span className="sr-only">Loading movie results</span>
       <div
-        className="mt-8 flex items-center justify-between gap-4"
-        aria-hidden="true"
-      >
-        <div className="skeleton-surface h-4 w-20 rounded-full" />
-        <div className="skeleton-surface h-4 w-24 rounded-full" />
-      </div>
-
-      <div
         className="mt-6 grid gap-5 lg:grid-cols-2"
         aria-hidden="true"
       >
@@ -59,6 +52,18 @@ export function MovieResultsSkeleton() {
           <MovieGridCardSkeleton key={item} />
         ))}
       </div>
+    </div>
+  );
+}
+
+function MovieResultsSummarySkeleton() {
+  return (
+    <div
+      className="mt-8 flex items-center justify-between gap-4"
+      aria-hidden="true"
+    >
+      <div className="skeleton-surface h-4 w-20 rounded-full" />
+      <div className="skeleton-surface h-4 w-24 rounded-full" />
     </div>
   );
 }

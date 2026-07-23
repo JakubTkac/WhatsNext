@@ -27,11 +27,13 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <SiteHeader />
-        {children}
+        <div className="relative isolate flex flex-1 flex-col">
+          {children}
+          <Suspense fallback={null}>
+            <RouteTransitionIndicator />
+          </Suspense>
+        </div>
         <SiteFooter />
-        <Suspense fallback={null}>
-          <RouteTransitionIndicator />
-        </Suspense>
       </body>
     </html>
   );

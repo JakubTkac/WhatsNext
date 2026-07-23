@@ -16,7 +16,53 @@ import { useDebouncedFormSubmit } from "@/hooks/use-debounced-form-submit";
 const fieldClassName =
   "min-h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]";
 
-export function ReviewFilters({ query }: { query: ReviewsQuery }) {
+const publicFilterParameters = {
+  movie: "movie",
+  rating: "rating",
+  ariaLabel: "Filter community reviews",
+} as const;
+
+const ownedFilterParameters = {
+  movie: "myMovie",
+  rating: "myRating",
+  ariaLabel: "Filter your reviews",
+  hash: "your-reviews-heading",
+} as const;
+
+type ReviewFilterParameters =
+  | typeof publicFilterParameters
+  | typeof ownedFilterParameters;
+
+type ReviewFilterProps = {
+  query: ReviewsQuery;
+  preservedQuery: Record<string, string | number | undefined>;
+};
+
+export function PublicReviewFilters(props: ReviewFilterProps) {
+  return (
+    <ReviewFiltersForm
+      {...props}
+      parameters={publicFilterParameters}
+    />
+  );
+}
+
+export function OwnedReviewFilters(props: ReviewFilterProps) {
+  return (
+    <ReviewFiltersForm
+      {...props}
+      parameters={ownedFilterParameters}
+    />
+  );
+}
+
+function ReviewFiltersForm({
+  query,
+  preservedQuery,
+  parameters,
+}: ReviewFilterProps & {
+  parameters: ReviewFilterParameters;
+}) {
   const {
     formRef,
     scheduleSubmit,
@@ -32,7 +78,13 @@ export function ReviewFilters({ query }: { query: ReviewsQuery }) {
     }
 
     event.preventDefault();
-    navigation.navigate(createReviewsHref(new FormData(event.currentTarget)));
+    navigation.navigate(
+      createReviewsHref(
+        new FormData(event.currentTarget),
+        parameters,
+        preservedQuery,
+      ),
+    );
   };
 
   const reset = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -49,7 +101,9 @@ export function ReviewFilters({ query }: { query: ReviewsQuery }) {
 
     event.preventDefault();
     cancelScheduledSubmit();
-    navigation.navigate("/reviews");
+    navigation.navigate(
+      createResetHref(parameters, preservedQuery),
+    );
   };
 
   return (
@@ -59,12 +113,24 @@ export function ReviewFilters({ query }: { query: ReviewsQuery }) {
       onChange={scheduleSubmit}
       onSubmit={submit}
       className="mt-8 grid gap-4 sm:grid-cols-[minmax(14rem,1fr)_12rem_auto] sm:items-end"
+      aria-label={parameters.ariaLabel}
       aria-busy={navigation?.pending}
     >
+      {Object.entries(preservedQuery).map(([name, value]) =>
+        value !== undefined && value !== "" ? (
+          <input
+            key={name}
+            type="hidden"
+            name={name}
+            value={String(value)}
+          />
+        ) : null,
+      )}
+
       <label className="block">
         <span className="mb-2 block text-sm font-semibold">Movie</span>
         <input
-          name="movie"
+          name={parameters.movie}
           type="search"
           defaultValue={query.movie}
           maxLength={80}
@@ -76,7 +142,7 @@ export function ReviewFilters({ query }: { query: ReviewsQuery }) {
       <label className="block">
         <span className="mb-2 block text-sm font-semibold">Rating</span>
         <select
-          name="rating"
+          name={parameters.rating}
           defaultValue={query.rating ? String(query.rating) : ""}
           className={fieldClassName}
         >
@@ -100,7 +166,7 @@ export function ReviewFilters({ query }: { query: ReviewsQuery }) {
           {navigation?.pending ? "Loading..." : "Apply"}
         </PrimaryButton>
         <SecondaryButtonLink
-          href="/reviews"
+          href={createResetHref(parameters, preservedQuery)}
           onClick={reset}
           className="flex-1 sm:flex-none"
         >
@@ -111,21 +177,57 @@ export function ReviewFilters({ query }: { query: ReviewsQuery }) {
   );
 }
 
-function createReviewsHref(formData: FormData): string {
-  const searchParams = new URLSearchParams();
-  const movie = readFormString(formData, "movie").trim();
-  const rating = readFormString(formData, "rating");
+function createReviewsHref(
+  formData: FormData,
+  parameters: ReviewFilterParameters,
+  preservedQuery: Record<string, string | number | undefined>,
+): string {
+  const searchParams = createSearchParams(preservedQuery);
+  const movie = readFormString(formData, parameters.movie).trim();
+  const rating = readFormString(formData, parameters.rating);
 
   if (movie) {
-    searchParams.set("movie", movie);
+    searchParams.set(parameters.movie, movie);
   }
 
   if (rating) {
-    searchParams.set("rating", rating);
+    searchParams.set(parameters.rating, rating);
   }
 
+  return createReviewsPath(searchParams, parameters);
+}
+
+function createResetHref(
+  parameters: ReviewFilterParameters,
+  preservedQuery: Record<string, string | number | undefined>,
+): string {
+  return createReviewsPath(
+    createSearchParams(preservedQuery),
+    parameters,
+  );
+}
+
+function createSearchParams(
+  query: Record<string, string | number | undefined>,
+): URLSearchParams {
+  const searchParams = new URLSearchParams();
+
+  for (const [name, value] of Object.entries(query)) {
+    if (value !== undefined && value !== "") {
+      searchParams.set(name, String(value));
+    }
+  }
+
+  return searchParams;
+}
+
+function createReviewsPath(
+  searchParams: URLSearchParams,
+  parameters: ReviewFilterParameters,
+): string {
   const search = searchParams.toString();
-  return search ? `/reviews?${search}` : "/reviews";
+  const hash = "hash" in parameters ? `#${parameters.hash}` : "";
+  return search ? `/reviews?${search}${hash}` : `/reviews${hash}`;
 }
 
 function readFormString(formData: FormData, name: string): string {

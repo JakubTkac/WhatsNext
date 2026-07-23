@@ -7,6 +7,7 @@ import { MovieListingPageSkeleton } from "@/components/movies/movie-listing-skel
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { SectionEmptyState } from "@/components/ui/section-state";
+import { ListingNavigationProvider } from "@/components/ui/listing-navigation";
 import type { MoviesQuery } from "@/lib/api";
 import {
   createMovieFiltersKey,
@@ -62,62 +63,52 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
         </p>
       </div>
 
-      <MovieFilters
-        key={createMovieFiltersKey(query)}
-        query={query}
-        genres={connection.genres}
-        pathname="/watchlist"
-      />
+      <ListingNavigationProvider>
+        <MovieFilters
+          key={createMovieFiltersKey(query)}
+          query={query}
+          genres={connection.genres}
+          pathname="/watchlist"
+        />
 
-      <MovieListingResults
-        currentPage={connection.meta.page}
-        totalPages={connection.meta.totalPages}
-        pathname="/watchlist"
-        query={createMoviePaginationQuery(query)}
-      >
-        <div className="mt-8 flex items-center justify-between gap-4">
-          <p className="text-sm text-muted">
-            {connection.meta.totalItems}{" "}
-            {connection.meta.totalItems === 1 ? "movie" : "movies"}
-          </p>
-          <p className="text-sm text-subtle">
-            Page {connection.meta.page}
-            {connection.meta.totalPages > 0
-              ? ` of ${connection.meta.totalPages}`
-              : ""}
-          </p>
-        </div>
-
-        {connection.items.length === 0 ? (
-          <div className="mt-6">
-            <SectionEmptyState
-              title={
-                hasActiveMovieFilters(query)
-                  ? "No saved movies match these filters"
-                  : "Your watchlist is empty"
-              }
-              description={
-                hasActiveMovieFilters(query)
-                  ? "Adjust the title, genre, or release filter and try again."
-                  : "Browse the movie catalogue and save anything you want to watch later."
-              }
-            />
-          </div>
-        ) : (
-          <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            {connection.items.map((item) => (
-              <MovieGridCard key={item.id} movie={item.movie}>
-                <MovieWatchlistAction
-                  state="available"
-                  movieSlug={item.movie.slug}
-                  returnTo={returnTo}
-                  initiallySaved
-                />
-              </MovieGridCard>
-            ))}
-          </div>
-        )}
-      </MovieListingResults>
+        <MovieListingResults
+          currentPage={connection.meta.page}
+          totalItems={connection.meta.totalItems}
+          totalPages={connection.meta.totalPages}
+          pathname="/watchlist"
+          query={createMoviePaginationQuery(query)}
+        >
+          {connection.items.length === 0 ? (
+            <div className="mt-6">
+              <SectionEmptyState
+                title={
+                  hasActiveMovieFilters(query)
+                    ? "No saved movies match these filters"
+                    : "Your watchlist is empty"
+                }
+                description={
+                  hasActiveMovieFilters(query)
+                    ? "Adjust the title, genre, or release filter and try again."
+                    : "Browse the movie catalogue and save anything you want to watch later."
+                }
+              />
+            </div>
+          ) : (
+            <div className="mt-6 grid gap-5 lg:grid-cols-2">
+              {connection.items.map((item) => (
+                <MovieGridCard key={item.id} movie={item.movie}>
+                  <MovieWatchlistAction
+                    state="available"
+                    movieSlug={item.movie.slug}
+                    returnTo={returnTo}
+                    initiallySaved
+                  />
+                </MovieGridCard>
+              ))}
+            </div>
+          )}
+        </MovieListingResults>
+      </ListingNavigationProvider>
     </main>
   );
 }

@@ -7,6 +7,7 @@ import { PageErrorState } from "@/components/ui/page-error-state";
 import {
   getMovieDetails,
   getMovieReviewWorkspace,
+  type LatestReview,
   type MovieDetails,
   type MovieReviewWorkspaceConnection,
 } from "@/lib/api";
@@ -176,7 +177,7 @@ function getReviewActionProps(
   | { state: "unreleased"; releaseLabel: string }
   | { state: "unauthenticated"; returnTo: string }
   | { state: "unavailable" }
-  | { state: "reviewed"; reviewId: string }
+  | { state: "reviewed"; review: LatestReview }
   | { state: "available"; movieSlug: string } {
   if (movie.releaseDate > currentDate()) {
     return {
@@ -194,7 +195,7 @@ function getReviewActionProps(
   }
 
   return workspace.review
-    ? { state: "reviewed", reviewId: workspace.review.id }
+    ? { state: "reviewed", review: workspace.review }
     : { state: "available", movieSlug: movie.slug };
 }
 

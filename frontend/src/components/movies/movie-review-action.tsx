@@ -1,17 +1,20 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, type ReactNode } from "react";
 import { createReviewAction } from "@/app/actions/reviews";
+import { DeleteReviewModal } from "@/components/reviews/delete-review-modal";
+import { EditReviewForm } from "@/components/reviews/edit-review-form";
 import {
+  DangerButton,
   PrimaryButton,
   PrimaryButtonLink,
   SecondaryButton,
-  SecondaryButtonLink,
 } from "@/components/ui/action-button";
 import {
   ErrorToast,
   SuccessToast,
 } from "@/components/ui/feedback-toast";
+import type { LatestReview } from "@/lib/api";
 import { createAuthHref } from "@/lib/return-to";
 import type { ReviewFormState } from "@/lib/review-form";
 
@@ -33,7 +36,7 @@ type MovieReviewActionProps =
     }
   | {
       state: "reviewed";
-      reviewId: string;
+      review: LatestReview;
     }
   | {
       state: "available";
@@ -74,13 +77,7 @@ export function MovieReviewAction(props: MovieReviewActionProps) {
   }
 
   if (props.state === "reviewed") {
-    return (
-      <SecondaryButtonLink
-        href={`/reviews?edit=${encodeURIComponent(props.reviewId)}#review-${props.reviewId}`}
-      >
-        Edit your review
-      </SecondaryButtonLink>
-    );
+    return <MovieOwnedReviewActions review={props.review} />;
   }
 
   return <MovieReviewComposer movieSlug={props.movieSlug} />;
@@ -98,25 +95,85 @@ function MovieReviewComposer({ movieSlug }: { movieSlug: string }) {
   }
 
   return (
+    <MovieReviewPanel
+      title="Write your review"
+      description="Rate the movie from 1 to 10 and share what you thought."
+      onCancel={() => setOpen(false)}
+    >
+      <CreateMovieReviewForm movieSlug={movieSlug} />
+    </MovieReviewPanel>
+  );
+}
+
+function MovieOwnedReviewActions({ review }: { review: LatestReview }) {
+  const [mode, setMode] = useState<"idle" | "editing" | "deleting">(
+    "idle",
+  );
+
+  if (mode === "editing") {
+    return (
+      <MovieReviewPanel
+        title="Edit your review"
+        description={`Update your rating or thoughts on ${review.movie.title}.`}
+        onCancel={() => setMode("idle")}
+      >
+        <EditReviewForm review={review} className="mt-6" />
+      </MovieReviewPanel>
+    );
+  }
+
+  if (mode === "deleting") {
+    return (
+      <DeleteReviewModal
+        review={review}
+        onClose={() => setMode("idle")}
+      />
+    );
+  }
+
+  return (
+    <div className="flex flex-wrap justify-end gap-2">
+      <SecondaryButton onClick={() => setMode("editing")}>
+        Edit your review
+      </SecondaryButton>
+      <DangerButton onClick={() => setMode("deleting")}>
+        Delete review
+      </DangerButton>
+    </div>
+  );
+}
+
+function MovieReviewPanel({
+  title,
+  description,
+  onCancel,
+  children,
+}: {
+  title: string;
+  description: string;
+  onCancel: () => void;
+  children: ReactNode;
+}) {
+  return (
     <div className="w-full border-t border-border pt-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="text-xl font-semibold tracking-[-0.035em]">
-            Write your review
+            {title}
           </h3>
           <p className="mt-1 text-sm leading-6 text-muted">
-            Rate the movie from 1 to 10 and share what you thought.
+            {description}
           </p>
         </div>
         <SecondaryButton
-          onClick={() => setOpen(false)}
+          onClick={onCancel}
           className="min-h-10 px-3 py-2"
         >
           Cancel
         </SecondaryButton>
       </div>
 
-      <CreateMovieReviewForm movieSlug={movieSlug} />
+      {children}
     </div>
   );
 }

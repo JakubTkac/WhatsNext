@@ -1,17 +1,14 @@
 import { Suspense } from "react";
 import { ReviewCard } from "@/components/reviews/review-card";
-import { ReviewFilters } from "@/components/reviews/review-filters";
+import { PublicReviewFilters } from "@/components/reviews/review-filters";
+import { ReviewListingResults } from "@/components/reviews/review-listing-results";
 import { ReviewManager } from "@/components/reviews/review-manager";
 import {
   OwnedReviewsSkeleton,
-  ReviewResultsSkeleton,
+  ReviewResultsBlockSkeleton,
 } from "@/components/reviews/reviews-page-skeleton";
 import { PageErrorState } from "@/components/ui/page-error-state";
-import {
-  ListingNavigationProvider,
-  ListingPendingContent,
-} from "@/components/ui/listing-navigation";
-import { Pagination } from "@/components/ui/pagination";
+import { ListingNavigationProvider } from "@/components/ui/listing-navigation";
 import { SectionEmptyState } from "@/components/ui/section-state";
 import {
   getReviewsPage,
@@ -27,8 +24,8 @@ export default async function ReviewsPage({
   searchParams,
 }: ReviewsPageProps) {
   const params = await searchParams;
-  const query = parseReviewsQuery(params);
-  const myPage = readPositiveInteger(params.myPage);
+  const query = parsePublicReviewsQuery(params);
+  const ownedQuery = parseOwnedReviewsQuery(params);
   const editReviewId = readOptionalString(params.edit, 64);
 
   return (
@@ -43,38 +40,42 @@ export default async function ReviewsPage({
       </div>
 
       <ListingNavigationProvider>
-        <ReviewFilters
+        <PublicReviewFilters
           key={`${query.movie ?? ""}-${query.rating ?? ""}`}
           query={query}
+          preservedQuery={createOwnedReviewQueryParams(ownedQuery)}
         />
 
-        <ListingPendingContent fallback={<ReviewResultsSkeleton />}>
-          <Suspense fallback={<ReviewResultsSkeleton />}>
-            <PublicReviewResults query={query} myPage={myPage} />
-          </Suspense>
-        </ListingPendingContent>
+        <Suspense fallback={<ReviewResultsBlockSkeleton />}>
+          <PublicReviewResults
+            query={query}
+            ownedQuery={ownedQuery}
+          />
+        </Suspense>
       </ListingNavigationProvider>
 
-      <Suspense
-        key={`${myPage}-${editReviewId ?? "reviews"}`}
-        fallback={<OwnedReviewsSkeleton />}
-      >
-        <OwnedReviewWorkspace
-          query={query}
-          myPage={myPage}
-          editReviewId={editReviewId}
-        />
-      </Suspense>
+      <ListingNavigationProvider>
+        <Suspense
+          key={`${ownedQuery.page}-${ownedQuery.movie ?? ""}-${ownedQuery.rating ?? ""}-${editReviewId ?? "reviews"}`}
+          fallback={<OwnedReviewsSkeleton />}
+        >
+          <OwnedReviewWorkspace
+            publicQuery={query}
+            query={ownedQuery}
+            editReviewId={editReviewId}
+          />
+        </Suspense>
+      </ListingNavigationProvider>
     </main>
   );
 }
 
 async function PublicReviewResults({
   query,
-  myPage,
+  ownedQuery,
 }: {
   query: ReviewsQuery;
-  myPage: number;
+  ownedQuery: ReviewsQuery;
 }) {
   const connection = await getReviewsPage(query);
 
@@ -88,20 +89,16 @@ async function PublicReviewResults({
   }
 
   return (
-    <>
-      <div className="mt-8 flex items-center justify-between gap-4">
-        <p className="text-sm text-muted">
-          {connection.meta.totalItems}{" "}
-          {connection.meta.totalItems === 1 ? "review" : "reviews"}
-        </p>
-        <p className="text-sm text-subtle">
-          Page {connection.meta.page}
-          {connection.meta.totalPages > 0
-            ? ` of ${connection.meta.totalPages}`
-            : ""}
-        </p>
-      </div>
-
+    <ReviewListingResults
+      currentPage={connection.meta.page}
+      totalItems={connection.meta.totalItems}
+      totalPages={connection.meta.totalPages}
+      query={{
+        movie: query.movie,
+        rating: query.rating,
+        ...createOwnedReviewQueryParams(ownedQuery),
+      }}
+    >
       {connection.reviews.length === 0 ? (
         <div className="mt-6">
           <SectionEmptyState
@@ -116,59 +113,73 @@ async function PublicReviewResults({
           ))}
         </div>
       )}
-
-      <Pagination
-        currentPage={connection.meta.page}
-        totalPages={connection.meta.totalPages}
-        pathname="/reviews"
-        query={{
-          movie: query.movie,
-          rating: query.rating,
-          myPage: myPage > 1 ? myPage : undefined,
-        }}
-      />
-    </>
+    </ReviewListingResults>
   );
 }
 
 async function OwnedReviewWorkspace({
+  publicQuery,
   query,
-  myPage,
   editReviewId,
 }: {
+  publicQuery: ReviewsQuery;
   query: ReviewsQuery;
-  myPage: number;
   editReviewId?: string;
 }) {
-  const workspace = await getReviewWorkspace(myPage);
+  const workspace = await getReviewWorkspace(query);
 
   return (
     <ReviewManager
-      key={`${myPage}-${editReviewId ?? "reviews"}`}
+      key={`${query.page}-${query.movie ?? ""}-${query.rating ?? ""}-${editReviewId ?? "reviews"}`}
       connection={workspace}
+      query={query}
       initialEditReviewId={editReviewId}
-      paginationQuery={{
-        page: query.page > 1 ? query.page : undefined,
-        movie: query.movie,
-        rating: query.rating,
+      preservedQuery={{
+        page: publicQuery.page > 1 ? publicQuery.page : undefined,
+        movie: publicQuery.movie,
+        rating: publicQuery.rating,
       }}
     />
   );
 }
 
-function parseReviewsQuery(
+function parsePublicReviewsQuery(
   params: Record<string, string | string[] | undefined>,
 ): ReviewsQuery {
-  const rating = Number(readString(params.rating));
-
   return {
     page: readPositiveInteger(params.page),
     movie: readOptionalString(params.movie, 80),
-    rating:
-      Number.isInteger(rating) && rating >= 1 && rating <= 10
-        ? rating
-        : undefined,
+    rating: readRating(params.rating),
   };
+}
+
+function parseOwnedReviewsQuery(
+  params: Record<string, string | string[] | undefined>,
+): ReviewsQuery {
+  return {
+    page: readPositiveInteger(params.myPage),
+    movie: readOptionalString(params.myMovie, 80),
+    rating: readRating(params.myRating),
+  };
+}
+
+function createOwnedReviewQueryParams(
+  query: ReviewsQuery,
+): Record<string, string | number | undefined> {
+  return {
+    myPage: query.page > 1 ? query.page : undefined,
+    myMovie: query.movie,
+    myRating: query.rating,
+  };
+}
+
+function readRating(
+  value: string | string[] | undefined,
+): number | undefined {
+  const rating = Number(readString(value));
+  return Number.isInteger(rating) && rating >= 1 && rating <= 10
+    ? rating
+    : undefined;
 }
 
 function readPositiveInteger(value: string | string[] | undefined): number {
