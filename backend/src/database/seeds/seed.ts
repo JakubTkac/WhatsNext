@@ -44,6 +44,14 @@ async function main(): Promise<void> {
       );
     }
 
+    if (
+      process.argv.includes('--if-empty') &&
+      (await dataSource.getRepository(Movie).count()) > 0
+    ) {
+      console.log('Seed skipped: the movie catalogue is already initialized.');
+      return;
+    }
+
     const passwordHash = await hash(SEED_USER_PASSWORD, readBcryptRounds());
     const result = await dataSource.transaction((manager) =>
       seedDatabase(manager, passwordHash),
