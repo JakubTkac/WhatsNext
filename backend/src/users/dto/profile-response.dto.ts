@@ -94,13 +94,16 @@ export class ProfileResponseDto {
   @ApiProperty({ type: ProfileStatsDto })
   stats!: ProfileStatsDto;
 
-  @ApiProperty({ type: [ProfileReviewDto] })
+  @ApiProperty({
+    type: [ProfileReviewDto],
+    description: 'Up to four recent reviews ordered by creation date.',
+  })
   recentReviews!: ProfileReviewDto[];
 
   @ApiProperty({
     type: [ProfileWatchlistItemDto],
     description:
-      'Up to four upcoming watchlist movies ordered by release date.',
+      'Up to six upcoming watchlist movies ordered by release date.',
   })
   watchlistPreview!: ProfileWatchlistItemDto[];
 }

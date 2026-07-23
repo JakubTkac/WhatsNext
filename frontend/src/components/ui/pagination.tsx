@@ -40,7 +40,7 @@ export function Pagination({
 
   return (
     <nav
-      className={`mt-10 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 transition-opacity sm:flex sm:flex-wrap sm:justify-center ${
+      className={`mt-5 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-1.5 transition-opacity sm:flex sm:flex-wrap sm:justify-center ${
         navigationPending ? "pointer-events-none opacity-60" : ""
       }`}
       aria-label="Pagination"
@@ -63,7 +63,7 @@ export function Pagination({
         </SecondaryButtonLink>
       ) : (
         <span
-          className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-border px-3 py-2.5 text-sm font-semibold text-subtle opacity-60 sm:w-auto sm:px-5"
+          className="inline-flex min-h-8 w-full items-center justify-center rounded-lg border border-border px-2.5 py-1 text-xs font-semibold text-subtle opacity-60 sm:min-h-9 sm:w-auto sm:px-3"
           aria-disabled="true"
         >
           Previous
@@ -77,12 +77,12 @@ export function Pagination({
         Page {currentPage} of {totalPages}
       </span>
 
-      <div className="hidden items-center gap-2 sm:flex">
+      <div className="hidden items-center gap-1 sm:flex">
         {pages.map((page, index) =>
           page === null ? (
             <span
               key={`ellipsis-${index}`}
-              className="inline-flex min-h-11 min-w-8 items-center justify-center text-subtle"
+              className="inline-flex min-h-8 min-w-6 items-center justify-center text-subtle sm:min-h-9"
               aria-hidden="true"
             >
               &hellip;
@@ -90,7 +90,7 @@ export function Pagination({
           ) : page === currentPage ? (
             <span
               key={page}
-              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl bg-primary px-3 text-sm font-semibold text-white"
+              className="inline-flex min-h-8 min-w-8 items-center justify-center rounded-lg bg-primary px-2 text-xs font-semibold text-white sm:min-h-9 sm:min-w-9"
               aria-current="page"
             >
               {page}
@@ -106,7 +106,7 @@ export function Pagination({
                 hash,
               )}
               onClick={createNavigationHandler(navigate)}
-              className="min-w-11 px-3"
+              className="min-w-8 px-2 sm:min-w-9"
             >
               {page}
             </GhostButtonLink>
@@ -131,7 +131,7 @@ export function Pagination({
         </SecondaryButtonLink>
       ) : (
         <span
-          className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-border px-3 py-2.5 text-sm font-semibold text-subtle opacity-60 sm:w-auto sm:px-5"
+          className="inline-flex min-h-8 w-full items-center justify-center rounded-lg border border-border px-2.5 py-1 text-xs font-semibold text-subtle opacity-60 sm:min-h-9 sm:w-auto sm:px-3"
           aria-disabled="true"
         >
           Next

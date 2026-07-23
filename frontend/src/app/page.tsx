@@ -34,21 +34,12 @@ export default async function Home({ searchParams }: HomeProps) {
   const search = normalizeSearch(params.search);
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+    <main className="mx-auto w-full max-w-[92rem] flex-1 px-2 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-5">
       <JsonLd data={createWebsiteJsonLd()} />
-
-      <div className="max-w-3xl">
-        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl lg:text-7xl">
-          Find out What's Next
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-          Discover movies that are coming to theaters soon and keep them close
-        </p>
-      </div>
 
       <Suspense
         key={search}
-        fallback={<UpcomingMoviesSkeleton showFeatured={!search} />}
+        fallback={<UpcomingMoviesSkeleton />}
       >
         <UpcomingMoviesSection search={search} />
       </Suspense>
@@ -58,7 +49,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <Suspense fallback={<LatestReviewsSkeleton />}>
             <LatestReviewsSection />
           </Suspense>
-          <RecentlyViewedMovies className="mt-20" />
+          <RecentlyViewedMovies className="mt-8 pb-10" />
         </>
       )}
     </main>

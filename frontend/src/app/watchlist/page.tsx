@@ -63,12 +63,12 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
   }
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+    <main className="page-shell">
       <div className="max-w-3xl">
-        <h1 className="text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
+        <h1 className="page-title">
           Your watchlist
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+        <p className="page-lede">
           Every movie you saved, in one place.
         </p>
       </div>
@@ -90,7 +90,7 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
           query={createMoviePaginationQuery(query)}
         >
           {connection.items.length === 0 ? (
-            <div className="mt-6">
+            <div className="mt-3">
               <SectionEmptyState
                 title={
                   hasActiveMovieFilters(query)
@@ -105,7 +105,7 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
               />
             </div>
           ) : (
-            <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <div className="mt-3 grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
               {connection.items.map((item) => (
                 <MovieGridCard key={item.id} movie={item.movie}>
                   <MovieWatchlistAction
@@ -121,7 +121,7 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
         </MovieListingResults>
       </ListingNavigationProvider>
 
-      <RecentlyViewedMovies className="mt-20" />
+      <RecentlyViewedMovies className="mt-8" />
     </main>
   );
 }

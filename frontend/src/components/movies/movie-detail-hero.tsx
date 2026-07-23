@@ -17,15 +17,15 @@ export function MovieDetailHero({
   children: ReactNode;
 }) {
   return (
-    <section className="grid items-start gap-8 lg:grid-cols-[minmax(15rem,24rem)_minmax(0,1fr)] lg:gap-12">
-      <div className="relative aspect-[2/3] overflow-hidden rounded-[2rem] bg-secondary shadow-[0_24px_70px_rgba(15,23,42,0.14)] ring-1 ring-black/5">
+    <section className="grid items-start gap-3 sm:grid-cols-[minmax(11rem,15rem)_minmax(0,1fr)] sm:gap-5">
+      <div className="relative mx-auto aspect-[2/3] w-44 max-w-[52vw] overflow-hidden rounded-xl bg-secondary shadow-[0_8px_24px_rgba(15,23,42,0.12)] sm:mx-0 sm:w-full sm:max-w-none">
         {movie.posterUrl ? (
           <Image
             src={movie.posterUrl}
             alt={`${movie.title} poster`}
             fill
             loading="eager"
-            sizes="(max-width: 1023px) 90vw, 24rem"
+            sizes="(max-width: 767px) 11rem, 15rem"
             className="object-cover"
           />
         ) : (
@@ -33,8 +33,8 @@ export function MovieDetailHero({
         )}
       </div>
 
-      <div className="pt-1 lg:pt-6">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-medium text-muted">
+      <div>
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-muted">
           <time dateTime={movie.releaseDate}>
             {releaseDateFormatter.format(toUtcDate(movie.releaseDate))}
           </time>
@@ -44,47 +44,47 @@ export function MovieDetailHero({
           <span>{formatRuntime(movie.runtimeMinutes)}</span>
         </div>
 
-        <h1 className="mt-5 max-w-5xl text-5xl font-semibold leading-[0.98] tracking-[-0.065em] sm:text-6xl lg:text-7xl">
+        <h1 className="mt-2 max-w-5xl text-3xl font-semibold leading-none tracking-[-0.04em] sm:text-4xl lg:text-5xl">
           {movie.title}
         </h1>
 
-        <ul className="mt-7 flex flex-wrap gap-2" aria-label="Genres">
+        <ul className="mt-3 flex flex-wrap gap-1" aria-label="Genres">
           {movie.genres.map((genre) => (
             <li
               key={genre.slug}
-              className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-semibold text-primary"
+              className="rounded-full bg-blue-50 px-2 py-0.5 text-[0.65rem] font-semibold text-primary"
             >
               {genre.name}
             </li>
           ))}
         </ul>
 
-        <p className="mt-8 max-w-3xl text-base leading-8 text-muted sm:text-lg">
+        <p className="mt-3 max-w-3xl text-xs leading-5 text-muted sm:text-sm">
           {movie.description}
         </p>
 
-        <dl className="mt-9 grid max-w-xl grid-cols-2 divide-x divide-border border-y border-border py-5">
-          <div className="pr-6">
-            <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-subtle">
+        <dl className="mt-4 grid max-w-xl grid-cols-2 divide-x divide-border border-y border-border py-2.5">
+          <div className="pr-3">
+            <dt className="text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-subtle">
               Average rating
             </dt>
-            <dd className="mt-2 text-2xl font-semibold tracking-[-0.04em]">
+            <dd className="mt-1 text-lg font-semibold tracking-[-0.03em]">
               {movie.averageRating === null
                 ? "Not rated"
                 : `${movie.averageRating}/10`}
             </dd>
           </div>
-          <div className="pl-6">
-            <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-subtle">
+          <div className="pl-3">
+            <dt className="text-[0.6rem] font-semibold uppercase tracking-[0.1em] text-subtle">
               Community reviews
             </dt>
-            <dd className="mt-2 text-2xl font-semibold tracking-[-0.04em]">
+            <dd className="mt-1 text-lg font-semibold tracking-[-0.03em]">
               {movie.reviewCount}
             </dd>
           </div>
         </dl>
 
-        <div className="mt-7 flex flex-wrap gap-3">{children}</div>
+        <div className="mt-3 flex flex-wrap gap-2">{children}</div>
       </div>
     </section>
   );
@@ -93,42 +93,42 @@ export function MovieDetailHero({
 export function MovieDetailHeroSkeleton() {
   return (
     <section
-      className="grid items-start gap-8 lg:grid-cols-[minmax(15rem,24rem)_minmax(0,1fr)] lg:gap-12"
+      className="grid items-start gap-3 sm:grid-cols-[minmax(11rem,15rem)_minmax(0,1fr)] sm:gap-5"
       aria-hidden="true"
     >
-      <div className="skeleton-surface aspect-[2/3] overflow-hidden rounded-[2rem] shadow-[0_24px_70px_rgba(15,23,42,0.14)]" />
+      <div className="skeleton-surface mx-auto aspect-[2/3] w-44 max-w-[52vw] overflow-hidden rounded-xl shadow-[0_8px_24px_rgba(15,23,42,0.12)] sm:mx-0 sm:w-full sm:max-w-none" />
 
-      <div className="pt-1 lg:pt-6">
+      <div>
         <div className="flex items-center gap-3">
           <div className="skeleton-surface h-4 w-28 rounded-full" />
           <div className="skeleton-surface h-4 w-16 rounded-full" />
         </div>
 
-        <div className="skeleton-surface mt-5 h-16 w-full max-w-4xl rounded-xl lg:h-20" />
-        <div className="skeleton-surface mt-3 h-16 w-2/3 max-w-2xl rounded-xl lg:h-20" />
+        <div className="skeleton-surface mt-2 h-9 w-full max-w-4xl rounded-lg lg:h-12" />
+        <div className="skeleton-surface mt-2 h-9 w-2/3 max-w-2xl rounded-lg lg:h-12" />
 
-        <div className="mt-7 flex gap-2">
-          <div className="skeleton-surface h-7 w-20 rounded-full" />
-          <div className="skeleton-surface h-7 w-24 rounded-full" />
-          <div className="skeleton-surface h-7 w-16 rounded-full" />
+        <div className="mt-3 flex gap-1">
+          <div className="skeleton-surface h-4 w-14 rounded-full" />
+          <div className="skeleton-surface h-4 w-16 rounded-full" />
+          <div className="skeleton-surface h-4 w-12 rounded-full" />
         </div>
 
-        <div className="skeleton-surface mt-8 h-5 w-full max-w-3xl rounded-full" />
-        <div className="skeleton-surface mt-3 h-5 w-11/12 max-w-3xl rounded-full" />
-        <div className="skeleton-surface mt-3 h-5 w-3/5 max-w-xl rounded-full" />
+        <div className="skeleton-surface mt-3 h-3 w-full max-w-3xl rounded-full" />
+        <div className="skeleton-surface mt-2 h-3 w-11/12 max-w-3xl rounded-full" />
+        <div className="skeleton-surface mt-2 h-3 w-3/5 max-w-xl rounded-full" />
 
-        <div className="mt-9 grid max-w-xl grid-cols-2 divide-x divide-border border-y border-border py-5">
-          <div className="pr-6">
+        <div className="mt-4 grid max-w-xl grid-cols-2 divide-x divide-border border-y border-border py-2.5">
+          <div className="pr-3">
             <div className="skeleton-surface h-3 w-28 rounded-full" />
-            <div className="skeleton-surface mt-3 h-8 w-20 rounded-lg" />
+            <div className="skeleton-surface mt-2 h-6 w-16 rounded-md" />
           </div>
-          <div className="pl-6">
+          <div className="pl-3">
             <div className="skeleton-surface h-3 w-32 rounded-full" />
-            <div className="skeleton-surface mt-3 h-8 w-12 rounded-lg" />
+            <div className="skeleton-surface mt-2 h-6 w-10 rounded-md" />
           </div>
         </div>
 
-        <div className="skeleton-surface mt-7 h-11 w-44 rounded-xl" />
+        <div className="skeleton-surface mt-3 h-8 w-32 rounded-lg" />
       </div>
     </section>
   );

@@ -11,20 +11,19 @@ const filterSkeletons = [
 export function MovieListingPageSkeleton() {
   return (
     <main
-      className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16"
+      className="page-shell"
       aria-busy="true"
       aria-label="Loading movies"
     >
       <span className="sr-only">Loading movies</span>
 
       <div
-        className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end"
+        className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-end"
         aria-hidden="true"
       >
         <div className="w-full max-w-3xl">
-          <div className="skeleton-surface h-14 w-80 max-w-full rounded-xl sm:h-16" />
-          <div className="skeleton-surface mt-5 h-5 w-full max-w-2xl rounded-full" />
-          <div className="skeleton-surface mt-3 h-5 w-3/5 max-w-lg rounded-full" />
+          <div className="skeleton-surface h-8 w-64 max-w-full rounded-lg sm:h-9 lg:h-12" />
+          <div className="skeleton-surface mt-2 h-3 w-full max-w-2xl rounded-full" />
         </div>
         <div className="skeleton-surface h-4 w-20 rounded-full" />
       </div>
@@ -49,7 +48,7 @@ export function MovieResultsSkeleton({
     >
       <span className="sr-only">Loading movie results</span>
       <div
-        className="mt-6 grid gap-5 lg:grid-cols-2"
+        className="mt-3 grid gap-2.5 md:grid-cols-2 xl:grid-cols-3"
         aria-hidden="true"
       >
         {Array.from({ length: itemCount }, (_, index) => (
@@ -63,7 +62,7 @@ export function MovieResultsSkeleton({
 function MovieResultsSummarySkeleton() {
   return (
     <div
-      className="mt-8 flex items-center justify-between gap-4"
+      className="mt-4 flex items-center justify-between gap-3"
       aria-hidden="true"
     >
       <div className="skeleton-surface h-4 w-20 rounded-full" />
@@ -75,21 +74,24 @@ function MovieResultsSummarySkeleton() {
 function MovieFiltersSkeleton() {
   return (
     <div
-      className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(14rem,1.4fr)_1fr_1fr_1fr_auto] lg:items-end"
+      className="mt-4 grid gap-2 min-[36rem]:grid-cols-2 lg:grid-cols-[minmax(12rem,1.35fr)_1fr_1fr_1fr_auto] lg:items-end"
       aria-hidden="true"
     >
       {filterSkeletons.map((filter, index) => (
-        <div key={index} className={filter.fieldWidth}>
+        <div
+          key={index}
+          className={`${filter.fieldWidth} ${index === 0 ? "min-[36rem]:col-span-2 lg:col-span-1" : ""}`}
+        >
           <div
-            className={`skeleton-surface mb-2 h-4 rounded-full ${filter.labelWidth}`}
+            className={`skeleton-surface mb-1 h-3 rounded-full ${filter.labelWidth}`}
           />
-          <div className="skeleton-surface h-11 w-full rounded-xl" />
+          <div className="skeleton-surface h-9 w-full rounded-lg" />
         </div>
       ))}
 
-      <div className="flex gap-2 sm:col-span-2 lg:col-span-1">
-        <div className="skeleton-surface h-11 w-20 flex-1 rounded-xl lg:flex-none" />
-        <div className="skeleton-surface h-11 w-20 flex-1 rounded-xl lg:flex-none" />
+      <div className="flex gap-1.5">
+        <div className="skeleton-surface h-8 w-16 flex-1 rounded-lg lg:flex-none" />
+        <div className="skeleton-surface h-8 w-16 flex-1 rounded-lg lg:flex-none" />
       </div>
     </div>
   );

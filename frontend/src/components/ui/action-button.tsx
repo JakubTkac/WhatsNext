@@ -5,7 +5,7 @@ import type {
 } from "react";
 
 const baseClassName =
-  "inline-flex min-h-11 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,border-color,color,transform] duration-150 enabled:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary";
+  "inline-flex min-h-8 items-center justify-center rounded-lg px-2.5 py-1 text-xs font-semibold transition-[background-color,border-color,color,transform] duration-150 enabled:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary sm:min-h-9 sm:px-3";
 
 const primaryClassName =
   "bg-primary text-white shadow-sm hover:-translate-y-px hover:bg-primary-hover disabled:translate-y-0 disabled:opacity-65";

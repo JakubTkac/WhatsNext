@@ -18,8 +18,7 @@ import { createAuthHref } from "@/lib/return-to";
 import type { ReviewFormState } from "@/lib/review-form";
 
 const initialState: ReviewFormState = { successRevision: 0 };
-const fieldClassName =
-  "mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)] aria-invalid:border-danger aria-invalid:focus:border-danger aria-invalid:focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]";
+const fieldClassName = "dense-field mt-1";
 
 type MovieReviewActionProps =
   | {
@@ -116,7 +115,7 @@ function MovieOwnedReviewActions({ review }: { review: LatestReview }) {
         description={`Update your rating or thoughts on ${review.movie.title}.`}
         onCancel={() => setMode("idle")}
       >
-        <EditReviewForm review={review} className="mt-6" />
+        <EditReviewForm review={review} className="mt-3" />
       </MovieReviewPanel>
     );
   }
@@ -155,19 +154,19 @@ function MovieReviewPanel({
   children: ReactNode;
 }) {
   return (
-    <div className="w-full border-t border-border pt-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h3 className="text-xl font-semibold tracking-[-0.035em]">
+    <div className="w-full rounded-xl border border-border bg-secondary/45 p-2.5 sm:p-3">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+        <div className="min-w-0">
+          <h3 className="text-lg font-semibold tracking-[-0.025em]">
             {title}
           </h3>
-          <p className="mt-1 text-sm leading-6 text-muted">
+          <p className="mt-0.5 text-xs leading-5 text-muted">
             {description}
           </p>
         </div>
         <SecondaryButton
           onClick={onCancel}
-          className="min-h-10 px-3 py-2"
+          className="min-h-8 px-2.5 py-1"
         >
           Cancel
         </SecondaryButton>
@@ -191,7 +190,7 @@ function CreateMovieReviewForm({ movieSlug }: { movieSlug: string }) {
       action={formAction}
       noValidate
       onReset={(event) => event.preventDefault()}
-      className="mt-6"
+      className="mt-2.5"
     >
       <input type="hidden" name="movieSlug" value={movieSlug} />
 
@@ -199,9 +198,9 @@ function CreateMovieReviewForm({ movieSlug }: { movieSlug: string }) {
         <ErrorToast message={state.formError} />
       ) : null}
 
-      <div className="grid gap-5">
-        <label className="max-w-40">
-          <span className="text-sm font-semibold">Your rating</span>
+      <div className="grid gap-2.5 md:grid-cols-[8rem_minmax(0,1fr)_auto] md:items-end">
+        <label>
+          <span className="dense-label mb-0">Your rating</span>
           <select
             name="rating"
             value={rating}
@@ -221,26 +220,23 @@ function CreateMovieReviewForm({ movieSlug }: { movieSlug: string }) {
         </label>
 
         <label>
-          <span className="text-sm font-semibold">Review</span>
+          <span className="dense-label mb-0">Review</span>
           <textarea
             name="body"
             value={body}
             onChange={(event) => setBody(event.target.value)}
-            rows={5}
+            rows={2}
             maxLength={2000}
             placeholder="What worked, what did not, and who would you recommend it to?"
             aria-invalid={state.fieldErrors?.body ? true : undefined}
-            className={`${fieldClassName} resize-y leading-6`}
+            className={`${fieldClassName} resize-y leading-5`}
           />
           <FieldError message={state.fieldErrors?.body} />
         </label>
-      </div>
-
-      <div className="mt-5 flex justify-end">
         <PrimaryButton
           type="submit"
           disabled={pending}
-          className="disabled:cursor-wait"
+          className="w-full disabled:cursor-wait md:w-auto"
         >
           {pending ? "Publishing..." : "Publish review"}
         </PrimaryButton>
@@ -251,7 +247,7 @@ function CreateMovieReviewForm({ movieSlug }: { movieSlug: string }) {
 
 function FieldError({ message }: { message?: string }) {
   return message ? (
-    <p role="alert" className="mt-2 text-sm text-danger">
+    <p role="alert" className="mt-1 text-xs text-danger">
       {message}
     </p>
   ) : null;

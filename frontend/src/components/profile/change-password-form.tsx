@@ -42,7 +42,7 @@ export function ChangePasswordForm() {
         />
       ) : null}
 
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         <PasswordInput
           name="currentPassword"
           label="Current password"
@@ -68,16 +68,16 @@ export function ChangePasswordForm() {
           error={state.fieldErrors?.confirmPassword}
         />
 
-        <p className="text-xs leading-5 text-muted md:col-span-2 xl:col-span-3">
+        <p className="text-[0.7rem] leading-4 text-muted md:col-span-2 xl:col-span-3">
           Use 8 to 72 bytes with at least one letter and one number.
         </p>
       </div>
 
-      <div className="mt-6 flex justify-end border-t border-border pt-5">
+      <div className="mt-3 flex justify-end border-t border-border pt-3">
         <PrimaryButton
           type="submit"
           disabled={pending}
-          className="w-full disabled:cursor-wait sm:w-auto sm:min-w-48"
+          className="w-full disabled:cursor-wait sm:w-auto sm:min-w-40"
         >
           {pending ? "Changing password..." : "Change password"}
         </PrimaryButton>
@@ -105,7 +105,7 @@ function PasswordInput({
 
   return (
     <div>
-      <label htmlFor={name} className="text-sm font-semibold text-foreground">
+      <label htmlFor={name} className="dense-label mb-0">
         {label}
       </label>
       <input
@@ -119,10 +119,10 @@ function PasswordInput({
         required
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-150 focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)] aria-invalid:border-danger aria-invalid:focus:border-danger aria-invalid:focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]"
+        className="dense-field mt-1"
       />
       {error ? (
-        <p id={errorId} role="alert" className="mt-2 text-sm text-danger">
+        <p id={errorId} role="alert" className="mt-1 text-xs text-danger">
           {error}
         </p>
       ) : null}

@@ -40,19 +40,19 @@ export function Modal({ title, children, onClose }: ModalProps) {
           onClose();
         }
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-md overflow-hidden rounded-3xl border border-border bg-white p-0 text-foreground shadow-[0_28px_90px_rgba(15,23,42,0.28)] backdrop:bg-slate-950/55 backdrop:backdrop-blur-sm"
+      className="m-auto w-[calc(100%-1rem)] max-w-sm overflow-hidden rounded-xl border border-border bg-white p-0 text-foreground shadow-[0_16px_48px_rgba(15,23,42,0.24)] backdrop:bg-slate-950/55 backdrop:backdrop-blur-sm"
     >
-      <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-5 sm:px-6">
+      <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2.5 sm:px-4">
         <h2
           id={titleId}
-          className="text-xl font-semibold tracking-[-0.03em]"
+          className="text-lg font-semibold tracking-[-0.025em]"
         >
           {title}
         </h2>
         <IconButton
           onClick={onClose}
           aria-label="Close dialog"
-          className="h-9 w-9 text-xl"
+          className="h-8 w-8 text-lg"
         >
           <span aria-hidden="true">&times;</span>
         </IconButton>

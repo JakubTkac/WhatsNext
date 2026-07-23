@@ -4,11 +4,14 @@ import { SectionErrorState } from "@/components/ui/section-state";
 import { getLatestReviews } from "@/lib/api";
 
 export async function LatestReviewsSection() {
-  const connection = await getLatestReviews(3);
+  const connection = await getLatestReviews(4);
 
   if (!connection.online) {
     return (
-      <section className="mt-20" aria-label="Latest reviews error">
+      <section
+        className="mt-8 pb-10"
+        aria-label="Latest reviews error"
+      >
         <SectionErrorState
           title="Latest reviews are temporarily unavailable"
           description="The community activity could not be loaded. Please try again."
@@ -23,13 +26,13 @@ export async function LatestReviewsSection() {
 
   return (
     <section
-      className="mt-20"
+      className="mt-8 pb-10"
       aria-labelledby="latest-reviews-heading"
     >
-      <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
+      <div className="flex items-center justify-between gap-3">
         <h2
           id="latest-reviews-heading"
-          className="text-3xl font-semibold tracking-[-0.045em] sm:text-4xl"
+          className="text-xl font-semibold tracking-[-0.04em] sm:text-2xl"
         >
           Latest reviews
         </h2>
@@ -38,7 +41,7 @@ export async function LatestReviewsSection() {
         </SecondaryButtonLink>
       </div>
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-3">
+      <div className="mt-3 grid gap-2 min-[36rem]:grid-cols-2 xl:grid-cols-4">
         {connection.reviews.map((review) => (
           <ReviewCard key={review.id} review={review} />
         ))}

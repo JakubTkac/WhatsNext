@@ -34,6 +34,9 @@ export type CreateUserInput = {
   displayName: string;
 };
 
+const PROFILE_RECENT_REVIEWS_LIMIT = 4;
+const PROFILE_WATCHLIST_PREVIEW_LIMIT = 6;
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -230,7 +233,7 @@ export class UsersService {
       .where('review.userId = :userId', { userId })
       .orderBy('review.createdAt', 'DESC')
       .addOrderBy('review.id', 'DESC')
-      .take(3)
+      .take(PROFILE_RECENT_REVIEWS_LIMIT)
       .getMany();
   }
 
@@ -257,7 +260,7 @@ export class UsersService {
       .andWhere('movie.releaseDate >= CURRENT_DATE')
       .orderBy('movie.releaseDate', 'ASC')
       .addOrderBy('movie.id', 'ASC')
-      .take(4)
+      .take(PROFILE_WATCHLIST_PREVIEW_LIMIT)
       .getMany();
   }
 

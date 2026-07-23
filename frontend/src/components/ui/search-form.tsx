@@ -17,7 +17,7 @@ export function SearchForm() {
       onSubmit={(event) => {
         beginFormRouteTransition(event.currentTarget);
       }}
-      className="flex min-w-0 overflow-hidden rounded-xl border border-transparent bg-secondary p-1 transition-[border-color,box-shadow] duration-150 focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]"
+      className="flex min-w-0 overflow-hidden rounded-lg border border-transparent bg-secondary p-0.5 transition-[border-color,box-shadow] duration-150 focus-within:border-primary focus-within:shadow-[0_0_0_2px_rgba(37,99,235,0.12)]"
     >
       <label className="sr-only" htmlFor="site-search">
         Search all movies
@@ -29,9 +29,11 @@ export function SearchForm() {
         defaultValue={search}
         maxLength={80}
         placeholder="Search all movies"
-        className="min-w-0 flex-1 bg-transparent px-3 py-2.5 text-sm outline-none placeholder:text-subtle sm:px-4"
+        className="min-w-0 flex-1 bg-transparent px-2.5 py-1.5 text-xs outline-none placeholder:text-subtle sm:px-3 sm:text-sm"
       />
-      <PrimaryButton type="submit">Search</PrimaryButton>
+      <PrimaryButton type="submit" className="rounded-md sm:px-4">
+        Search
+      </PrimaryButton>
     </Form>
   );
 }

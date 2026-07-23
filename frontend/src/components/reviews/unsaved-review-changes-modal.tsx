@@ -17,15 +17,15 @@ export function UnsavedReviewChangesModal({
 }) {
   return (
     <Modal title="Discard unsaved changes?" onClose={onCancel}>
-      <div className="p-5 sm:p-6">
-        <p className="text-base leading-7 text-muted">
+      <div className="p-3 sm:p-4">
+        <p className="text-sm leading-5 text-muted">
           Your review of{" "}
           <span className="font-semibold text-foreground">
             &ldquo;{currentMovieTitle}&rdquo;
           </span>{" "}
           has unsaved changes.
         </p>
-        <p className="mt-2 text-sm leading-6 text-subtle">
+        <p className="mt-1 text-xs leading-5 text-subtle">
           {nextMovieTitle ? (
             <>
               Discard them and start editing &ldquo;{nextMovieTitle}
@@ -36,17 +36,17 @@ export function UnsavedReviewChangesModal({
           )}
         </p>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
           <SecondaryButton
             onClick={onCancel}
             autoFocus
-            className="min-h-12 w-full"
+            className="min-h-8 w-full"
           >
             Keep editing
           </SecondaryButton>
           <DangerButton
             onClick={onDiscard}
-            className="min-h-12 w-full"
+            className="min-h-8 w-full"
           >
             Discard changes
           </DangerButton>

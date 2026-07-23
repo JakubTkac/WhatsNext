@@ -20,7 +20,7 @@ export function LoginForm({ returnTo }: { returnTo: string }) {
   );
 
   return (
-    <form action={formAction} className="space-y-5" noValidate>
+    <form action={formAction} className="space-y-3" noValidate>
       <input type="hidden" name="returnTo" value={returnTo} />
       <AuthFormError message={state.formError} pending={pending} />
       <AuthField

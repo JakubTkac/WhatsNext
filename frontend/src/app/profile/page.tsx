@@ -37,7 +37,7 @@ export default async function ProfilePage() {
   const { profile } = connection;
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+    <main className="page-shell">
       <ProfileOverview
         displayName={profile.displayName}
         email={profile.email}
@@ -45,7 +45,7 @@ export default async function ProfilePage() {
         avatarUrl={profile.avatarUrl}
       />
 
-      <div className="mt-12 space-y-14">
+      <div className="mt-5 space-y-7">
         <WatchlistPreview
           items={profile.watchlistPreview}
           total={profile.stats.watchlistCount}

@@ -36,7 +36,7 @@ export function MovieWatchlistAction(props: MovieWatchlistActionProps) {
     return (
       <PrimaryButtonLink
         href={createAuthHref("/login", props.returnTo)}
-        className="min-h-10 px-3 py-2"
+        className="min-h-8 px-2.5 py-1"
       >
         Add to watchlist
       </PrimaryButtonLink>
@@ -47,7 +47,7 @@ export function MovieWatchlistAction(props: MovieWatchlistActionProps) {
     return (
       <SecondaryButton
         disabled
-        className="min-h-10 px-3 py-2"
+        className="min-h-8 px-2.5 py-1"
         title="The watchlist service is temporarily unavailable."
       >
         Watchlist unavailable
@@ -144,7 +144,7 @@ function WatchlistToggleAction({
         <SecondaryButton
           type="submit"
           disabled={pending}
-          className="min-h-10 px-3 py-2 disabled:cursor-wait"
+          className="min-h-8 px-2.5 py-1 disabled:cursor-wait"
         >
           {label}
         </SecondaryButton>
@@ -152,7 +152,7 @@ function WatchlistToggleAction({
         <PrimaryButton
           type="submit"
           disabled={pending}
-          className="min-h-10 px-3 py-2 disabled:cursor-wait"
+          className="min-h-8 px-2.5 py-1 disabled:cursor-wait"
         >
           {label}
         </PrimaryButton>

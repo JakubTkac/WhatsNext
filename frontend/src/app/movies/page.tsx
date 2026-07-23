@@ -67,12 +67,12 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
       : null;
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+    <main className="page-shell">
       <div className="max-w-3xl">
-        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
+        <h1 className="page-title">
           Browse movies
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+        <p className="page-lede">
           Find out when your movie is coming out
         </p>
       </div>
@@ -94,14 +94,14 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
           query={createMoviePaginationQuery(query)}
         >
           {connection.movies.length === 0 ? (
-            <div className="mt-6">
+            <div className="mt-3">
               <SectionEmptyState
                 title="No movies match these filters"
                 description="Adjust the title, genre, or release filter and try again."
               />
             </div>
           ) : (
-            <div className="mt-6 grid gap-5 lg:grid-cols-2">
+            <div className="mt-3 grid gap-2.5 md:grid-cols-2 xl:grid-cols-3">
               {connection.movies.map((movie) => (
                 <MovieGridCard key={movie.slug} movie={movie}>
                   {watchlistConnection.status === "online" ? (
@@ -129,7 +129,7 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
         </MovieListingResults>
       </ListingNavigationProvider>
 
-      <RecentlyViewedMovies className="mt-20" />
+      <RecentlyViewedMovies className="mt-8" />
     </main>
   );
 }

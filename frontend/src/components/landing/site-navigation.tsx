@@ -16,9 +16,9 @@ export function SiteNavigation() {
   return (
     <nav
       aria-label="Primary navigation"
-      className="border-t border-border/70"
+      className="border-t border-border/70 lg:border-0"
     >
-      <div className="mx-auto grid w-full max-w-[92rem] grid-cols-4 px-2 sm:flex sm:px-8 lg:px-12">
+      <div className="grid w-full grid-cols-4 px-1 lg:flex lg:px-0">
         {navigationItems.map((item) => {
           const active =
             pathname === item.href ||
@@ -29,7 +29,7 @@ export function SiteNavigation() {
               key={item.href}
               href={item.href}
               aria-current={active ? "page" : undefined}
-              className={`inline-flex min-h-12 items-center justify-center border-b-2 px-1 text-xs font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-4 sm:text-sm ${
+              className={`inline-flex min-h-9 items-center justify-center border-b-2 px-1 text-[0.7rem] font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primary sm:min-h-10 sm:px-3 sm:text-xs lg:min-h-9 ${
                 active
                   ? "border-primary text-primary"
                   : "border-transparent text-foreground hover:border-blue-200 hover:text-primary"

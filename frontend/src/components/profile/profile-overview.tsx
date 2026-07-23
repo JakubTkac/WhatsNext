@@ -33,19 +33,19 @@ export function ProfileOverview({
 
   return (
     <>
-      <section className="overflow-hidden rounded-[2rem] border border-border bg-secondary/55 px-6 py-8 shadow-[0_20px_60px_rgba(15,23,42,0.07)] sm:px-10 sm:py-10">
-        <div className="grid items-start gap-8 md:grid-cols-[auto_minmax(0,1fr)]">
+      <section className="overflow-hidden rounded-xl border border-border bg-secondary/55 p-3 shadow-[0_6px_18px_rgba(15,23,42,0.05)] sm:p-4">
+        <div className="grid items-start gap-3 min-[36rem]:grid-cols-[auto_minmax(0,1fr)]">
           <ProfileAvatar displayName={displayName} avatarUrl={avatarUrl} />
 
           <div className="min-w-0">
-            <h1 className="mt-2 truncate text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">
+            <h1 className="truncate text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">
               {displayName}
             </h1>
-            <p className="mt-2 text-sm text-muted">{email}</p>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-muted sm:text-base">
+            <p className="mt-0.5 text-xs text-muted">{email}</p>
+            <p className="mt-2 max-w-2xl text-xs leading-5 text-muted sm:text-sm">
               {bio ?? "Add bio in the 'Edit Profile' menu."}
             </p>
-            <div className="mt-7 flex flex-wrap gap-3 border-t border-border/80 pt-6">
+            <div className="mt-3 flex flex-wrap gap-2 border-t border-border/80 pt-3">
               {activeEditor === "details" ? (
                 <PrimaryButton
                   onClick={() => toggleEditor("details")}
@@ -88,16 +88,16 @@ export function ProfileOverview({
       {activeEditor ? (
         <section
           id="profile-editor-panel"
-          className="mx-auto mt-8 max-w-5xl overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)]"
+          className="mx-auto mt-4 max-w-5xl overflow-hidden rounded-xl border border-border bg-white shadow-[0_6px_18px_rgba(15,23,42,0.06)]"
         >
-          <div className="flex items-start justify-between gap-6 border-b border-border bg-secondary/45 px-5 py-5 sm:px-7 sm:py-6">
+          <div className="flex items-start justify-between gap-3 border-b border-border bg-secondary/45 px-3 py-3 sm:px-4">
             <div>
-              <h2 className="text-2xl font-semibold tracking-[-0.04em]">
+              <h2 className="text-xl font-semibold tracking-[-0.03em]">
                 {activeEditor === "details"
                   ? "Edit profile"
                   : "Change password"}
               </h2>
-              <p className="mt-2 text-sm leading-6 text-muted">
+              <p className="mt-1 text-xs leading-5 text-muted">
                 {activeEditor === "details"
                   ? "Update the information shown on your profile."
                   : "Confirm your current password before choosing a new one."}
@@ -106,13 +106,13 @@ export function ProfileOverview({
             <IconButton
               onClick={() => setActiveEditor(null)}
               aria-label="Close settings"
-              className="h-10 w-10 bg-white text-xl"
+              className="h-8 w-8 bg-white text-lg"
             >
               <span aria-hidden="true">&times;</span>
             </IconButton>
           </div>
 
-          <div className="px-5 py-6 sm:px-7 sm:py-7">
+          <div className="p-3 sm:p-4">
             {activeEditor === "details" ? (
               <ProfileEditForm
                 displayName={displayName}

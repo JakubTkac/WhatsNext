@@ -114,7 +114,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   const returnTo = `/movies/${movie.slug}`;
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+    <main className="page-shell">
       <JsonLd data={createMovieJsonLd(movie)} />
 
       <RecentlyViewedMovieTracker
@@ -136,22 +136,22 @@ export default async function MoviePage({ params }: MoviePageProps) {
       </MovieDetailHero>
 
       <section
-        className="mt-16 border-y border-border py-8 sm:mt-20 sm:py-10"
+        className="mt-6 border-y border-border py-3 sm:mt-8"
         aria-labelledby="write-review-heading"
       >
         <div>
           <h2
             id="write-review-heading"
-            className="text-2xl font-semibold tracking-[-0.04em] sm:text-3xl"
+            className="text-xl font-semibold tracking-[-0.035em] sm:text-2xl"
           >
             Review this movie
           </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
+          <p className="mt-1 max-w-2xl text-xs leading-5 text-muted">
             Reviews are available after release. Saving the movie to your
             watchlist is optional.
           </p>
         </div>
-        <div className="mt-6 flex justify-end">
+        <div className="mt-2 flex min-w-0 justify-end">
           <MovieReviewAction
             {...getReviewActionProps(movie, reviewWorkspace, returnTo)}
           />
@@ -159,18 +159,18 @@ export default async function MoviePage({ params }: MoviePageProps) {
       </section>
 
       <MovieReviews movie={movie} />
-      <RecentlyViewedMovies className="mt-20" />
+      <RecentlyViewedMovies className="mt-8" />
     </main>
   );
 }
 
 function MovieReviews({ movie }: { movie: MovieDetails }) {
   return (
-    <section className="mt-16 sm:mt-20" aria-labelledby="movie-reviews-heading">
+    <section className="mt-6 sm:mt-8" aria-labelledby="movie-reviews-heading">
       <div className="flex items-baseline justify-between gap-4">
         <h2
           id="movie-reviews-heading"
-          className="text-3xl font-semibold tracking-[-0.045em] sm:text-4xl"
+          className="text-2xl font-semibold tracking-[-0.035em] sm:text-3xl"
         >
           Reviews
         </h2>
@@ -181,13 +181,13 @@ function MovieReviews({ movie }: { movie: MovieDetails }) {
       </div>
 
       {movie.reviews.length === 0 ? (
-        <div className="mt-8 border-y border-border py-8">
-          <p className="text-sm leading-6 text-muted">
+        <div className="mt-3 border-y border-border py-3">
+          <p className="text-xs leading-5 text-muted">
             No reviews yet. Be the first to share your thoughts after release.
           </p>
         </div>
       ) : (
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-3 grid gap-2.5 min-[36rem]:grid-cols-2 xl:grid-cols-4">
           {movie.reviews.map((review) => (
             <ReviewCard
               key={review.id}

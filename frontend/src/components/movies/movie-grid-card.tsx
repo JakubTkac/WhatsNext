@@ -18,22 +18,22 @@ export function MovieGridCard({
   children?: ReactNode;
 }) {
   return (
-    <article className="group relative isolate flex h-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+    <article className="group relative isolate flex h-full min-w-0 overflow-hidden rounded-xl border border-border bg-white shadow-[0_5px_14px_rgba(15,23,42,0.05)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
       <Link
         href={`/movies/${movie.slug}`}
         aria-label={`View details for ${movie.title}`}
-        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary"
+        className="absolute inset-0 z-10 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary"
       >
         <span className="sr-only">View {movie.title}</span>
       </Link>
 
-      <div className="relative aspect-[2/3] w-32 shrink-0 bg-secondary sm:w-40">
+      <div className="relative aspect-[2/3] w-24 shrink-0 bg-secondary sm:w-28">
         {movie.posterUrl ? (
           <Image
             src={movie.posterUrl}
             alt={`${movie.title} poster`}
             fill
-            sizes="(max-width: 639px) 128px, 160px"
+            sizes="(max-width: 767px) 6rem, 7rem"
             className="object-cover transition-transform duration-300 group-hover:scale-[1.025]"
           />
         ) : (
@@ -41,33 +41,33 @@ export function MovieGridCard({
         )}
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+      <div className="flex min-w-0 flex-1 flex-col p-2.5 sm:p-3">
         <time
           dateTime={movie.releaseDate}
-          className="text-xs font-semibold uppercase tracking-[0.1em] text-primary"
+          className="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-primary"
         >
           {releaseDateFormatter.format(toUtcDate(movie.releaseDate))}
         </time>
-        <h2 className="mt-2 text-xl font-semibold leading-tight tracking-[-0.035em] transition-colors duration-150 group-hover:text-primary">
+        <h2 className="mt-1 text-base font-semibold leading-tight tracking-[-0.025em] transition-colors duration-150 group-hover:text-primary sm:text-lg">
           {movie.title}
         </h2>
-        <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted">
+        <p className="mt-1.5 line-clamp-2 text-xs leading-4 text-muted">
           {movie.description}
         </p>
 
-        <div className="mt-auto pt-5">
-          <ul className="flex flex-wrap gap-1.5" aria-label="Genres">
+        <div className="mt-auto pt-2">
+          <ul className="flex flex-wrap gap-1" aria-label="Genres">
             {movie.genres.slice(0, 3).map((genre) => (
               <li
                 key={genre.slug}
-                className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-primary"
+                className="rounded-full bg-blue-50 px-1.5 py-0.5 text-[0.65rem] font-medium text-primary"
               >
                 {genre.name}
               </li>
             ))}
           </ul>
-          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-subtle">
+          <div className="mt-1.5 flex flex-wrap items-center justify-between gap-1.5">
+            <p className="text-[0.65rem] text-subtle">
               {formatRuntime(movie.runtimeMinutes)}
             </p>
             {children ? (
@@ -83,26 +83,25 @@ export function MovieGridCard({
 export function MovieGridCardSkeleton() {
   return (
     <article
-      className="flex h-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
+      className="flex h-full overflow-hidden rounded-xl border border-border bg-white shadow-[0_5px_14px_rgba(15,23,42,0.05)]"
       aria-hidden="true"
     >
-      <div className="skeleton-surface aspect-[2/3] w-32 shrink-0 sm:w-40" />
+      <div className="skeleton-surface aspect-[2/3] w-24 shrink-0 sm:w-28" />
 
-      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
-        <div className="skeleton-surface h-3 w-24 rounded-full" />
-        <div className="skeleton-surface mt-3 h-6 w-2/3 rounded-lg" />
-        <div className="skeleton-surface mt-5 h-4 w-full rounded-full" />
-        <div className="skeleton-surface mt-3 h-4 w-11/12 rounded-full" />
-        <div className="skeleton-surface mt-3 h-4 w-3/5 rounded-full" />
+      <div className="flex min-w-0 flex-1 flex-col p-2.5 sm:p-3">
+        <div className="skeleton-surface h-2.5 w-20 rounded-full" />
+        <div className="skeleton-surface mt-2 h-5 w-2/3 rounded-md" />
+        <div className="skeleton-surface mt-2.5 h-3 w-full rounded-full" />
+        <div className="skeleton-surface mt-2 h-3 w-4/5 rounded-full" />
 
-        <div className="mt-auto pt-5">
-          <div className="flex gap-2">
-            <div className="skeleton-surface h-6 w-16 rounded-full" />
-            <div className="skeleton-surface h-6 w-20 rounded-full" />
+        <div className="mt-auto pt-2">
+          <div className="flex gap-1">
+            <div className="skeleton-surface h-4 w-12 rounded-full" />
+            <div className="skeleton-surface h-4 w-14 rounded-full" />
           </div>
-          <div className="mt-4 flex items-center justify-between gap-3">
-            <div className="skeleton-surface h-3 w-12 rounded-full" />
-            <div className="skeleton-surface h-10 w-44 rounded-xl" />
+          <div className="mt-2 flex items-center justify-between gap-2">
+            <div className="skeleton-surface h-2.5 w-10 rounded-full" />
+            <div className="skeleton-surface h-8 w-28 rounded-lg" />
           </div>
         </div>
       </div>

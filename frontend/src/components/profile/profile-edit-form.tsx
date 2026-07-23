@@ -46,7 +46,7 @@ export function ProfileEditForm({
         />
       ) : null}
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         <ProfileInput
           name="displayName"
           label="Display name"
@@ -70,7 +70,7 @@ export function ProfileEditForm({
         />
 
         <div className="md:col-span-2">
-          <label htmlFor="bio" className="text-sm font-semibold text-foreground">
+          <label htmlFor="bio" className="dense-label mb-0">
             Bio
           </label>
           <textarea
@@ -79,29 +79,29 @@ export function ProfileEditForm({
             value={bio}
             onChange={(event) => setBio(event.target.value)}
             maxLength={500}
-            rows={4}
+            rows={3}
             aria-invalid={state.fieldErrors?.bio ? true : undefined}
             aria-describedby={state.fieldErrors?.bio ? "bio-error" : "bio-help"}
-            className="mt-2 w-full resize-y rounded-xl border border-border bg-white px-4 py-3 text-sm leading-6 text-foreground outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-subtle focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)] aria-invalid:border-danger aria-invalid:focus:border-danger aria-invalid:focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]"
+            className="dense-field mt-1 resize-y leading-5"
             placeholder="Tell people what you like to watch"
           />
           {state.fieldErrors?.bio ? (
-            <p id="bio-error" role="alert" className="mt-2 text-sm text-danger">
+            <p id="bio-error" role="alert" className="mt-1 text-xs text-danger">
               {state.fieldErrors.bio}
             </p>
           ) : (
-            <p id="bio-help" className="mt-2 text-xs text-subtle">
+            <p id="bio-help" className="mt-1 text-[0.7rem] text-subtle">
               {bio.length}/500 characters
             </p>
           )}
         </div>
       </div>
 
-      <div className="mt-6 flex justify-end border-t border-border pt-5">
+      <div className="mt-3 flex justify-end border-t border-border pt-3">
         <PrimaryButton
           type="submit"
           disabled={pending || !isDirty}
-          className={`w-full sm:w-auto sm:min-w-44 ${
+          className={`w-full sm:w-auto sm:min-w-36 ${
             pending ? "cursor-wait" : !isDirty ? "cursor-not-allowed" : ""
           }`}
         >
@@ -135,7 +135,7 @@ function ProfileInput({
 
   return (
     <div>
-      <label htmlFor={name} className="text-sm font-semibold text-foreground">
+      <label htmlFor={name} className="dense-label mb-0">
         {label}
       </label>
       <input
@@ -149,10 +149,10 @@ function ProfileInput({
         required
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-150 focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)] aria-invalid:border-danger aria-invalid:focus:border-danger aria-invalid:focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]"
+        className="dense-field mt-1"
       />
       {error ? (
-        <p id={errorId} role="alert" className="mt-2 text-sm text-danger">
+        <p id={errorId} role="alert" className="mt-1 text-xs text-danger">
           {error}
         </p>
       ) : null}

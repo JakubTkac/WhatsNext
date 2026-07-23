@@ -13,8 +13,7 @@ import {
 import { useListingNavigation } from "@/components/ui/listing-navigation";
 import { useDebouncedFormSubmit } from "@/hooks/use-debounced-form-submit";
 
-const fieldClassName =
-  "min-h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]";
+const fieldClassName = "dense-field";
 
 const publicFilterParameters = {
   movie: "movie",
@@ -112,7 +111,7 @@ function ReviewFiltersForm({
       action="/reviews"
       onChange={scheduleSubmit}
       onSubmit={submit}
-      className="mt-8 grid gap-4 sm:grid-cols-[minmax(14rem,1fr)_12rem_auto] sm:items-end"
+      className="mt-4 grid gap-2 min-[36rem]:grid-cols-[minmax(12rem,1fr)_9rem_auto] min-[36rem]:items-end"
       aria-label={parameters.ariaLabel}
       aria-busy={navigation?.pending}
     >
@@ -128,7 +127,7 @@ function ReviewFiltersForm({
       )}
 
       <label className="block">
-        <span className="mb-2 block text-sm font-semibold">Movie</span>
+        <span className="dense-label">Movie</span>
         <input
           name={parameters.movie}
           type="search"
@@ -140,7 +139,7 @@ function ReviewFiltersForm({
       </label>
 
       <label className="block">
-        <span className="mb-2 block text-sm font-semibold">Rating</span>
+        <span className="dense-label">Rating</span>
         <select
           name={parameters.rating}
           defaultValue={query.rating ? String(query.rating) : ""}
@@ -157,18 +156,18 @@ function ReviewFiltersForm({
         </select>
       </label>
 
-      <div className="flex gap-2">
+      <div className="flex gap-1.5">
         <PrimaryButton
           type="submit"
           disabled={navigation?.pending}
-          className="flex-1 sm:flex-none"
+          className="flex-1 min-[36rem]:flex-none"
         >
           {navigation?.pending ? "Loading..." : "Apply"}
         </PrimaryButton>
         <SecondaryButtonLink
           href={createResetHref(parameters, preservedQuery)}
           onClick={reset}
-          className="flex-1 sm:flex-none"
+          className="flex-1 min-[36rem]:flex-none"
         >
           Reset
         </SecondaryButtonLink>

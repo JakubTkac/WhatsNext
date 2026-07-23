@@ -70,7 +70,7 @@ export function ProfileAvatar({
       <UnstyledButton
         onClick={() => setModalOpen(true)}
         aria-label="Change profile photo"
-        className="group relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-blue-100 text-4xl font-bold text-primary ring-8 ring-white focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary sm:h-32 sm:w-32"
+        className="group relative flex h-18 w-18 shrink-0 items-center justify-center overflow-hidden rounded-full bg-blue-100 text-2xl font-bold text-primary ring-4 ring-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:h-20 sm:w-20"
       >
         {displayedAvatarUrl ? (
           <Image
@@ -78,13 +78,13 @@ export function ProfileAvatar({
             alt={`${displayName}'s avatar`}
             fill
             unoptimized
-            sizes="128px"
+            sizes="5rem"
             className="object-cover transition-transform duration-200 group-hover:scale-[1.03]"
           />
         ) : (
           <span aria-hidden="true">{initial}</span>
         )}
-        <span className="absolute inset-0 flex items-center justify-center bg-slate-950/0 text-sm font-semibold text-white opacity-0 transition-[background-color,opacity] duration-200 group-hover:bg-slate-950/55 group-hover:opacity-100 group-focus-visible:bg-slate-950/55 group-focus-visible:opacity-100">
+        <span className="absolute inset-0 flex items-center justify-center bg-slate-950/0 text-[0.65rem] font-semibold text-white opacity-0 transition-[background-color,opacity] duration-200 group-hover:bg-slate-950/55 group-hover:opacity-100 group-focus-visible:bg-slate-950/55 group-focus-visible:opacity-100">
           Change photo
         </span>
       </UnstyledButton>
@@ -149,7 +149,7 @@ function AvatarActionsModal({
 
   return (
     <Modal title="Change profile photo" onClose={onClose}>
-      <div className="space-y-3 p-5 sm:p-6">
+      <div className="space-y-2 p-3 sm:p-4">
         <form
           ref={uploadFormRef}
           action={formAction}
@@ -178,7 +178,7 @@ function AvatarActionsModal({
             aria-describedby={
               state.fieldError ? "avatar-action-error" : "avatar-action-help"
             }
-            className="min-h-14 w-full disabled:cursor-wait"
+            className="min-h-8 w-full disabled:cursor-wait"
           >
             {pending ? "Saving..." : "Upload photo"}
           </SecondaryButton>
@@ -187,14 +187,14 @@ function AvatarActionsModal({
             <p
               id="avatar-action-error"
               role="alert"
-              className="text-center text-sm text-danger"
+              className="text-center text-xs text-danger"
             >
               {state.fieldError}
             </p>
           ) : (
             <p
               id="avatar-action-help"
-              className="text-center text-xs text-subtle"
+              className="text-center text-[0.7rem] text-subtle"
             >
               PNG, JPEG, or WebP up to 256 KB.
             </p>
@@ -207,7 +207,7 @@ function AvatarActionsModal({
             <DangerButton
               type="submit"
               disabled={pending}
-              className="min-h-14 w-full disabled:cursor-wait"
+              className="min-h-8 w-full disabled:cursor-wait"
             >
               Remove current photo
             </DangerButton>
@@ -217,7 +217,7 @@ function AvatarActionsModal({
         <SecondaryButton
           onClick={onClose}
           disabled={pending}
-          className="min-h-14 w-full disabled:cursor-wait"
+          className="min-h-8 w-full disabled:cursor-wait"
         >
           Cancel
         </SecondaryButton>

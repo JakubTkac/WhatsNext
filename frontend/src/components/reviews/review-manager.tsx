@@ -109,14 +109,14 @@ export function ReviewManager({
 
   if (connection.status === "unauthenticated") {
     return (
-      <section className="mt-20 rounded-2xl border border-border bg-secondary/55 p-6 sm:p-8">
-        <h2 className="text-2xl font-semibold tracking-[-0.04em]">
+      <section className="mt-8 rounded-xl border border-border bg-secondary/55 p-3 sm:p-4">
+        <h2 className="text-xl font-semibold tracking-[-0.03em]">
           Write your own review
         </h2>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
+        <p className="mt-1 max-w-2xl text-xs leading-5 text-muted">
           Log in to review released movies and manage your existing reviews.
         </p>
-        <div className="mt-5">
+        <div className="mt-3">
           <PrimaryButtonLink href={createAuthHref("/login", "/reviews")}>
             Log in
           </PrimaryButtonLink>
@@ -127,7 +127,7 @@ export function ReviewManager({
 
   if (connection.status === "unavailable") {
     return (
-      <section className="mt-20" aria-label="Review management error">
+      <section className="mt-8" aria-label="Review management error">
         <SectionErrorState
           title="Your review tools are temporarily unavailable"
           description="Public reviews are still available. Try loading your review tools again."
@@ -166,23 +166,23 @@ export function ReviewManager({
 
   return (
     <section
-      className="mt-20"
+      className="mt-8"
       aria-labelledby="your-reviews-heading"
       aria-busy={pending}
     >
       <div className="flex items-baseline justify-between gap-4">
         <h2
           id="your-reviews-heading"
-          className="text-3xl font-semibold tracking-[-0.045em] sm:text-4xl"
+          className="text-2xl font-semibold tracking-[-0.035em] sm:text-3xl"
         >
           Your reviews
         </h2>
         <div className="text-right">
-          <p className="text-sm text-muted">
+          <p className="text-xs text-muted">
             {connection.meta.totalItems}{" "}
             {connection.meta.totalItems === 1 ? "review" : "reviews"}
           </p>
-          <p className="mt-1 text-sm text-subtle" aria-live="polite">
+          <p className="mt-0.5 text-xs text-subtle" aria-live="polite">
             Page {displayedPage}
             {connection.meta.totalPages > 0
               ? ` of ${connection.meta.totalPages}`
@@ -254,8 +254,8 @@ function OwnedReviews({
 }) {
   if (reviews.length === 0) {
     return (
-      <div className="mt-8 border-y border-border py-8">
-        <p className="text-sm leading-6 text-muted">
+      <div className="mt-3 border-y border-border py-3">
+        <p className="text-xs leading-5 text-muted">
           {hasActiveFilters
             ? "No reviews match these filters."
             : "You have not reviewed a movie yet."}
@@ -265,7 +265,7 @@ function OwnedReviews({
   }
 
   return (
-    <div className="mt-8 divide-y divide-border border-y border-border">
+    <div className="mt-3 divide-y divide-border border-y border-border">
       {reviews.map((review) => (
         <OwnedReviewRow
           key={review.id}
@@ -304,29 +304,29 @@ function OwnedReviewRow({
   return (
     <article
       id={`review-${review.id}`}
-      className="min-h-[8.75rem] scroll-mt-40 py-6"
+      className="scroll-mt-32 py-3"
     >
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <h3 className="text-lg font-semibold">
+          <h3 className="text-base font-semibold">
             <Link
               href={`/movies/${review.movie.slug}`}
-              className="inline-flex min-h-12 items-center rounded-sm py-2 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="inline-flex min-h-8 items-center rounded-sm py-1 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               {review.movie.title}
             </Link>
           </h3>
-          <p className="mt-1 text-sm font-semibold text-primary">
+          <p className="text-xs font-semibold text-primary">
             {review.rating}/10
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-1.5">
           <SecondaryButton
             onClick={() => {
               setConfirmingDelete(false);
               onRequestEditorChange(review.id);
             }}
-            className="min-h-10 px-3 py-2"
+            className="min-h-8 px-2.5 py-1"
           >
             {editing ? "Cancel edit" : "Edit"}
           </SecondaryButton>
@@ -334,7 +334,7 @@ function OwnedReviewRow({
             onClick={() => {
               setConfirmingDelete(true);
             }}
-            className="min-h-10 px-3 py-2"
+            className="min-h-8 px-2.5 py-1"
           >
             Delete
           </DangerButton>
@@ -342,7 +342,7 @@ function OwnedReviewRow({
       </div>
 
       {!editing ? (
-        <p className="mt-4 max-w-4xl text-sm leading-6 text-muted">
+        <p className="mt-2 max-w-4xl text-xs leading-5 text-muted">
           {review.body}
         </p>
       ) : null}

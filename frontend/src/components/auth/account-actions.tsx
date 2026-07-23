@@ -17,7 +17,10 @@ export function LoggedOutAccountActions() {
       <GhostButtonLink href={createAuthHref("/login", returnTo)}>
         Log in
       </GhostButtonLink>
-      <PrimaryButtonLink href={createAuthHref("/register", returnTo)}>
+      <PrimaryButtonLink
+        href={createAuthHref("/register", returnTo)}
+        className="sm:px-4"
+      >
         Register
       </PrimaryButtonLink>
     </nav>
@@ -30,7 +33,9 @@ export function LogoutAction() {
   return (
     <form action={logoutAction}>
       <input type="hidden" name="returnTo" value={returnTo} />
-      <GhostButton type="submit">Log out</GhostButton>
+      <GhostButton type="submit">
+        Log out
+      </GhostButton>
     </form>
   );
 }

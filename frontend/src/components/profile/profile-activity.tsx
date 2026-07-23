@@ -29,7 +29,10 @@ export function WatchlistPreview({
       {items.length === 0 ? (
         <EmptyActivity message="You have no upcoming releases in your watchlist." />
       ) : (
-        <UpcomingMovieCarousel movies={items.map((item) => item.movie)} />
+        <UpcomingMovieCarousel
+          movies={items.map((item) => item.movie)}
+          extendedDescription={false}
+        />
       )}
     </section>
   );
@@ -62,7 +65,7 @@ export function ReviewsPreview({
       {reviews.length === 0 ? (
         <EmptyActivity message="You have not reviewed a movie yet. Your latest reviews will appear here." />
       ) : (
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <div className="mt-3 grid gap-2.5 min-[36rem]:grid-cols-2 xl:grid-cols-4">
           {reviews.map((review) => (
             <ReviewCard
               key={review.id}
@@ -91,15 +94,15 @@ function ActivitySectionHeading({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+    <div className="flex flex-col items-start justify-between gap-2 min-[36rem]:flex-row min-[36rem]:items-end">
       <div>
         <h2
           id={id}
-          className="text-2xl font-semibold tracking-[-0.04em] sm:text-3xl"
+          className="text-xl font-semibold tracking-[-0.03em] sm:text-2xl"
         >
           {title}
         </h2>
-        <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+        <p className="mt-0.5 text-xs leading-4 text-muted">{description}</p>
       </div>
       {children}
     </div>
@@ -108,7 +111,7 @@ function ActivitySectionHeading({
 
 function EmptyActivity({ message }: { message: string }) {
   return (
-    <div className="mt-6 border-y border-border py-8 text-sm leading-6 text-muted">
+    <div className="mt-3 border-y border-border py-3 text-xs leading-5 text-muted">
       {message}
     </div>
   );

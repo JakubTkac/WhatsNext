@@ -96,27 +96,27 @@ function FeedbackToast({
     <div
       role={tone === "error" ? "alert" : "status"}
       aria-live={tone === "error" ? "assertive" : "polite"}
-      className={`notification-toast fixed inset-x-4 bottom-5 z-[100] mx-auto flex min-h-24 w-auto max-w-2xl items-center gap-4 rounded-2xl border bg-white px-5 py-4 shadow-[0_24px_70px_rgba(15,23,42,0.22)] sm:bottom-8 sm:px-6 ${styles.border}`}
+      className={`notification-toast fixed inset-x-2 bottom-2 z-[100] mx-auto flex min-h-14 w-auto max-w-xl items-center gap-2.5 rounded-xl border bg-white px-3 py-2.5 shadow-[0_12px_36px_rgba(15,23,42,0.2)] sm:bottom-4 sm:px-4 ${styles.border}`}
     >
       <span
-        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${styles.icon}`}
+        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${styles.icon}`}
         aria-hidden="true"
       >
         {icon}
       </span>
       <div className="min-w-0 flex-1">
         <p
-          className={`text-xs font-bold uppercase tracking-[0.14em] ${styles.label}`}
+            className={`text-[0.65rem] font-bold uppercase tracking-[0.1em] ${styles.label}`}
         >
           {label}
         </p>
-        <p className="mt-1 text-base font-semibold leading-6 text-foreground sm:text-lg">
+        <p className="mt-0.5 text-xs font-semibold leading-4 text-foreground sm:text-sm">
           {message}
         </p>
       </div>
       <IconButton
         onClick={() => setVisible(false)}
-        className="h-10 w-10 text-xl text-subtle"
+        className="h-8 w-8 text-lg text-subtle"
         aria-label="Dismiss notification"
       >
         <span aria-hidden="true">&times;</span>

@@ -31,7 +31,7 @@ export function AuthField({
 
   return (
     <div>
-      <label htmlFor={name} className="text-sm font-semibold text-foreground">
+      <label htmlFor={name} className="dense-label mb-0">
         {label}
       </label>
       <input
@@ -47,10 +47,10 @@ export function AuthField({
         onChange={onChange}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="mt-2 w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-foreground outline-none transition-[border-color,box-shadow] duration-150 placeholder:text-subtle focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)] aria-invalid:border-danger aria-invalid:focus:border-danger aria-invalid:focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]"
+        className="dense-field mt-1"
       />
       {error ? (
-        <p id={errorId} role="alert" className="mt-2 text-sm text-danger">
+        <p id={errorId} role="alert" className="mt-1 text-xs text-danger">
           {error}
         </p>
       ) : null}

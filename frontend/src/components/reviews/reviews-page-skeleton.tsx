@@ -6,16 +6,15 @@ const defaultOwnedReviewSkeletonCount = 5;
 export function ReviewsPageSkeleton() {
   return (
     <main
-      className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16"
+      className="page-shell"
       aria-busy="true"
       aria-label="Loading reviews"
     >
       <span className="sr-only">Loading reviews</span>
 
       <div className="max-w-3xl" aria-hidden="true">
-        <div className="skeleton-surface h-14 w-80 max-w-full rounded-xl sm:h-16" />
-        <div className="skeleton-surface mt-5 h-5 w-full max-w-2xl rounded-full" />
-        <div className="skeleton-surface mt-3 h-5 w-3/5 max-w-lg rounded-full" />
+        <div className="skeleton-surface h-8 w-64 max-w-full rounded-lg sm:h-9 lg:h-12" />
+        <div className="skeleton-surface mt-2 h-3 w-full max-w-2xl rounded-full" />
       </div>
 
       <ReviewFiltersSkeleton />
@@ -31,7 +30,7 @@ export function ReviewResultsBlockSkeleton() {
   return (
     <>
       <div
-        className="mt-8 flex items-center justify-between gap-4"
+        className="mt-4 flex items-center justify-between gap-3"
         aria-hidden="true"
       >
         <div className="skeleton-surface h-4 w-20 rounded-full" />
@@ -54,7 +53,7 @@ export function ReviewResultsSkeleton({
     >
       <span className="sr-only">Loading review results</span>
       <div
-        className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"
+        className="mt-3 grid gap-2.5 min-[36rem]:grid-cols-2 xl:grid-cols-4"
         aria-hidden="true"
       >
         {Array.from({ length: itemCount }, (_, index) => (
@@ -68,20 +67,20 @@ export function ReviewResultsSkeleton({
 function ReviewFiltersSkeleton() {
   return (
     <div
-      className="mt-8 grid gap-4 sm:grid-cols-[minmax(14rem,1fr)_12rem_auto] sm:items-end"
+      className="mt-4 grid gap-2 min-[36rem]:grid-cols-[minmax(12rem,1fr)_9rem_auto] min-[36rem]:items-end"
       aria-hidden="true"
     >
       <div>
-        <div className="skeleton-surface mb-2 h-4 w-12 rounded-full" />
-        <div className="skeleton-surface h-11 w-full rounded-xl" />
+        <div className="skeleton-surface mb-1 h-3 w-12 rounded-full" />
+        <div className="skeleton-surface h-9 w-full rounded-lg" />
       </div>
       <div>
-        <div className="skeleton-surface mb-2 h-4 w-12 rounded-full" />
-        <div className="skeleton-surface h-11 w-full rounded-xl" />
+        <div className="skeleton-surface mb-1 h-3 w-12 rounded-full" />
+        <div className="skeleton-surface h-9 w-full rounded-lg" />
       </div>
-      <div className="flex gap-2">
-        <div className="skeleton-surface h-11 w-20 flex-1 rounded-xl sm:flex-none" />
-        <div className="skeleton-surface h-11 w-20 flex-1 rounded-xl sm:flex-none" />
+      <div className="flex gap-1.5">
+        <div className="skeleton-surface h-8 w-16 flex-1 rounded-lg min-[36rem]:flex-none" />
+        <div className="skeleton-surface h-8 w-16 flex-1 rounded-lg min-[36rem]:flex-none" />
       </div>
     </div>
   );
@@ -89,12 +88,12 @@ function ReviewFiltersSkeleton() {
 
 export function OwnedReviewsSkeleton() {
   return (
-    <section className="mt-20" aria-hidden="true">
+    <section className="mt-8" aria-hidden="true">
       <div className="flex items-baseline justify-between gap-4">
-        <div className="skeleton-surface h-10 w-52 rounded-xl" />
+        <div className="skeleton-surface h-8 w-44 rounded-lg" />
         <div>
           <div className="skeleton-surface h-4 w-20 rounded-full" />
-          <div className="skeleton-surface mt-2 h-4 w-16 rounded-full" />
+          <div className="skeleton-surface mt-1 h-3 w-16 rounded-full" />
         </div>
       </div>
 
@@ -112,7 +111,7 @@ export function OwnedReviewResultsSkeleton({
 }) {
   return (
     <div
-      className="mt-8 divide-y divide-border border-y border-border"
+      className="mt-3 divide-y divide-border border-y border-border"
       aria-busy="true"
       aria-label="Loading your reviews"
     >
@@ -120,17 +119,17 @@ export function OwnedReviewResultsSkeleton({
       {Array.from({ length: itemCount }, (_, index) => (
         <div
           key={index}
-          className="flex min-h-[8.75rem] items-start justify-between gap-4 py-6"
+          className="flex items-start justify-between gap-2 py-3"
           aria-hidden="true"
         >
           <div className="min-w-0 flex-1">
-            <div className="skeleton-surface h-5 w-56 max-w-full rounded-full" />
-            <div className="skeleton-surface mt-2 h-4 w-12 rounded-full" />
-            <div className="skeleton-surface mt-4 h-6 w-2/3 max-w-3xl rounded-full" />
+            <div className="skeleton-surface h-4 w-56 max-w-full rounded-full" />
+            <div className="skeleton-surface mt-1 h-3 w-12 rounded-full" />
+            <div className="skeleton-surface mt-2 h-4 w-2/3 max-w-3xl rounded-full" />
           </div>
-          <div className="flex gap-2">
-            <div className="skeleton-surface h-10 w-16 rounded-xl" />
-            <div className="skeleton-surface h-10 w-20 rounded-xl" />
+          <div className="flex gap-1.5">
+            <div className="skeleton-surface h-8 w-14 rounded-lg" />
+            <div className="skeleton-surface h-8 w-16 rounded-lg" />
           </div>
         </div>
       ))}

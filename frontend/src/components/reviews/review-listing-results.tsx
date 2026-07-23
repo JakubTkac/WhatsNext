@@ -37,11 +37,11 @@ export function ReviewListingResults({
 
   return (
     <div aria-busy={pending}>
-      <div className="mt-8 flex items-center justify-between gap-4">
-        <p className="text-sm text-muted">
+      <div className="mt-4 flex items-center justify-between gap-3">
+        <p className="text-xs text-muted">
           {totalItems} {totalItems === 1 ? "review" : "reviews"}
         </p>
-        <p className="text-sm text-subtle" aria-live="polite">
+        <p className="text-xs text-subtle" aria-live="polite">
           Page {displayedPage}
           {totalPages > 0 ? ` of ${totalPages}` : ""}
         </p>

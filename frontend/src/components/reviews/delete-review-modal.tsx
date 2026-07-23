@@ -34,36 +34,36 @@ export function DeleteReviewModal({
 
   return (
     <Modal title="Delete review" onClose={handleClose}>
-      <form action={formAction} className="p-5 sm:p-6">
+      <form action={formAction} className="p-3 sm:p-4">
         <input type="hidden" name="reviewId" value={review.id} />
         <input type="hidden" name="movieSlug" value={review.movie.slug} />
         <input type="hidden" name="returnTo" value={returnTo} />
         {state.formError && !pending ? (
           <ErrorToast message={state.formError} />
         ) : null}
-        <p className="text-base leading-7 text-muted">
+        <p className="text-sm leading-5 text-muted">
           Are you sure you want to delete your review of{" "}
           <span className="font-semibold text-foreground">
             &ldquo;{review.movie.title}&rdquo;
           </span>?
         </p>
-        <p className="mt-2 text-sm text-subtle">
+        <p className="mt-1 text-xs text-subtle">
           This action cannot be undone.
         </p>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
           <SecondaryButton
             onClick={handleClose}
             disabled={pending}
             autoFocus
-            className="min-h-12 w-full disabled:cursor-wait"
+            className="min-h-8 w-full disabled:cursor-wait"
           >
             Go back
           </SecondaryButton>
           <DangerButton
             type="submit"
             disabled={pending}
-            className="min-h-12 w-full disabled:cursor-wait"
+            className="min-h-8 w-full disabled:cursor-wait"
           >
             {pending ? "Deleting..." : "Delete review"}
           </DangerButton>

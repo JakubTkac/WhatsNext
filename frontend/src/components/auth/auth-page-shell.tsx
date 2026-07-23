@@ -16,20 +16,20 @@ export function AuthPageShell({
   footer,
 }: AuthPageShellProps) {
   return (
-    <main className="mx-auto grid w-full max-w-6xl flex-1 items-start gap-10 px-4 py-12 sm:px-8 sm:py-16 lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-16 lg:px-12 lg:py-24">
-      <div className="max-w-xl lg:pt-10">
-        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
+    <main className="mx-auto grid w-full max-w-5xl flex-1 content-start items-start gap-4 px-2 py-3 sm:px-4 sm:py-4 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-8 lg:px-6 lg:py-6">
+      <div className="max-w-xl lg:pt-4">
+        <h1 className="page-title">
           {title}
         </h1>
-        <p className="mt-5 text-base leading-7 text-muted sm:text-lg">
+        <p className="page-lede">
           {description}
         </p>
-        {aside ? <div className="mt-8">{aside}</div> : null}
+        {aside ? <div className="mt-3">{aside}</div> : null}
       </div>
 
-      <section className="rounded-2xl border border-border bg-secondary/55 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] sm:p-8">
+      <section className="rounded-xl border border-border bg-secondary/55 p-3 shadow-[0_8px_24px_rgba(15,23,42,0.06)] sm:p-4">
         {children}
-        <div className="mt-6 border-t border-border pt-5 text-sm text-muted">
+        <div className="mt-3 border-t border-border pt-3 text-xs text-muted">
           {footer}
         </div>
       </section>

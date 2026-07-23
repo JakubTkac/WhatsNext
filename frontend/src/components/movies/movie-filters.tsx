@@ -19,8 +19,7 @@ type MovieFiltersProps = {
   pathname: string;
 };
 
-const fieldClassName =
-  "min-h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]";
+const fieldClassName = "dense-field";
 
 export function MovieFilters({
   query,
@@ -70,11 +69,11 @@ export function MovieFilters({
       action={pathname}
       onChange={scheduleSubmit}
       onSubmit={submit}
-      className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(14rem,1.4fr)_1fr_1fr_1fr_auto] lg:items-end"
+      className="mt-4 grid gap-2 min-[36rem]:grid-cols-2 lg:grid-cols-[minmax(12rem,1.35fr)_1fr_1fr_1fr_auto] lg:items-end"
       aria-busy={navigation?.pending}
     >
-      <label className="block">
-        <span className="mb-2 block text-sm font-semibold">Title</span>
+      <label className="block min-[36rem]:col-span-2 lg:col-span-1">
+        <span className="dense-label">Title</span>
         <input
           name="search"
           type="search"
@@ -86,7 +85,7 @@ export function MovieFilters({
       </label>
 
       <label className="block">
-        <span className="mb-2 block text-sm font-semibold">Genre</span>
+        <span className="dense-label">Genre</span>
         <select
           name="genre"
           defaultValue={query.genre ?? ""}
@@ -102,7 +101,7 @@ export function MovieFilters({
       </label>
 
       <label className="block">
-        <span className="mb-2 block text-sm font-semibold">Release</span>
+        <span className="dense-label">Release</span>
         <select
           name="release"
           defaultValue={query.release}
@@ -115,7 +114,7 @@ export function MovieFilters({
       </label>
 
       <label className="block">
-        <span className="mb-2 block text-sm font-semibold">Sort</span>
+        <span className="dense-label">Sort</span>
         <select
           name="sort"
           defaultValue={query.sort}
@@ -123,11 +122,11 @@ export function MovieFilters({
         >
           <option value="releaseAsc">Release date: earliest</option>
           <option value="releaseDesc">Release date: latest</option>
-          <option value="titleAsc">Title: A–Z</option>
+          <option value="titleAsc">Title: A-Z</option>
         </select>
       </label>
 
-      <div className="flex gap-2 sm:col-span-2 lg:col-span-1">
+      <div className="flex gap-1.5 lg:col-span-1">
         <PrimaryButton
           type="submit"
           disabled={navigation?.pending}

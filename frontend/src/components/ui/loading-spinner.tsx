@@ -7,13 +7,13 @@ export function LoadingSpinner({
     <div
       role="status"
       aria-label={label}
-      className="flex flex-col items-center gap-4"
+      className="flex flex-col items-center gap-2"
     >
       <span
-        className="h-12 w-12 animate-spin rounded-full border-4 border-blue-100 border-t-primary motion-reduce:animate-none"
+        className="h-8 w-8 animate-spin rounded-full border-[3px] border-blue-100 border-t-primary motion-reduce:animate-none"
         aria-hidden="true"
       />
-      <p className="text-sm font-semibold text-muted">Loading...</p>
+      <p className="text-xs font-semibold text-muted">Loading...</p>
     </div>
   );
 }

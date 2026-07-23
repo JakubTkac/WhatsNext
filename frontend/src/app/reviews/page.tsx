@@ -38,12 +38,12 @@ export default async function ReviewsPage({
   const editReviewId = readOptionalString(params.edit, 64);
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+    <main className="page-shell">
       <div className="max-w-3xl">
-        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
+        <h1 className="page-title">
           Movie reviews
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+        <p className="page-lede">
           Browse what the community has watched and rated recently.
         </p>
       </div>
@@ -110,14 +110,14 @@ async function PublicReviewResults({
       }}
     >
       {connection.reviews.length === 0 ? (
-        <div className="mt-6">
+        <div className="mt-3">
           <SectionEmptyState
             title="No reviews match these filters"
             description="Adjust the movie title or rating and try again."
           />
         </div>
       ) : (
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-3 grid gap-2.5 min-[36rem]:grid-cols-2 xl:grid-cols-4">
           {connection.reviews.map((review) => (
             <ReviewCard key={review.id} review={review} />
           ))}

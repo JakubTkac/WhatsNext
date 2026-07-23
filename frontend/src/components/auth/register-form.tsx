@@ -21,7 +21,7 @@ export function RegisterForm({ returnTo }: { returnTo: string }) {
   );
 
   return (
-    <form action={formAction} className="space-y-5" noValidate>
+    <form action={formAction} className="space-y-3" noValidate>
       <input type="hidden" name="returnTo" value={returnTo} />
       <AuthFormError message={state.formError} pending={pending} />
       <AuthField
@@ -59,7 +59,7 @@ export function RegisterForm({ returnTo }: { returnTo: string }) {
         onChange={(event) => setPassword(event.target.value)}
         error={state.fieldErrors?.password}
       />
-      <p className="text-xs leading-5 text-muted">
+      <p className="text-[0.7rem] leading-4 text-muted">
         Use 8 to 72 bytes with at least one letter and one number.
       </p>
       <AuthSubmitButton pending={pending} pendingLabel="Creating account...">

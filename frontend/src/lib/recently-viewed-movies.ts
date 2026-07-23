@@ -2,7 +2,7 @@ export const RECENTLY_VIEWED_MOVIES_STORAGE_KEY =
   "whatsnext:recently-viewed-movies:v1";
 export const RECENTLY_VIEWED_MOVIES_UPDATED_EVENT =
   "whatsnext:recently-viewed-movies-updated";
-export const RECENTLY_VIEWED_MOVIES_LIMIT = 10;
+export const RECENTLY_VIEWED_MOVIES_LIMIT = 14;
 const RECENTLY_VIEWED_MOVIES_STORAGE_VERSION = 1;
 
 const movieSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;

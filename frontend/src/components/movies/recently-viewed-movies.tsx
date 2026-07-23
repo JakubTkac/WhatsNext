@@ -26,16 +26,16 @@ export function RecentlyViewedMovies({
     >
       <h2
         id="recently-viewed-movies-heading"
-        className="text-2xl font-semibold tracking-[-0.04em] sm:text-3xl"
+        className="text-xl font-semibold tracking-[-0.035em] sm:text-2xl"
       >
         Recently viewed movies
       </h2>
-      <p className="mt-2 text-sm leading-6 text-muted">
+      <p className="mt-0.5 text-xs leading-4 text-muted">
         Quickly return to the movies you visited most recently.
       </p>
 
       {movies.length === 0 ? (
-        <div className="mt-8">
+        <div className="mt-2.5">
           <SectionEmptyState
             title="No recently viewed movies yet"
             description="Open a movie to start building your recently viewed list."
@@ -43,32 +43,32 @@ export function RecentlyViewedMovies({
         </div>
       ) : (
         <HorizontalScroller label="Recently viewed movies">
-          <ol className="flex w-max min-w-full gap-4 pr-3">
+          <ol className="flex w-max min-w-full gap-2">
             {movies.map((movie, index) => (
               <li
                 key={movie.slug}
-                className="w-28 flex-none snap-start sm:w-32 lg:w-36"
+                className="w-20 flex-none snap-start sm:w-24 lg:w-28"
               >
                 <Link
                   href={`/movies/${movie.slug}`}
                   aria-label={`View details for ${movie.title}`}
-                  className="group block rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                  className="group block rounded-lg focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
                 >
-                  <div className="relative aspect-[2/3] overflow-hidden rounded-xl bg-secondary shadow-[0_10px_26px_rgba(15,23,42,0.11)] ring-1 ring-black/5 transition-[box-shadow,transform] duration-200 group-hover:-translate-y-1 group-hover:shadow-[0_16px_34px_rgba(15,23,42,0.17)]">
+                  <div className="relative aspect-[2/3] overflow-hidden rounded-lg bg-secondary shadow-[0_6px_16px_rgba(15,23,42,0.1)] ring-1 ring-black/5 transition-[box-shadow,transform] duration-200 group-hover:-translate-y-0.5 group-hover:shadow-[0_10px_22px_rgba(15,23,42,0.16)]">
                     {movie.posterUrl ? (
                       <Image
                         src={movie.posterUrl}
                         alt={`${movie.title} poster`}
                         fill
                         loading={index === 0 ? "eager" : "lazy"}
-                        sizes="(max-width: 639px) 7rem, (max-width: 1023px) 8rem, 9rem"
+                        sizes="(max-width: 767px) 5rem, (max-width: 1228px) 6rem, 7rem"
                         className="object-cover transition-transform duration-300 group-hover:scale-[1.025]"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-hover" />
                     )}
                   </div>
-                  <p className="mt-3 line-clamp-2 text-sm font-semibold leading-5 transition-colors group-hover:text-primary">
+                  <p className="mt-1.5 line-clamp-2 text-xs font-semibold leading-4 transition-colors group-hover:text-primary">
                     {movie.title}
                   </p>
                 </Link>
