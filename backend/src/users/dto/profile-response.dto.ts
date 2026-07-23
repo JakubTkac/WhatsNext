@@ -8,6 +8,14 @@ export class ProfileStatsDto {
   reviewCount!: number;
 }
 
+export class ProfileGenreDto {
+  @ApiProperty({ example: 'Science Fiction' })
+  name!: string;
+
+  @ApiProperty({ example: 'science-fiction' })
+  slug!: string;
+}
+
 export class ProfileMovieDto {
   @ApiProperty({ example: 'the-odyssey-2026' })
   slug!: string;
@@ -20,6 +28,12 @@ export class ProfileMovieDto {
 
   @ApiProperty({ example: null, nullable: true, type: String })
   posterUrl!: string | null;
+
+  @ApiProperty({ example: 148, nullable: true, type: Number })
+  runtimeMinutes!: number | null;
+
+  @ApiProperty({ type: [ProfileGenreDto] })
+  genres!: ProfileGenreDto[];
 }
 
 export class ProfileReviewDto {
@@ -78,6 +92,10 @@ export class ProfileResponseDto {
   @ApiProperty({ type: [ProfileReviewDto] })
   recentReviews!: ProfileReviewDto[];
 
-  @ApiProperty({ type: [ProfileWatchlistItemDto] })
+  @ApiProperty({
+    type: [ProfileWatchlistItemDto],
+    description:
+      'Up to four upcoming watchlist movies ordered by release date.',
+  })
   watchlistPreview!: ProfileWatchlistItemDto[];
 }

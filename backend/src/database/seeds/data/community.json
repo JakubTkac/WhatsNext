@@ -37,6 +37,13 @@
       "avatarUrl": null
     }
   ],
+  "watchedMovies": [
+    {
+      "userEmail": "user123@example.com",
+      "movieSlug": "the-odyssey-2026",
+      "watchedAt": "2026-07-22T19:30:00.000Z"
+    }
+  ],
   "reviews": [
     {
       "userEmail": "sofia.novak@example.com",

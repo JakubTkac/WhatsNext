@@ -6,10 +6,12 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QueryFailedError, Repository } from 'typeorm';
+import { Movie } from '../movies/entities/movie.entity';
 import { Review } from '../reviews/entities/review.entity';
 import { WatchlistItem } from '../watchlist/entities/watchlist-item.entity';
 import { isValidAvatarDataUrl } from './avatar-data';
 import {
+  ProfileMovieDto,
   ProfileResponseDto,
   ProfileReviewDto,
   ProfileWatchlistItemDto,
@@ -178,6 +180,7 @@ export class UsersService {
     return this.reviewRepository
       .createQueryBuilder('review')
       .innerJoinAndSelect('review.movie', 'movie')
+      .leftJoinAndSelect('movie.genres', 'genre')
       .select([
         'review.id',
         'review.rating',
@@ -188,6 +191,10 @@ export class UsersService {
         'movie.title',
         'movie.releaseDate',
         'movie.posterUrl',
+        'movie.runtimeMinutes',
+        'genre.id',
+        'genre.name',
+        'genre.slug',
       ])
       .where('review.userId = :userId', { userId })
       .orderBy('review.createdAt', 'DESC')
@@ -200,6 +207,7 @@ export class UsersService {
     return this.watchlistRepository
       .createQueryBuilder('watchlistItem')
       .innerJoinAndSelect('watchlistItem.movie', 'movie')
+      .leftJoinAndSelect('movie.genres', 'genre')
       .select([
         'watchlistItem.id',
         'watchlistItem.addedAt',
@@ -209,10 +217,15 @@ export class UsersService {
         'movie.title',
         'movie.releaseDate',
         'movie.posterUrl',
+        'movie.runtimeMinutes',
+        'genre.id',
+        'genre.name',
+        'genre.slug',
       ])
       .where('watchlistItem.userId = :userId', { userId })
-      .orderBy('watchlistItem.addedAt', 'DESC')
-      .addOrderBy('watchlistItem.id', 'DESC')
+      .andWhere('movie.releaseDate >= CURRENT_DATE')
+      .orderBy('movie.releaseDate', 'ASC')
+      .addOrderBy('movie.id', 'ASC')
       .take(4)
       .getMany();
   }
@@ -224,12 +237,7 @@ function toProfileReview(review: Review): ProfileReviewDto {
     rating: review.rating,
     body: review.body,
     createdAt: review.createdAt.toISOString(),
-    movie: {
-      slug: review.movie.slug,
-      title: review.movie.title,
-      releaseDate: review.movie.releaseDate,
-      posterUrl: review.movie.posterUrl,
-    },
+    movie: toProfileMovie(review.movie),
   };
 }
 
@@ -240,12 +248,21 @@ function toProfileWatchlistItem(
     id: watchlistItem.id,
     addedAt: watchlistItem.addedAt.toISOString(),
     watchedAt: watchlistItem.watchedAt?.toISOString() ?? null,
-    movie: {
-      slug: watchlistItem.movie.slug,
-      title: watchlistItem.movie.title,
-      releaseDate: watchlistItem.movie.releaseDate,
-      posterUrl: watchlistItem.movie.posterUrl,
-    },
+    movie: toProfileMovie(watchlistItem.movie),
+  };
+}
+
+function toProfileMovie(movie: Movie): ProfileMovieDto {
+  return {
+    slug: movie.slug,
+    title: movie.title,
+    releaseDate: movie.releaseDate,
+    posterUrl: movie.posterUrl,
+    runtimeMinutes: movie.runtimeMinutes,
+    genres: movie.genres.map((genre) => ({
+      name: genre.name,
+      slug: genre.slug,
+    })),
   };
 }
 

@@ -1,49 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { MovieSummaryDto } from './dto/movie-summary.dto';
+import { MoviesQueryDto } from './dto/movies-query.dto';
+import { MoviesResponseDto } from './dto/movies-response.dto';
 import { UpcomingMoviesQueryDto } from './dto/upcoming-movies-query.dto';
 import { UpcomingMoviesResponseDto } from './dto/upcoming-movies-response.dto';
 import { Movie } from './entities/movie.entity';
+import { MoviesRepository } from './movies.repository';
 
 @Injectable()
 export class MoviesService {
-  constructor(
-    @InjectRepository(Movie)
-    private readonly movieRepository: Repository<Movie>,
-  ) {}
+  constructor(private readonly moviesRepository: MoviesRepository) {}
+
+  async findAll(query: MoviesQueryDto): Promise<MoviesResponseDto> {
+    const page = await this.moviesRepository.findPage(query);
+
+    return {
+      items: page.items.map((movie) => this.toSummary(movie)),
+      meta: {
+        page: query.page,
+        limit: query.limit,
+        totalItems: page.totalItems,
+        totalPages: Math.ceil(page.totalItems / query.limit),
+      },
+      genres: page.genres.map((genre) => ({
+        name: genre.name,
+        slug: genre.slug,
+      })),
+    };
+  }
 
   async findUpcoming(
     query: UpcomingMoviesQueryDto,
   ): Promise<UpcomingMoviesResponseDto> {
-    const moviesQuery = this.movieRepository
-      .createQueryBuilder('movie')
-      .leftJoinAndSelect('movie.genres', 'genre')
-      .select([
-        'movie.id',
-        'movie.slug',
-        'movie.title',
-        'movie.description',
-        'movie.releaseDate',
-        'movie.runtimeMinutes',
-        'movie.posterUrl',
-        'genre.id',
-        'genre.name',
-        'genre.slug',
-      ])
-      .where('movie.release_date >= CURRENT_DATE');
-
-    if (query.search) {
-      moviesQuery.andWhere('STRPOS(LOWER(movie.title), LOWER(:search)) > 0', {
-        search: query.search,
-      });
-    }
-
-    const movies = await moviesQuery
-      .orderBy('movie.releaseDate', 'ASC')
-      .addOrderBy('movie.title', 'ASC')
-      .take(query.limit)
-      .getMany();
+    const movies = await this.moviesRepository.findUpcoming(query);
 
     return {
       items: movies.map((movie) => this.toSummary(movie)),

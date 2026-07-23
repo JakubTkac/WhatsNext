@@ -10,6 +10,7 @@ export function httpLoggerMiddleware(
   next: NextFunction,
 ): void {
   const path = request.path;
+  const requestUrl = request.originalUrl;
 
   if (path.startsWith('/docs')) {
     next();
@@ -22,7 +23,7 @@ export function httpLoggerMiddleware(
   response.once('finish', () => {
     writeRequestLog(
       request.method,
-      path,
+      requestUrl,
       response.statusCode,
       startedAt,
       false,
@@ -33,7 +34,7 @@ export function httpLoggerMiddleware(
     if (!response.writableFinished) {
       writeRequestLog(
         request.method,
-        path,
+        requestUrl,
         response.statusCode,
         startedAt,
         true,
@@ -45,7 +46,7 @@ export function httpLoggerMiddleware(
 
   function writeRequestLog(
     method: string,
-    requestPath: string,
+    url: string,
     statusCode: number,
     start: bigint,
     aborted: boolean,
@@ -60,12 +61,12 @@ export function httpLoggerMiddleware(
     );
 
     if (aborted) {
-      logger.warn(`${method} ${requestPath} aborted after ${durationMs}ms`);
+      logger.warn(`${method} ${url} aborted after ${durationMs}ms`);
       return;
     }
 
     const statusText = STATUS_CODES[statusCode] ?? 'Unknown status';
-    const message = `${method} ${requestPath} ${statusCode} ${statusText} ${durationMs}ms`;
+    const message = `${method} ${url} ${statusCode} ${statusText} ${durationMs}ms`;
 
     if (statusCode >= 500) {
       logger.error(message);

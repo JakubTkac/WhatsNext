@@ -138,6 +138,39 @@ async function seedDatabase(
   let reviewsCreated = 0;
   let reviewsUpdated = 0;
 
+  for (const watchedMovieData of communityData.watchedMovies) {
+    const user = userByEmail.get(watchedMovieData.userEmail);
+    const movie = movieBySlug.get(watchedMovieData.movieSlug);
+
+    if (!user || !movie) {
+      throw new Error(
+        `Watched-movie seed references missing user or movie: ${watchedMovieData.userEmail}, ${watchedMovieData.movieSlug}.`,
+      );
+    }
+
+    if (movie.releaseDate > watchedMovieData.watchedAt.slice(0, 10)) {
+      throw new Error(
+        `Watched-movie seed marks ${watchedMovieData.movieSlug} watched before its release date.`,
+      );
+    }
+
+    const watchedAt = new Date(watchedMovieData.watchedAt);
+    const relationKey = createRelationKey(user.id, movie.id);
+    const existingWatchlistItem = watchlistByUserAndMovie.get(relationKey);
+    const watchlistItem =
+      existingWatchlistItem ?? watchlistRepository.create();
+
+    watchlistItem.userId = user.id;
+    watchlistItem.movieId = movie.id;
+    watchlistItem.addedAt = new Date(
+      watchedAt.getTime() - 7 * 24 * 60 * 60 * 1000,
+    );
+    watchlistItem.watchedAt = watchedAt;
+
+    const savedWatchlistItem = await watchlistRepository.save(watchlistItem);
+    watchlistByUserAndMovie.set(relationKey, savedWatchlistItem);
+  }
+
   for (const reviewData of communityData.reviews) {
     const user = userByEmail.get(reviewData.userEmail);
     const movie = movieBySlug.get(reviewData.movieSlug);
@@ -203,7 +236,8 @@ async function seedDatabase(
     moviesUpdated,
     usersCreated,
     usersUpdated,
-    watchlistItems: communityData.reviews.length,
+    watchlistItems:
+      communityData.watchedMovies.length + communityData.reviews.length,
     reviewsCreated,
     reviewsUpdated,
   };

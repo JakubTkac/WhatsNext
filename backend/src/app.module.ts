@@ -11,6 +11,7 @@ import { Review } from './reviews/entities/review.entity';
 import { ReviewsModule } from './reviews/reviews.module';
 import { User } from './users/entities/user.entity';
 import { WatchlistItem } from './watchlist/entities/watchlist-item.entity';
+import { WatchlistModule } from './watchlist/watchlist.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { WatchlistItem } from './watchlist/entities/watchlist-item.entity';
     AuthModule,
     MoviesModule,
     ReviewsModule,
+    WatchlistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
