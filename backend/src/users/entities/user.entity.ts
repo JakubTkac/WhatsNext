@@ -32,8 +32,7 @@ export class User {
   bio!: string | null;
 
   @Column({
-    type: 'varchar',
-    length: 2048,
+    type: 'text',
     name: 'avatar_url',
     nullable: true,
   })

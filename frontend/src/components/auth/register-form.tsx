@@ -22,7 +22,7 @@ export function RegisterForm() {
 
   return (
     <form action={formAction} className="space-y-5" noValidate>
-      <AuthFormError message={state.formError} />
+      <AuthFormError message={state.formError} pending={pending} />
       <AuthField
         name="displayName"
         label="Display name"

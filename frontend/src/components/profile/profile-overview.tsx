@@ -1,0 +1,155 @@
+"use client";
+
+import { useState } from "react";
+import { ChangePasswordForm } from "@/components/profile/change-password-form";
+import { ProfileAvatar } from "@/components/profile/profile-avatar";
+import { ProfileEditForm } from "@/components/profile/profile-edit-form";
+
+type ProfileEditor = "details" | "password";
+
+type ProfileOverviewProps = {
+  displayName: string;
+  email: string;
+  bio: string | null;
+  avatarUrl: string | null;
+  createdAt: string;
+  stats: {
+    watchlistCount: number;
+    reviewCount: number;
+  };
+};
+
+const memberSinceFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
+export function ProfileOverview({
+  displayName,
+  email,
+  bio,
+  avatarUrl,
+  createdAt,
+  stats,
+}: ProfileOverviewProps) {
+  const [activeEditor, setActiveEditor] = useState<ProfileEditor | null>(null);
+
+  function toggleEditor(editor: ProfileEditor) {
+    setActiveEditor((current) => (current === editor ? null : editor));
+  }
+
+  return (
+    <>
+      <section className="overflow-hidden rounded-[2rem] border border-border bg-secondary/55 px-6 py-8 shadow-[0_20px_60px_rgba(15,23,42,0.07)] sm:px-10 sm:py-10">
+        <div className="grid items-start gap-8 md:grid-cols-[auto_minmax(0,1fr)_auto]">
+          <ProfileAvatar displayName={displayName} avatarUrl={avatarUrl} />
+
+          <div className="min-w-0">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
+              Your profile
+            </p>
+            <h1 className="mt-2 truncate text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">
+              {displayName}
+            </h1>
+            <p className="mt-2 text-sm text-muted">{email}</p>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-muted sm:text-base">
+              {bio ?? "Add bio in the 'Edit Profile' menu."}
+            </p>
+            <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-subtle">
+              Member since {memberSinceFormatter.format(new Date(createdAt))}
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3 border-t border-border/80 pt-6">
+              <button
+                type="button"
+                onClick={() => toggleEditor("details")}
+                aria-expanded={activeEditor === "details"}
+                aria-controls="profile-editor-panel"
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,color,transform] duration-150 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                  activeEditor === "details"
+                    ? "bg-primary text-white"
+                    : "border border-border bg-white text-foreground hover:bg-blue-50 hover:text-primary"
+                }`}
+              >
+                Edit profile
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleEditor("password")}
+                aria-expanded={activeEditor === "password"}
+                aria-controls="profile-editor-panel"
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold transition-[background-color,color,transform] duration-150 hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                  activeEditor === "password"
+                    ? "bg-primary text-white"
+                    : "border border-border bg-white text-foreground hover:bg-blue-50 hover:text-primary"
+                }`}
+              >
+                Change password
+              </button>
+            </div>
+          </div>
+
+          <dl className="w-full overflow-hidden rounded-2xl border border-border bg-white shadow-sm sm:w-64">
+            <ProfileStat label="Watchlist" value={stats.watchlistCount} />
+            <ProfileStat label="Reviews" value={stats.reviewCount} />
+          </dl>
+        </div>
+      </section>
+
+      {activeEditor ? (
+        <section
+          id="profile-editor-panel"
+          className="mx-auto mt-8 max-w-5xl overflow-hidden rounded-[2rem] border border-border bg-white shadow-[0_18px_55px_rgba(15,23,42,0.08)]"
+        >
+          <div className="flex items-start justify-between gap-6 border-b border-border bg-secondary/45 px-5 py-5 sm:px-7 sm:py-6">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-[-0.04em]">
+                {activeEditor === "details"
+                  ? "Edit profile"
+                  : "Change password"}
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-muted">
+                {activeEditor === "details"
+                  ? "Update the information shown on your profile."
+                  : "Confirm your current password before choosing a new one."}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setActiveEditor(null)}
+              aria-label="Close settings"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xl text-muted transition-colors hover:bg-white hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div className="px-5 py-6 sm:px-7 sm:py-7">
+            {activeEditor === "details" ? (
+              <ProfileEditForm
+                displayName={displayName}
+                email={email}
+                bio={bio}
+              />
+            ) : (
+              <ChangePasswordForm />
+            )}
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
+}
+
+function ProfileStat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex items-center justify-between gap-6 border-b border-border px-5 py-4 last:border-b-0">
+      <dt className="text-xs font-semibold uppercase tracking-[0.1em] text-subtle">
+        {label}
+      </dt>
+      <dd className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+        {value}
+      </dd>
+    </div>
+  );
+}

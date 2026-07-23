@@ -11,7 +11,7 @@ import {
 import { normalizeEmail, trimString } from './auth-dto.transforms';
 
 export class RegisterRequestDto {
-  @ApiProperty({ example: 'Jakub Novak', minLength: 2, maxLength: 100 })
+  @ApiProperty({ example: 'Jakub Tkac', minLength: 2, maxLength: 100 })
   @Transform(trimString)
   @IsString()
   @MinLength(2)

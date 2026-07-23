@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Patch,
   Post,
 } from '@nestjs/common';
 import {
@@ -11,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiConflictResponse,
   ApiCreatedResponse,
+  ApiNoContentResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -21,6 +23,7 @@ import { AuthService } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { AuthResponseDto } from './dto/auth-response.dto';
 import { AuthUserResponseDto } from './dto/auth-user-response.dto';
+import { ChangePasswordRequestDto } from './dto/change-password-request.dto';
 import { LoginRequestDto } from './dto/login-request.dto';
 import { RegisterRequestDto } from './dto/register-request.dto';
 import type { AuthenticatedUser } from './interfaces/authenticated-user.interface';
@@ -69,5 +72,23 @@ export class AuthController {
   })
   getCurrentUser(@CurrentUser() user: AuthenticatedUser): AuthUserResponseDto {
     return user;
+  }
+
+  @Patch('password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: 'Change the authenticated user password' })
+  @ApiNoContentResponse({ description: 'Password changed successfully.' })
+  @ApiBadRequestResponse({
+    description: 'Password data is invalid or the current password is wrong.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Access token is missing or invalid.',
+  })
+  changePassword(
+    @CurrentUser() user: AuthenticatedUser,
+    @Body() request: ChangePasswordRequestDto,
+  ): Promise<void> {
+    return this.authService.changePassword(user.id, request);
   }
 }

@@ -1,5 +1,5 @@
 import type { ChangeEventHandler, ReactNode } from "react";
-import { ErrorToast } from "@/components/ui/toast";
+import { ErrorToast } from "@/components/ui/feedback-toast";
 
 type AuthFieldProps = {
   name: "displayName" | "email" | "password";
@@ -57,8 +57,14 @@ export function AuthField({
   );
 }
 
-export function AuthFormError({ message }: { message?: string }) {
-  return message ? <ErrorToast title={message} /> : null;
+export function AuthFormError({
+  message,
+  pending,
+}: {
+  message?: string;
+  pending: boolean;
+}) {
+  return message && !pending ? <ErrorToast message={message} /> : null;
 }
 
 export function AuthSubmitButton({

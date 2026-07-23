@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
@@ -6,6 +10,7 @@ import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthResponseDto } from './dto/auth-response.dto';
 import { AuthUserResponseDto } from './dto/auth-user-response.dto';
+import { ChangePasswordRequestDto } from './dto/change-password-request.dto';
 import { LoginRequestDto } from './dto/login-request.dto';
 import { RegisterRequestDto } from './dto/register-request.dto';
 import type { JwtPayload } from './interfaces/jwt-payload.interface';
@@ -62,6 +67,35 @@ export class AuthService {
     }
 
     return this.createAuthResponse(user);
+  }
+
+  async changePassword(
+    userId: string,
+    request: ChangePasswordRequestDto,
+  ): Promise<void> {
+    const user = await this.usersService.findByIdWithPassword(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('Invalid access token.');
+    }
+
+    const passwordMatches = await compare(
+      request.currentPassword,
+      user.passwordHash,
+    );
+
+    if (!passwordMatches) {
+      throw new BadRequestException('Current password is incorrect.');
+    }
+
+    if (request.currentPassword === request.newPassword) {
+      throw new BadRequestException(
+        'New password must be different from the current password.',
+      );
+    }
+
+    const passwordHash = await hash(request.newPassword, this.bcryptRounds);
+    await this.usersService.updatePasswordHash(userId, passwordHash);
   }
 
   toUserResponse(user: User): AuthUserResponseDto {

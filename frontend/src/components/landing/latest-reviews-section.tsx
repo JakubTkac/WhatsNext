@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SectionErrorState } from "@/components/ui/section-state";
 import { getLatestReviews, type LatestReview } from "@/lib/api";
 
 const reviewDateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -10,7 +11,18 @@ const reviewDateFormatter = new Intl.DateTimeFormat("en-US", {
 export async function LatestReviewsSection() {
   const connection = await getLatestReviews(3);
 
-  if (!connection.online || connection.reviews.length === 0) {
+  if (!connection.online) {
+    return (
+      <section className="mt-20" aria-label="Latest reviews error">
+        <SectionErrorState
+          title="Latest reviews are temporarily unavailable"
+          description="The community activity could not be loaded. Please try again."
+        />
+      </section>
+    );
+  }
+
+  if (connection.reviews.length === 0) {
     return null;
   }
 

@@ -52,6 +52,22 @@ body {
   }
 }
 
+@keyframes notification-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.notification-toast {
+  animation: notification-enter 180ms ease-out;
+}
+
 .skeleton-surface {
   background: linear-gradient(100deg, #dfe3e8 20%, #f1f3f5 40%, #dfe3e8 60%);
   background-size: 200% 100%;
@@ -95,5 +111,9 @@ body {
   .skeleton-surface {
     animation: none;
     background: #dfe3e8;
+  }
+
+  .notification-toast {
+    animation: none;
   }
 }

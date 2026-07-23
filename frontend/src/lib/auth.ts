@@ -14,7 +14,7 @@ const AUTH_COOKIE_NAME = "whatsnext_access_token";
 const apiUrl = process.env.API_URL ?? "http://127.0.0.1:8080/api";
 
 export const getCurrentUser = cache(async (): Promise<AuthUser | null> => {
-  const accessToken = (await cookies()).get(AUTH_COOKIE_NAME)?.value;
+  const accessToken = await getAccessToken();
 
   if (!accessToken) {
     return null;
@@ -39,6 +39,10 @@ export const getCurrentUser = cache(async (): Promise<AuthUser | null> => {
     return null;
   }
 });
+
+export async function getAccessToken(): Promise<string | null> {
+  return (await cookies()).get(AUTH_COOKIE_NAME)?.value ?? null;
+}
 
 export async function createAuthSession(
   accessToken: string,

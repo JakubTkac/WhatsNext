@@ -1,4 +1,8 @@
 import { getUpcomingMovies } from "@/lib/api";
+import {
+  SectionEmptyState,
+  SectionErrorState,
+} from "@/components/ui/section-state";
 import { FeaturedMovie } from "./featured-movie";
 import { UpcomingMovieCarousel } from "./movie-carousel";
 
@@ -13,23 +17,27 @@ export async function UpcomingMoviesSection({
 
   if (!connection.online) {
     return (
-      <SectionMessage
-        title="Upcoming releases are temporarily unavailable."
-        description="Please try again in a moment."
-      />
+      <section className="mt-14 sm:mt-16" aria-label="Upcoming releases error">
+        <SectionErrorState
+          title="Upcoming releases are temporarily unavailable"
+          description="We could not load the movie catalogue. Please try again."
+        />
+      </section>
     );
   }
 
   if (connection.movies.length === 0) {
     return (
-      <SectionMessage
-        title={search ? "No matching upcoming movies." : "No upcoming movies."}
-        description={
-          search
-            ? "Try a different title."
-            : "New releases will appear here when they are added."
-        }
-      />
+      <section className="mt-14 sm:mt-16" aria-label="Upcoming releases empty">
+        <SectionEmptyState
+          title={search ? "No matching upcoming movies" : "No upcoming movies"}
+          description={
+            search
+              ? "Try a different title."
+              : "New releases will appear here when they are added."
+          }
+        />
+      </section>
     );
   }
 
@@ -69,22 +77,5 @@ export async function UpcomingMoviesSection({
         <UpcomingMovieCarousel movies={connection.movies} />
       </section>
     </>
-  );
-}
-
-function SectionMessage({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="mt-8 rounded-2xl border border-border bg-secondary/70 px-6 py-10 sm:px-8">
-      <h2 className="text-base font-semibold text-foreground">
-        {title}
-      </h2>
-      <p className="mt-1 text-sm leading-6 text-muted">{description}</p>
-    </div>
   );
 }
