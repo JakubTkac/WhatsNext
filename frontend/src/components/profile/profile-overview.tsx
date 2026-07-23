@@ -17,25 +17,13 @@ type ProfileOverviewProps = {
   email: string;
   bio: string | null;
   avatarUrl: string | null;
-  createdAt: string;
-  stats: {
-    watchlistCount: number;
-    reviewCount: number;
-  };
 };
-
-const memberSinceFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "long",
-  year: "numeric",
-});
 
 export function ProfileOverview({
   displayName,
   email,
   bio,
   avatarUrl,
-  createdAt,
-  stats,
 }: ProfileOverviewProps) {
   const [activeEditor, setActiveEditor] = useState<ProfileEditor | null>(null);
 
@@ -46,13 +34,10 @@ export function ProfileOverview({
   return (
     <>
       <section className="overflow-hidden rounded-[2rem] border border-border bg-secondary/55 px-6 py-8 shadow-[0_20px_60px_rgba(15,23,42,0.07)] sm:px-10 sm:py-10">
-        <div className="grid items-start gap-8 md:grid-cols-[auto_minmax(0,1fr)_auto]">
+        <div className="grid items-start gap-8 md:grid-cols-[auto_minmax(0,1fr)]">
           <ProfileAvatar displayName={displayName} avatarUrl={avatarUrl} />
 
           <div className="min-w-0">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-              Your profile
-            </p>
             <h1 className="mt-2 truncate text-4xl font-semibold tracking-[-0.05em] sm:text-5xl">
               {displayName}
             </h1>
@@ -60,10 +45,6 @@ export function ProfileOverview({
             <p className="mt-4 max-w-2xl text-sm leading-6 text-muted sm:text-base">
               {bio ?? "Add bio in the 'Edit Profile' menu."}
             </p>
-            <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-subtle">
-              Member since {memberSinceFormatter.format(new Date(createdAt))}
-            </p>
-
             <div className="mt-7 flex flex-wrap gap-3 border-t border-border/80 pt-6">
               {activeEditor === "details" ? (
                 <PrimaryButton
@@ -101,11 +82,6 @@ export function ProfileOverview({
               )}
             </div>
           </div>
-
-          <dl className="w-full overflow-hidden rounded-2xl border border-border bg-white shadow-sm sm:w-64">
-            <ProfileStat label="Watchlist" value={stats.watchlistCount} />
-            <ProfileStat label="Reviews" value={stats.reviewCount} />
-          </dl>
         </div>
       </section>
 
@@ -150,18 +126,5 @@ export function ProfileOverview({
         </section>
       ) : null}
     </>
-  );
-}
-
-function ProfileStat({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="flex items-center justify-between gap-6 border-b border-border px-5 py-4 last:border-b-0">
-      <dt className="text-xs font-semibold uppercase tracking-[0.1em] text-subtle">
-        {label}
-      </dt>
-      <dd className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
-        {value}
-      </dd>
-    </div>
   );
 }

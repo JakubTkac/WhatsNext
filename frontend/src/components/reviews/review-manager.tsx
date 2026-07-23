@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import {
   deleteReviewAction,
@@ -15,6 +16,7 @@ import {
   ErrorToast,
   SuccessToast,
 } from "@/components/ui/feedback-toast";
+import { Pagination } from "@/components/ui/pagination";
 import { SectionErrorState } from "@/components/ui/section-state";
 import type {
   LatestReview,
@@ -30,9 +32,11 @@ const fieldClassName =
 export function ReviewManager({
   connection,
   initialEditReviewId,
+  paginationQuery,
 }: {
   connection: ReviewWorkspaceConnection;
   initialEditReviewId?: string;
+  paginationQuery: Record<string, string | number | undefined>;
 }) {
   if (connection.status === "unauthenticated") {
     return (
@@ -41,8 +45,7 @@ export function ReviewManager({
           Write your own review
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-          Log in to review movies you have marked as watched and manage your
-          existing reviews.
+          Log in to review released movies and manage your existing reviews.
         </p>
         <div className="mt-5">
           <PrimaryButtonLink href={createAuthHref("/login", "/reviews")}>
@@ -74,14 +77,23 @@ export function ReviewManager({
           Your reviews
         </h2>
         <p className="text-sm text-muted">
-          {connection.reviews.length}{" "}
-          {connection.reviews.length === 1 ? "review" : "reviews"}
+          {connection.meta.totalItems}{" "}
+          {connection.meta.totalItems === 1 ? "review" : "reviews"}
         </p>
       </div>
 
       <OwnedReviews
         reviews={connection.reviews}
         initialEditReviewId={initialEditReviewId}
+      />
+
+      <Pagination
+        currentPage={connection.meta.page}
+        totalPages={connection.meta.totalPages}
+        pathname="/reviews"
+        query={paginationQuery}
+        pageParameter="myPage"
+        hash="your-reviews-heading"
       />
     </section>
   );
@@ -131,7 +143,14 @@ function OwnedReviewRow({
     <article id={`review-${review.id}`} className="scroll-mt-28 py-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h3 className="text-lg font-semibold">{review.movie.title}</h3>
+          <h3 className="text-lg font-semibold">
+            <Link
+              href={`/movies/${review.movie.slug}`}
+              className="rounded-sm transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+            >
+              {review.movie.title}
+            </Link>
+          </h3>
           <p className="mt-1 text-sm font-semibold text-primary">
             {review.rating}/10
           </p>

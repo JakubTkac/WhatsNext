@@ -1,11 +1,7 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { UpcomingMovieCarousel } from "@/components/movies/upcoming-movie-carousel";
 import { ReviewCard } from "@/components/reviews/review-card";
-import {
-  SecondaryButton,
-  SecondaryButtonLink,
-} from "@/components/ui/action-button";
+import { SecondaryButtonLink } from "@/components/ui/action-button";
 import type {
   ProfileReview,
   ProfileWatchlistItem,
@@ -25,12 +21,9 @@ export function WatchlistPreview({
         title="Your upcoming movies"
         description="The next releases saved in your watchlist."
       >
-        <SecondaryButton
-          disabled
-          title="The full watchlist page is coming next."
-        >
+        <SecondaryButtonLink href="/watchlist">
           View watchlist ({total})
-        </SecondaryButton>
+        </SecondaryButtonLink>
       </ActivitySectionHeading>
 
       {items.length === 0 ? (
@@ -71,14 +64,14 @@ export function ReviewsPreview({
       ) : (
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
           {reviews.map((review) => (
-            <Link
+            <ReviewCard
               key={review.id}
-              href={`/reviews?edit=${encodeURIComponent(review.id)}#review-${review.id}`}
-              aria-label={`Edit your review of ${review.movie.title}`}
-              className="block rounded-2xl transition-transform duration-150 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-            >
-              <ReviewCard review={{ ...review, author }} />
-            </Link>
+              review={{ ...review, author }}
+              primaryAction={{
+                href: `/reviews?edit=${encodeURIComponent(review.id)}#review-${review.id}`,
+                label: `Edit your review of ${review.movie.title}`,
+              }}
+            />
           ))}
         </div>
       )}

@@ -6,6 +6,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
+import { getPublicAvatarUrl } from '../users/avatar-data';
 import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthResponseDto } from './dto/auth-response.dto';
@@ -104,7 +105,7 @@ export class AuthService {
       email: user.email,
       displayName: user.displayName,
       bio: user.bio,
-      avatarUrl: user.avatarUrl,
+      avatarUrl: getPublicAvatarUrl(user.id, Boolean(user.avatarUrl)),
     };
   }
 

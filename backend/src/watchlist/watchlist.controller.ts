@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Put,
+  Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -20,6 +21,7 @@ import {
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { AuthenticatedUser } from '../auth/interfaces/authenticated-user.interface';
 import { MovieSlugParamDto } from './dto/movie-slug-param.dto';
+import { WatchlistQueryDto } from './dto/watchlist-query.dto';
 import {
   WatchlistItemDto,
   WatchlistResponseDto,
@@ -36,15 +38,23 @@ export class WatchlistController {
   constructor(private readonly watchlistService: WatchlistService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Get the authenticated user watchlist' })
+  @ApiOperation({
+    summary: 'Get the authenticated user watchlist',
+    description:
+      'Returns a paginated watchlist with title, genre, release-status, and sorting filters.',
+  })
   @ApiOkResponse({
     description: 'Watchlist returned successfully.',
     type: WatchlistResponseDto,
   })
+  @ApiBadRequestResponse({
+    description: 'One or more watchlist filters failed validation.',
+  })
   findAll(
     @CurrentUser() user: AuthenticatedUser,
+    @Query() query: WatchlistQueryDto,
   ): Promise<WatchlistResponseDto> {
-    return this.watchlistService.findAll(user.id);
+    return this.watchlistService.findAll(user.id, query);
   }
 
   @Put(':movieSlug')

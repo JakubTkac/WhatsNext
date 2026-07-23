@@ -9,13 +9,11 @@ import { InjectDataSource } from '@nestjs/typeorm';
 import {
   DataSource,
   EntityManager,
-  IsNull,
-  Not,
   QueryFailedError,
 } from 'typeorm';
 import type { AuthenticatedUser } from '../auth/interfaces/authenticated-user.interface';
 import { Movie } from '../movies/entities/movie.entity';
-import { WatchlistItem } from '../watchlist/entities/watchlist-item.entity';
+import { getPublicAvatarUrl } from '../users/avatar-data';
 import { CreateReviewRequestDto } from './dto/create-review-request.dto';
 import { EligibleReviewMoviesResponseDto } from './dto/eligible-review-movies-response.dto';
 import { LatestReviewDto } from './dto/latest-review.dto';
@@ -99,22 +97,6 @@ export class ReviewsService {
         if (movie.releaseDate > currentDate()) {
           throw new BadRequestException(
             'A review can only be created after the movie is released.',
-          );
-        }
-
-        const watchedMovie = await manager
-          .getRepository(WatchlistItem)
-          .findOne({
-            where: {
-              userId: user.id,
-              movieId: movie.id,
-              watchedAt: Not(IsNull()),
-            },
-          });
-
-        if (!watchedMovie) {
-          throw new BadRequestException(
-            'Mark this movie as watched before reviewing it.',
           );
         }
 
@@ -242,7 +224,7 @@ export class ReviewsService {
       createdAt: review.createdAt.toISOString(),
       author: {
         displayName: author.displayName,
-        avatarUrl: author.avatarUrl,
+        avatarUrl: getPublicAvatarUrl(author.id, Boolean(author.avatarUrl)),
       },
       movie: {
         slug: reviewedMovie.slug,

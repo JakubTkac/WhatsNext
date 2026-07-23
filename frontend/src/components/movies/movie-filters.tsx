@@ -6,19 +6,38 @@ import {
   PrimaryButton,
   SecondaryButtonLink,
 } from "@/components/ui/action-button";
+import { beginFormRouteTransition } from "@/components/ui/route-transition-indicator";
+import { useDebouncedFormSubmit } from "@/hooks/use-debounced-form-submit";
 
 type MovieFiltersProps = {
   query: MoviesQuery;
   genres: GenreSummary[];
+  pathname: string;
 };
 
 const fieldClassName =
   "min-h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none transition-[border-color,box-shadow] focus:border-primary focus:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]";
 
-export function MovieFilters({ query, genres }: MovieFiltersProps) {
+export function MovieFilters({
+  query,
+  genres,
+  pathname,
+}: MovieFiltersProps) {
+  const {
+    formRef,
+    scheduleSubmit,
+    cancelScheduledSubmit,
+  } = useDebouncedFormSubmit();
+
   return (
     <Form
-      action="/movies"
+      ref={formRef}
+      action={pathname}
+      onChange={scheduleSubmit}
+      onSubmit={(event) => {
+        cancelScheduledSubmit();
+        beginFormRouteTransition(event.currentTarget);
+      }}
       className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-[minmax(14rem,1.4fr)_1fr_1fr_1fr_auto] lg:items-end"
     >
       <label className="block">
@@ -79,7 +98,7 @@ export function MovieFilters({ query, genres }: MovieFiltersProps) {
         <PrimaryButton type="submit" className="flex-1 lg:flex-none">
           Apply
         </PrimaryButton>
-        <SecondaryButtonLink href="/movies" className="flex-1 lg:flex-none">
+        <SecondaryButtonLink href={pathname} className="flex-1 lg:flex-none">
           Reset
         </SecondaryButtonLink>
       </div>

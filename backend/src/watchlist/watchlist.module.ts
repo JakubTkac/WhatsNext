@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Genre } from '../genres/entities/genre.entity';
 import { Movie } from '../movies/entities/movie.entity';
 import { WatchlistItem } from './entities/watchlist-item.entity';
 import { WatchlistController } from './watchlist.controller';
@@ -7,7 +8,7 @@ import { WatchlistRepository } from './watchlist.repository';
 import { WatchlistService } from './watchlist.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([WatchlistItem, Movie])],
+  imports: [TypeOrmModule.forFeature([WatchlistItem, Movie, Genre])],
   controllers: [WatchlistController],
   providers: [WatchlistRepository, WatchlistService],
 })

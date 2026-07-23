@@ -80,7 +80,12 @@ export class ProfileResponseDto {
   @ApiProperty({ example: null, nullable: true, type: String })
   bio!: string | null;
 
-  @ApiProperty({ example: null, nullable: true, type: String })
+  @ApiProperty({
+    example:
+      '/api/users/98a1a2fb-fd6e-4717-a95f-ab083c3d7201/avatar',
+    nullable: true,
+    type: String,
+  })
   avatarUrl!: string | null;
 
   @ApiProperty({ example: '2026-07-23T18:42:00.000Z', format: 'date-time' })

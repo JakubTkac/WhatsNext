@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { getPublicAvatarUrl } from '../../users/avatar-data';
 import { UsersService } from '../../users/users.service';
 import type { AuthenticatedUser } from '../interfaces/authenticated-user.interface';
 import type { JwtPayload } from '../interfaces/jwt-payload.interface';
@@ -38,7 +39,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       email: user.email,
       displayName: user.displayName,
       bio: user.bio,
-      avatarUrl: user.avatarUrl,
+      avatarUrl: getPublicAvatarUrl(user.id, Boolean(user.avatarUrl)),
     };
   }
 }

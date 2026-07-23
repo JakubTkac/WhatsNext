@@ -33,8 +33,6 @@ export default async function ProfilePage() {
         email={profile.email}
         bio={profile.bio}
         avatarUrl={profile.avatarUrl}
-        createdAt={profile.createdAt}
-        stats={profile.stats}
       />
 
       <div className="mt-12 space-y-14">

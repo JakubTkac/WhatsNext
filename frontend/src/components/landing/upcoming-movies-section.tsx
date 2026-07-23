@@ -51,9 +51,6 @@ export async function UpcomingMoviesSection({
       <section className="mt-14 sm:mt-16" aria-labelledby="upcoming-heading">
         <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-              Release calendar
-            </p>
             <h2
               id="upcoming-heading"
               className="mt-2 text-3xl font-semibold tracking-[-0.045em] sm:text-4xl"
@@ -65,9 +62,6 @@ export async function UpcomingMoviesSection({
           {search ? null : (
             <SecondaryButtonLink href="/movies" className="shrink-0">
               Browse all
-              <span className="ml-2 text-primary" aria-hidden="true">
-                &rarr;
-              </span>
             </SecondaryButtonLink>
           )}
         </div>

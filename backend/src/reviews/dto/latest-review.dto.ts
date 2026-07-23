@@ -4,7 +4,12 @@ export class LatestReviewAuthorDto {
   @ApiProperty({ example: 'Maya Chen' })
   displayName!: string;
 
-  @ApiProperty({ example: null, nullable: true, type: String })
+  @ApiProperty({
+    example:
+      '/api/users/6795ba64-2e00-4f3a-9c9b-547d20de6dcf/avatar',
+    nullable: true,
+    type: String,
+  })
   avatarUrl!: string | null;
 }
 

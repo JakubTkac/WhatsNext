@@ -1,11 +1,14 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { Public } from '../common/decorators/public.decorator';
+import { MovieDetailsResponseDto } from './dto/movie-details-response.dto';
+import { MovieSlugParamDto } from './dto/movie-slug-param.dto';
 import { MoviesQueryDto } from './dto/movies-query.dto';
 import { MoviesResponseDto } from './dto/movies-response.dto';
 import { UpcomingMoviesQueryDto } from './dto/upcoming-movies-query.dto';
@@ -53,5 +56,26 @@ export class MoviesController {
     @Query() query: UpcomingMoviesQueryDto,
   ): Promise<UpcomingMoviesResponseDto> {
     return this.moviesService.findUpcoming(query);
+  }
+
+  @Public()
+  @Get(':slug')
+  @ApiOperation({
+    summary: 'Get a movie by slug',
+    description:
+      'Returns the complete public movie details together with all public reviews for the movie.',
+  })
+  @ApiOkResponse({
+    description: 'Movie details returned successfully.',
+    type: MovieDetailsResponseDto,
+  })
+  @ApiBadRequestResponse({
+    description: 'The movie slug failed validation.',
+  })
+  @ApiNotFoundResponse({ description: 'Movie not found.' })
+  findOne(
+    @Param() params: MovieSlugParamDto,
+  ): Promise<MovieDetailsResponseDto> {
+    return this.moviesService.findOne(params.slug);
   }
 }

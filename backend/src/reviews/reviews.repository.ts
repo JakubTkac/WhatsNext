@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 import { Movie } from '../movies/entities/movie.entity';
-import { WatchlistItem } from '../watchlist/entities/watchlist-item.entity';
 import { LatestReviewsQueryDto } from './dto/latest-reviews-query.dto';
 import { ReviewsQueryDto } from './dto/reviews-query.dto';
 import { Review } from './entities/review.entity';
@@ -17,8 +16,8 @@ export class ReviewsRepository {
   constructor(
     @InjectRepository(Review)
     private readonly reviewRepository: Repository<Review>,
-    @InjectRepository(WatchlistItem)
-    private readonly watchlistRepository: Repository<WatchlistItem>,
+    @InjectRepository(Movie)
+    private readonly movieRepository: Repository<Movie>,
   ) {}
 
   async findPage(
@@ -44,34 +43,55 @@ export class ReviewsRepository {
       );
     }
 
-    const [items, totalItems] = await reviewsQuery
+    if (query.movieSlug) {
+      reviewsQuery.andWhere('movie.slug = :movieSlug', {
+        movieSlug: query.movieSlug,
+      });
+    }
+
+    const itemsQuery = reviewsQuery
+      .clone()
       .orderBy('review.createdAt', 'DESC')
       .addOrderBy('review.id', 'DESC')
       .skip((query.page - 1) * query.limit)
-      .take(query.limit)
-      .getManyAndCount();
+      .take(query.limit);
+    const [totalItems, items] = await Promise.all([
+      reviewsQuery.getCount(),
+      this.getManyWithAvatarState(itemsQuery),
+    ]);
 
     return { items, totalItems };
   }
 
-  findLatest(query: LatestReviewsQueryDto): Promise<Review[]> {
-    return this.createListQuery()
-      .orderBy('review.createdAt', 'DESC')
-      .addOrderBy('review.id', 'DESC')
-      .take(query.limit)
-      .getMany();
+  async findLatest(query: LatestReviewsQueryDto): Promise<Review[]> {
+    return this.getManyWithAvatarState(
+      this.createListQuery()
+        .orderBy('review.createdAt', 'DESC')
+        .addOrderBy('review.id', 'DESC')
+        .take(query.limit),
+    );
   }
 
-  findById(id: string): Promise<Review | null> {
-    return this.createListQuery()
-      .where('review.id = :id', { id })
-      .getOne();
+  async findById(id: string): Promise<Review | null> {
+    const reviews = await this.getManyWithAvatarState(
+      this.createListQuery().where('review.id = :id', { id }).take(1),
+    );
+
+    return reviews.at(0) ?? null;
   }
 
-  async findEligibleMovies(userId: string): Promise<Movie[]> {
-    const watchlistItems = await this.watchlistRepository
-      .createQueryBuilder('watchlistItem')
-      .innerJoinAndSelect('watchlistItem.movie', 'movie')
+  async findByMovieSlug(slug: string): Promise<Review[]> {
+    return this.getManyWithAvatarState(
+      this.createListQuery()
+        .where('movie.slug = :slug', { slug })
+        .orderBy('review.createdAt', 'DESC')
+        .addOrderBy('review.id', 'DESC'),
+    );
+  }
+
+  findEligibleMovies(userId: string): Promise<Movie[]> {
+    return this.movieRepository
+      .createQueryBuilder('movie')
       .leftJoin(
         'movie.reviews',
         'existingReview',
@@ -79,21 +99,16 @@ export class ReviewsRepository {
         { userId },
       )
       .select([
-        'watchlistItem.id',
         'movie.id',
         'movie.slug',
         'movie.title',
         'movie.posterUrl',
         'movie.releaseDate',
       ])
-      .where('watchlistItem.userId = :userId', { userId })
-      .andWhere('watchlistItem.watchedAt IS NOT NULL')
-      .andWhere('movie.releaseDate <= CURRENT_DATE')
+      .where('movie.releaseDate <= CURRENT_DATE')
       .andWhere('existingReview.id IS NULL')
       .orderBy('movie.title', 'ASC')
       .getMany();
-
-    return watchlistItems.map((item) => item.movie);
   }
 
   deleteOwned(id: string, userId: string): Promise<DeleteResult> {
@@ -115,11 +130,26 @@ export class ReviewsRepository {
         'review.updatedAt',
         'user.id',
         'user.displayName',
-        'user.avatarUrl',
         'movie.id',
         'movie.slug',
         'movie.title',
         'movie.posterUrl',
-      ]);
+      ])
+      .addSelect('"user"."avatar_url" IS NOT NULL', 'user_has_avatar');
+  }
+
+  private async getManyWithAvatarState(
+    query: SelectQueryBuilder<Review>,
+  ): Promise<Review[]> {
+    const { entities, raw } = await query.getRawAndEntities<{
+      user_has_avatar?: boolean;
+    }>();
+
+    entities.forEach((review, index) => {
+      review.user.avatarUrl =
+        raw[index]?.user_has_avatar === true ? 'available' : null;
+    });
+
+    return entities;
   }
 }

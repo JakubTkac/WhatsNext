@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { IconButton } from "@/components/ui/action-button";
 
 type FeedbackTone = "success" | "warning" | "error";
@@ -77,19 +78,21 @@ function FeedbackToast({
   durationMs,
   icon,
 }: FeedbackToastProps) {
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(true);
   const styles = toneStyles[tone];
 
   useEffect(() => {
+    setMounted(true);
     const timeoutId = window.setTimeout(() => setVisible(false), durationMs);
     return () => window.clearTimeout(timeoutId);
   }, [durationMs]);
 
-  if (!visible) {
+  if (!mounted || !visible) {
     return null;
   }
 
-  return (
+  return createPortal(
     <div
       role={tone === "error" ? "alert" : "status"}
       aria-live={tone === "error" ? "assertive" : "polite"}
@@ -118,7 +121,8 @@ function FeedbackToast({
       >
         <span aria-hidden="true">&times;</span>
       </IconButton>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

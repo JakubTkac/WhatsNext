@@ -1,7 +1,16 @@
+import { Suspense } from "react";
 import { ReviewCard } from "@/components/reviews/review-card";
 import { ReviewFilters } from "@/components/reviews/review-filters";
 import { ReviewManager } from "@/components/reviews/review-manager";
+import {
+  OwnedReviewsSkeleton,
+  ReviewResultsSkeleton,
+} from "@/components/reviews/reviews-page-skeleton";
 import { PageErrorState } from "@/components/ui/page-error-state";
+import {
+  ListingNavigationProvider,
+  ListingPendingContent,
+} from "@/components/ui/listing-navigation";
 import { Pagination } from "@/components/ui/pagination";
 import { SectionEmptyState } from "@/components/ui/section-state";
 import {
@@ -19,11 +28,55 @@ export default async function ReviewsPage({
 }: ReviewsPageProps) {
   const params = await searchParams;
   const query = parseReviewsQuery(params);
+  const myPage = readPositiveInteger(params.myPage);
   const editReviewId = readOptionalString(params.edit, 64);
-  const [connection, workspace] = await Promise.all([
-    getReviewsPage(query),
-    getReviewWorkspace(),
-  ]);
+
+  return (
+    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
+      <div className="max-w-3xl">
+        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
+          Movie reviews
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
+          Browse what the community has watched and rated recently.
+        </p>
+      </div>
+
+      <ListingNavigationProvider>
+        <ReviewFilters
+          key={`${query.movie ?? ""}-${query.rating ?? ""}`}
+          query={query}
+        />
+
+        <ListingPendingContent fallback={<ReviewResultsSkeleton />}>
+          <Suspense fallback={<ReviewResultsSkeleton />}>
+            <PublicReviewResults query={query} myPage={myPage} />
+          </Suspense>
+        </ListingPendingContent>
+      </ListingNavigationProvider>
+
+      <Suspense
+        key={`${myPage}-${editReviewId ?? "reviews"}`}
+        fallback={<OwnedReviewsSkeleton />}
+      >
+        <OwnedReviewWorkspace
+          query={query}
+          myPage={myPage}
+          editReviewId={editReviewId}
+        />
+      </Suspense>
+    </main>
+  );
+}
+
+async function PublicReviewResults({
+  query,
+  myPage,
+}: {
+  query: ReviewsQuery;
+  myPage: number;
+}) {
+  const connection = await getReviewsPage(query);
 
   if (!connection.online) {
     return (
@@ -35,21 +88,7 @@ export default async function ReviewsPage({
   }
 
   return (
-    <main className="mx-auto w-full max-w-[92rem] flex-1 px-4 py-10 sm:px-8 sm:py-14 lg:px-12 lg:py-16">
-      <div className="max-w-3xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-          From the community
-        </p>
-        <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
-          Movie reviews
-        </h1>
-        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-          Browse what the community has watched and rated recently.
-        </p>
-      </div>
-
-      <ReviewFilters key={JSON.stringify(query)} query={query} />
-
+    <>
       <div className="mt-8 flex items-center justify-between gap-4">
         <p className="text-sm text-muted">
           {connection.meta.totalItems}{" "}
@@ -85,15 +124,35 @@ export default async function ReviewsPage({
         query={{
           movie: query.movie,
           rating: query.rating,
+          myPage: myPage > 1 ? myPage : undefined,
         }}
       />
+    </>
+  );
+}
 
-      <ReviewManager
-        key={editReviewId ?? "reviews"}
-        connection={workspace}
-        initialEditReviewId={editReviewId}
-      />
-    </main>
+async function OwnedReviewWorkspace({
+  query,
+  myPage,
+  editReviewId,
+}: {
+  query: ReviewsQuery;
+  myPage: number;
+  editReviewId?: string;
+}) {
+  const workspace = await getReviewWorkspace(myPage);
+
+  return (
+    <ReviewManager
+      key={`${myPage}-${editReviewId ?? "reviews"}`}
+      connection={workspace}
+      initialEditReviewId={editReviewId}
+      paginationQuery={{
+        page: query.page > 1 ? query.page : undefined,
+        movie: query.movie,
+        rating: query.rating,
+      }}
+    />
   );
 }
 

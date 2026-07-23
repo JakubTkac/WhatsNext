@@ -1,7 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getAccessToken } from "@/lib/auth";
+import {
+  getAccessToken,
+  isAuthUser,
+  updateAuthSessionUser,
+} from "@/lib/auth";
 import type {
   AvatarFormState,
   ChangePasswordFieldErrors,
@@ -69,6 +73,14 @@ export async function updateProfileAction(
       };
     }
 
+    if (!isAuthUser(payload)) {
+      return {
+        successRevision: previousState.successRevision,
+        formError: "The profile service returned an invalid response.",
+      };
+    }
+
+    await updateAuthSessionUser(payload);
     revalidatePath("/", "layout");
     revalidatePath("/profile");
     return {
@@ -120,6 +132,8 @@ export async function updateAvatarAction(
       signal: AbortSignal.timeout(8_000),
     });
 
+    const payload: unknown = await response.json().catch(() => null);
+
     if (response.status === 401 || response.status === 403) {
       return {
         successRevision: previousState.successRevision,
@@ -128,13 +142,20 @@ export async function updateAvatarAction(
     }
 
     if (!response.ok) {
-      const payload: unknown = await response.json().catch(() => null);
       return {
         successRevision: previousState.successRevision,
         formError: readApiError(payload, "We could not update your avatar."),
       };
     }
 
+    if (!isAuthUser(payload)) {
+      return {
+        successRevision: previousState.successRevision,
+        formError: "The profile service returned an invalid response.",
+      };
+    }
+
+    await updateAuthSessionUser(payload);
     revalidatePath("/", "layout");
     revalidatePath("/profile");
     return {

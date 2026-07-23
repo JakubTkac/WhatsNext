@@ -35,7 +35,7 @@ export async function createReviewAction(
     };
   }
 
-  revalidateReviewViews();
+  revalidateReviewViews(movieSlug);
   return {
     successRevision: previousState.successRevision + 1,
     successMessage: "Review published.",
@@ -178,10 +178,14 @@ function validateReview(
   return errors;
 }
 
-function revalidateReviewViews(): void {
+function revalidateReviewViews(movieSlug?: string): void {
   revalidatePath("/");
   revalidatePath("/reviews");
   revalidatePath("/profile");
+
+  if (movieSlug) {
+    revalidatePath(`/movies/${movieSlug}`);
+  }
 }
 
 function hasErrors(errors: ReviewFieldErrors): boolean {

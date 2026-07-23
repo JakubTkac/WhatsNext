@@ -1,4 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { ReviewsRepository } from '../reviews/reviews.repository';
+import { getPublicAvatarUrl } from '../users/avatar-data';
+import { MovieDetailsResponseDto } from './dto/movie-details-response.dto';
 import { MovieSummaryDto } from './dto/movie-summary.dto';
 import { MoviesQueryDto } from './dto/movies-query.dto';
 import { MoviesResponseDto } from './dto/movies-response.dto';
@@ -9,7 +12,10 @@ import { MoviesRepository } from './movies.repository';
 
 @Injectable()
 export class MoviesService {
-  constructor(private readonly moviesRepository: MoviesRepository) {}
+  constructor(
+    private readonly moviesRepository: MoviesRepository,
+    private readonly reviewsRepository: ReviewsRepository,
+  ) {}
 
   async findAll(query: MoviesQueryDto): Promise<MoviesResponseDto> {
     const page = await this.moviesRepository.findPage(query);
@@ -36,6 +42,44 @@ export class MoviesService {
 
     return {
       items: movies.map((movie) => this.toSummary(movie)),
+    };
+  }
+
+  async findOne(slug: string): Promise<MovieDetailsResponseDto> {
+    const [movie, reviews] = await Promise.all([
+      this.moviesRepository.findBySlug(slug),
+      this.reviewsRepository.findByMovieSlug(slug),
+    ]);
+
+    if (!movie) {
+      throw new NotFoundException('Movie not found.');
+    }
+
+    const ratingTotal = reviews.reduce(
+      (total, review) => total + review.rating,
+      0,
+    );
+
+    return {
+      ...this.toSummary(movie),
+      reviewCount: reviews.length,
+      averageRating:
+        reviews.length === 0
+          ? null
+          : Math.round((ratingTotal / reviews.length) * 10) / 10,
+      reviews: reviews.map((review) => ({
+        id: review.id,
+        rating: review.rating,
+        body: review.body,
+        createdAt: review.createdAt.toISOString(),
+        author: {
+          displayName: review.user.displayName,
+          avatarUrl: getPublicAvatarUrl(
+            review.user.id,
+            Boolean(review.user.avatarUrl),
+          ),
+        },
+      })),
     };
   }
 

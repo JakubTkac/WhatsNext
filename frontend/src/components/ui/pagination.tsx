@@ -1,13 +1,21 @@
+"use client";
+
 import {
   GhostButtonLink,
   SecondaryButtonLink,
 } from "@/components/ui/action-button";
+import { useListingNavigation } from "@/components/ui/listing-navigation";
+import type { MouseEvent } from "react";
 
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
   pathname: string;
   query: Record<string, string | number | undefined>;
+  pageParameter?: string;
+  hash?: string;
+  pending?: boolean;
+  onNavigate?: (href: string) => void;
 };
 
 export function Pagination({
@@ -15,21 +23,39 @@ export function Pagination({
   totalPages,
   pathname,
   query,
+  pageParameter = "page",
+  hash,
+  pending = false,
+  onNavigate,
 }: PaginationProps) {
+  const listingNavigation = useListingNavigation();
+
   if (totalPages <= 1) {
     return null;
   }
 
   const pages = getVisiblePages(currentPage, totalPages);
+  const navigationPending = pending || listingNavigation?.pending === true;
+  const navigate = onNavigate ?? listingNavigation?.navigate;
 
   return (
     <nav
-      className="mt-10 flex flex-wrap items-center justify-center gap-2"
+      className={`mt-10 flex flex-wrap items-center justify-center gap-2 transition-opacity ${
+        navigationPending ? "pointer-events-none opacity-60" : ""
+      }`}
       aria-label="Pagination"
+      aria-busy={navigationPending}
     >
       {currentPage > 1 ? (
         <SecondaryButtonLink
-          href={createPageHref(pathname, query, currentPage - 1)}
+          href={createPageHref(
+            pathname,
+            query,
+            currentPage - 1,
+            pageParameter,
+            hash,
+          )}
+          onClick={createNavigationHandler(navigate)}
           rel="prev"
         >
           Previous
@@ -63,7 +89,14 @@ export function Pagination({
         ) : (
           <GhostButtonLink
             key={page}
-            href={createPageHref(pathname, query, page)}
+            href={createPageHref(
+              pathname,
+              query,
+              page,
+              pageParameter,
+              hash,
+            )}
+            onClick={createNavigationHandler(navigate)}
             className="min-w-11 px-3"
           >
             {page}
@@ -73,7 +106,14 @@ export function Pagination({
 
       {currentPage < totalPages ? (
         <SecondaryButtonLink
-          href={createPageHref(pathname, query, currentPage + 1)}
+          href={createPageHref(
+            pathname,
+            query,
+            currentPage + 1,
+            pageParameter,
+            hash,
+          )}
+          onClick={createNavigationHandler(navigate)}
           rel="next"
         >
           Next
@@ -90,10 +130,40 @@ export function Pagination({
   );
 }
 
+function createNavigationHandler(
+  onNavigate?: (href: string) => void,
+): ((event: MouseEvent<HTMLAnchorElement>) => void) | undefined {
+  if (!onNavigate) {
+    return undefined;
+  }
+
+  return (event) => {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.currentTarget.target === "_blank"
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute("href");
+
+    if (href) {
+      onNavigate(href);
+    }
+  };
+}
+
 function createPageHref(
   pathname: string,
   query: Record<string, string | number | undefined>,
   page: number,
+  pageParameter = "page",
+  hash?: string,
 ): string {
   const searchParams = new URLSearchParams();
 
@@ -104,13 +174,14 @@ function createPageHref(
   }
 
   if (page > 1) {
-    searchParams.set("page", String(page));
+    searchParams.set(pageParameter, String(page));
   } else {
-    searchParams.delete("page");
+    searchParams.delete(pageParameter);
   }
 
   const search = searchParams.toString();
-  return search ? `${pathname}?${search}` : pathname;
+  const suffix = hash ? `#${hash.replace(/^#/, "")}` : "";
+  return search ? `${pathname}?${search}${suffix}` : `${pathname}${suffix}`;
 }
 
 function getVisiblePages(

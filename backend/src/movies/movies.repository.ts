@@ -84,6 +84,12 @@ export class MoviesRepository {
       .getMany();
   }
 
+  findBySlug(slug: string): Promise<Movie | null> {
+    return this.createSummaryQuery()
+      .where('movie.slug = :slug', { slug })
+      .getOne();
+  }
+
   private createSummaryQuery(): SelectQueryBuilder<Movie> {
     return this.movieRepository
       .createQueryBuilder('movie')

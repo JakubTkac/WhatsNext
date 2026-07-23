@@ -47,7 +47,7 @@ export class ReviewsController {
   @ApiOperation({
     summary: 'Browse movie reviews',
     description:
-      'Returns public reviews ordered from newest to oldest with optional movie-title and rating filters.',
+      'Returns public reviews ordered from newest to oldest with optional movie-title, movie-slug, and rating filters.',
   })
   @ApiOkResponse({
     description: 'Review page returned successfully.',
@@ -103,7 +103,7 @@ export class ReviewsController {
   @Get('eligible-movies')
   @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Get watched movies eligible for a new review',
+    summary: 'Get released movies eligible for a new review',
   })
   @ApiOkResponse({
     description: 'Eligible movies returned successfully.',
@@ -133,14 +133,13 @@ export class ReviewsController {
 
   @Post()
   @ApiBearerAuth('access-token')
-  @ApiOperation({ summary: 'Create a review for a watched movie' })
+  @ApiOperation({ summary: 'Create a review for a released movie' })
   @ApiCreatedResponse({
     description: 'Review created successfully.',
     type: LatestReviewDto,
   })
   @ApiBadRequestResponse({
-    description:
-      'The movie is unreleased, was not marked watched, or review data is invalid.',
+    description: 'The movie is unreleased or review data is invalid.',
   })
   @ApiConflictResponse({
     description: 'The user has already reviewed this movie.',

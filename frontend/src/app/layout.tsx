@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import { SiteFooter } from "@/components/landing/site-footer";
 import { SiteHeader } from "@/components/landing/site-header";
+import { RouteTransitionIndicator } from "@/components/ui/route-transition-indicator";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,6 +29,9 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <SiteFooter />
+        <Suspense fallback={null}>
+          <RouteTransitionIndicator />
+        </Suspense>
       </body>
     </html>
   );

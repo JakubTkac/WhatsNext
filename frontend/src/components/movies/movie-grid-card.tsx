@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import type { MovieSummary } from "@/lib/api";
 
@@ -17,7 +18,15 @@ export function MovieGridCard({
   children?: ReactNode;
 }) {
   return (
-    <article className="flex h-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+    <article className="group relative isolate flex h-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_18px_42px_rgba(15,23,42,0.1)]">
+      <Link
+        href={`/movies/${movie.slug}`}
+        aria-label={`View details for ${movie.title}`}
+        className="absolute inset-0 z-10 rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary"
+      >
+        <span className="sr-only">View {movie.title}</span>
+      </Link>
+
       <div className="relative aspect-[2/3] w-32 shrink-0 bg-secondary sm:w-40">
         {movie.posterUrl ? (
           <Image
@@ -25,7 +34,7 @@ export function MovieGridCard({
             alt={`${movie.title} poster`}
             fill
             sizes="(max-width: 639px) 128px, 160px"
-            className="object-cover"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.025]"
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-hover" />
@@ -39,7 +48,7 @@ export function MovieGridCard({
         >
           {releaseDateFormatter.format(toUtcDate(movie.releaseDate))}
         </time>
-        <h2 className="mt-2 text-xl font-semibold leading-tight tracking-[-0.035em]">
+        <h2 className="mt-2 text-xl font-semibold leading-tight tracking-[-0.035em] transition-colors duration-150 group-hover:text-primary">
           {movie.title}
         </h2>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted">
@@ -61,7 +70,39 @@ export function MovieGridCard({
             <p className="text-xs text-subtle">
               {formatRuntime(movie.runtimeMinutes)}
             </p>
-            {children}
+            {children ? (
+              <div className="relative z-20">{children}</div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function MovieGridCardSkeleton() {
+  return (
+    <article
+      className="flex h-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
+      aria-hidden="true"
+    >
+      <div className="skeleton-surface aspect-[2/3] w-32 shrink-0 sm:w-40" />
+
+      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+        <div className="skeleton-surface h-3 w-24 rounded-full" />
+        <div className="skeleton-surface mt-3 h-6 w-2/3 rounded-lg" />
+        <div className="skeleton-surface mt-5 h-4 w-full rounded-full" />
+        <div className="skeleton-surface mt-3 h-4 w-11/12 rounded-full" />
+        <div className="skeleton-surface mt-3 h-4 w-3/5 rounded-full" />
+
+        <div className="mt-auto pt-5">
+          <div className="flex gap-2">
+            <div className="skeleton-surface h-6 w-16 rounded-full" />
+            <div className="skeleton-surface h-6 w-20 rounded-full" />
+          </div>
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <div className="skeleton-surface h-3 w-12 rounded-full" />
+            <div className="skeleton-surface h-10 w-44 rounded-xl" />
           </div>
         </div>
       </div>

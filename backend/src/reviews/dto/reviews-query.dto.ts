@@ -4,6 +4,7 @@ import {
   IsInt,
   IsOptional,
   IsString,
+  Matches,
   Max,
   MaxLength,
   Min,
@@ -55,4 +56,19 @@ export class ReviewsQueryDto {
   @IsString()
   @MaxLength(80)
   movie?: string;
+
+  @ApiPropertyOptional({
+    description: 'Only return reviews for this exact movie slug.',
+    example: 'the-odyssey-2026',
+    maxLength: 255,
+    type: String,
+  })
+  @IsOptional()
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim().toLowerCase() : value,
+  )
+  @IsString()
+  @MaxLength(255)
+  @Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
+  movieSlug?: string;
 }

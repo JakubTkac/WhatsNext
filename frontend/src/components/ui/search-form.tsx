@@ -3,6 +3,7 @@
 import Form from "next/form";
 import { useSearchParams } from "next/navigation";
 import { PrimaryButton } from "@/components/ui/action-button";
+import { beginFormRouteTransition } from "@/components/ui/route-transition-indicator";
 
 export function SearchForm() {
   const searchParams = useSearchParams();
@@ -13,6 +14,9 @@ export function SearchForm() {
       key={search}
       action="/"
       role="search"
+      onSubmit={(event) => {
+        beginFormRouteTransition(event.currentTarget);
+      }}
       className="flex min-w-0 overflow-hidden rounded-xl border border-transparent bg-secondary p-1 transition-[border-color,box-shadow] duration-150 focus-within:border-primary focus-within:shadow-[0_0_0_3px_rgba(37,99,235,0.12)]"
     >
       <label className="sr-only" htmlFor="site-search">

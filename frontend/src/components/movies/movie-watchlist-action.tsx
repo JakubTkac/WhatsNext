@@ -1,7 +1,10 @@
 "use client";
 
-import { useActionState } from "react";
-import { toggleWatchlistAction } from "@/app/actions/watchlist";
+import {
+  type FormEvent,
+  useState,
+  useTransition,
+} from "react";
 import {
   PrimaryButton,
   PrimaryButtonLink,
@@ -12,7 +15,6 @@ import {
   SuccessToast,
 } from "@/components/ui/feedback-toast";
 import { createAuthHref } from "@/lib/return-to";
-import type { WatchlistFormState } from "@/lib/watchlist-form";
 
 type MovieWatchlistActionProps =
   | {
@@ -71,37 +73,74 @@ function WatchlistToggleAction({
   returnTo: string;
   initiallySaved: boolean;
 }) {
-  const initialState: WatchlistFormState = {
-    successRevision: 0,
-    saved: initiallySaved,
-  };
-  const [state, formAction, pending] = useActionState(
-    toggleWatchlistAction,
-    initialState,
-  );
-  const label = getButtonLabel(state.saved, pending);
+  const [saved, setSaved] = useState(initiallySaved);
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [pending, startTransition] = useTransition();
+  const label = getButtonLabel(saved, pending);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const shouldSave = !saved;
+
+    startTransition(async () => {
+      setFeedback(null);
+
+      let response: Response;
+
+      try {
+        response = await fetch(
+          `/api/watchlist/${encodeURIComponent(movieSlug)}`,
+          { method: shouldSave ? "PUT" : "DELETE" },
+        );
+      } catch {
+        setFeedback({
+          id: Date.now(),
+          type: "error",
+          message:
+            "The watchlist service is unavailable. Please try again.",
+        });
+        return;
+      }
+
+      if (response.status === 401 || response.status === 403) {
+        window.location.assign(createAuthHref("/login", returnTo));
+        return;
+      }
+
+      if (!response.ok) {
+        const payload: unknown = await response.json().catch(() => null);
+        setFeedback({
+          id: Date.now(),
+          type: "error",
+          message: readApiError(
+            payload,
+            "We could not update your watchlist.",
+          ),
+        });
+        return;
+      }
+
+      setSaved(shouldSave);
+      setFeedback({
+        id: Date.now(),
+        type: "success",
+        message: shouldSave
+          ? "Movie added to your watchlist."
+          : "Movie removed from your watchlist.",
+      });
+    });
+  }
 
   return (
-    <form action={formAction}>
-      <input type="hidden" name="movieSlug" value={movieSlug} />
-      <input type="hidden" name="returnTo" value={returnTo} />
-      <input
-        type="hidden"
-        name="intent"
-        value={state.saved ? "remove" : "add"}
-      />
-
-      {state.formError && !pending ? (
-        <ErrorToast message={state.formError} />
+    <form onSubmit={handleSubmit}>
+      {feedback?.type === "error" ? (
+        <ErrorToast key={feedback.id} message={feedback.message} />
       ) : null}
-      {state.successMessage ? (
-        <SuccessToast
-          key={state.successRevision}
-          message={state.successMessage}
-        />
+      {feedback?.type === "success" ? (
+        <SuccessToast key={feedback.id} message={feedback.message} />
       ) : null}
 
-      {state.saved ? (
+      {saved ? (
         <SecondaryButton
           type="submit"
           disabled={pending}
@@ -128,4 +167,24 @@ function getButtonLabel(saved: boolean, pending: boolean): string {
   }
 
   return saved ? "Remove from watchlist" : "Add to watchlist";
+}
+
+type Feedback = {
+  id: number;
+  type: "error" | "success";
+  message: string;
+};
+
+function readApiError(value: unknown, fallback: string): string {
+  if (!isRecord(value)) {
+    return fallback;
+  }
+
+  return typeof value.message === "string"
+    ? value.message.slice(0, 240)
+    : fallback;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }

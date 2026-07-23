@@ -18,9 +18,6 @@ export function AuthPageShell({
   return (
     <main className="mx-auto grid w-full max-w-6xl flex-1 items-start gap-10 px-4 py-12 sm:px-8 sm:py-16 lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-16 lg:px-12 lg:py-24">
       <div className="max-w-xl lg:pt-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-          WhatsNext account
-        </p>
         <h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] sm:text-6xl">
           {title}
         </h1>

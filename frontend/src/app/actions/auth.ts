@@ -3,12 +3,18 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { AuthFormState, AuthFieldErrors } from "@/lib/auth-form";
-import { createAuthSession, deleteAuthSession } from "@/lib/auth";
+import {
+  createAuthSession,
+  deleteAuthSession,
+  isAuthUser,
+  type AuthUser,
+} from "@/lib/auth";
 import { normalizeReturnTo } from "@/lib/return-to";
 
 type AuthApiResponse = {
   accessToken: string;
   expiresIn: number;
+  user: AuthUser;
 };
 
 const apiUrl = process.env.API_URL ?? "http://127.0.0.1:8080/api";
@@ -33,7 +39,7 @@ export async function loginAction(
     return { formError: result.error };
   }
 
-  await createAuthSession(result.accessToken, result.expiresIn);
+  await createAuthSession(result.accessToken, result.expiresIn, result.user);
   revalidatePath("/", "layout");
   redirect(returnTo);
 }
@@ -62,7 +68,7 @@ export async function registerAction(
     return { formError: result.error };
   }
 
-  await createAuthSession(result.accessToken, result.expiresIn);
+  await createAuthSession(result.accessToken, result.expiresIn, result.user);
   revalidatePath("/", "layout");
   redirect(returnTo);
 }
@@ -179,7 +185,8 @@ function isAuthApiResponse(value: unknown): value is AuthApiResponse {
     value.accessToken.length > 0 &&
     typeof value.expiresIn === "number" &&
     Number.isInteger(value.expiresIn) &&
-    value.expiresIn > 0
+    value.expiresIn > 0 &&
+    isAuthUser(value.user)
   );
 }
 

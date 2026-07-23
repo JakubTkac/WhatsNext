@@ -5,11 +5,20 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QueryFailedError, Repository } from 'typeorm';
+import {
+  QueryFailedError,
+  Repository,
+  SelectQueryBuilder,
+} from 'typeorm';
 import { Movie } from '../movies/entities/movie.entity';
 import { Review } from '../reviews/entities/review.entity';
 import { WatchlistItem } from '../watchlist/entities/watchlist-item.entity';
-import { isValidAvatarDataUrl } from './avatar-data';
+import {
+  decodeAvatarDataUrl,
+  getPublicAvatarUrl,
+  isValidAvatarDataUrl,
+  type AvatarImage,
+} from './avatar-data';
 import {
   ProfileMovieDto,
   ProfileResponseDto,
@@ -37,21 +46,39 @@ export class UsersService {
   ) {}
 
   findById(id: string): Promise<User | null> {
-    return this.userRepository.findOneBy({ id });
+    return this.findUserWithAvatarState(
+      this.createAuthUserQuery().where('user.id = :id', { id }),
+    );
+  }
+
+  async getAvatar(userId: string): Promise<AvatarImage> {
+    const user = await this.userRepository.findOne({
+      select: { avatarUrl: true },
+      where: { id: userId },
+    });
+    const avatar = user?.avatarUrl
+      ? decodeAvatarDataUrl(user.avatarUrl)
+      : null;
+
+    if (!avatar) {
+      throw new NotFoundException('Avatar not found.');
+    }
+
+    return avatar;
   }
 
   findByEmailWithPassword(email: string): Promise<User | null> {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .addSelect('user.passwordHash')
-      .where('user.email = :email', { email })
-      .getOne();
+    return this.findUserWithAvatarState(
+      this.createAuthUserQuery()
+        .addSelect('user.passwordHash')
+        .where('user.email = :email', { email }),
+    );
   }
 
   findByIdWithPassword(id: string): Promise<User | null> {
     return this.userRepository
       .createQueryBuilder('user')
-      .addSelect('user.passwordHash')
+      .select(['user.id', 'user.passwordHash'])
       .where('user.id = :id', { id })
       .getOne();
   }
@@ -83,7 +110,7 @@ export class UsersService {
   async getProfile(userId: string): Promise<ProfileResponseDto> {
     const [user, reviewCount, watchlistCount, reviews, watchlistItems] =
       await Promise.all([
-        this.userRepository.findOneBy({ id: userId }),
+        this.findProfileById(userId),
         this.reviewRepository.countBy({ userId }),
         this.watchlistRepository.countBy({ userId }),
         this.findRecentReviews(userId),
@@ -99,7 +126,7 @@ export class UsersService {
       email: user.email,
       displayName: user.displayName,
       bio: user.bio,
-      avatarUrl: user.avatarUrl,
+      avatarUrl: getPublicAvatarUrl(user.id, Boolean(user.avatarUrl)),
       createdAt: user.createdAt.toISOString(),
       stats: {
         watchlistCount,
@@ -228,6 +255,50 @@ export class UsersService {
       .addOrderBy('movie.id', 'ASC')
       .take(4)
       .getMany();
+  }
+
+  private createAuthUserQuery(): SelectQueryBuilder<User> {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .select(['user.id', 'user.email', 'user.displayName', 'user.bio'])
+      .addSelect('"user"."avatar_url" IS NOT NULL', 'user_has_avatar');
+  }
+
+  private findProfileById(userId: string): Promise<User | null> {
+    return this.findUserWithAvatarState(
+      this.userRepository
+        .createQueryBuilder('user')
+        .select([
+          'user.id',
+          'user.email',
+          'user.displayName',
+          'user.bio',
+          'user.createdAt',
+        ])
+        .addSelect(
+          '"user"."avatar_url" IS NOT NULL',
+          'user_has_avatar',
+        )
+        .where('user.id = :userId', { userId }),
+    );
+  }
+
+  private async findUserWithAvatarState(
+    query: SelectQueryBuilder<User>,
+  ): Promise<User | null> {
+    const { entities, raw } = await query.getRawAndEntities<{
+      user_has_avatar?: boolean;
+    }>();
+    const user = entities.at(0);
+
+    if (!user) {
+      return null;
+    }
+
+    user.avatarUrl =
+      raw.at(0)?.user_has_avatar === true ? 'available' : null;
+
+    return user;
   }
 }
 

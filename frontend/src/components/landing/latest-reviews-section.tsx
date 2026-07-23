@@ -35,9 +35,6 @@ export async function LatestReviewsSection() {
         </h2>
         <SecondaryButtonLink href="/reviews" className="shrink-0">
           Browse all
-          <span className="ml-2 text-primary" aria-hidden="true">
-            &rarr;
-          </span>
         </SecondaryButtonLink>
       </div>
 
