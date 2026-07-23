@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/action-button";
 import {
   ErrorToast,
-  SuccessToast,
 } from "@/components/ui/feedback-toast";
 import type { LatestReview } from "@/lib/api";
 import { createAuthHref } from "@/lib/return-to";
@@ -126,6 +125,7 @@ function MovieOwnedReviewActions({ review }: { review: LatestReview }) {
     return (
       <DeleteReviewModal
         review={review}
+        returnTo={`/movies/${review.movie.slug}`}
         onClose={() => setMode("idle")}
       />
     );
@@ -197,12 +197,6 @@ function CreateMovieReviewForm({ movieSlug }: { movieSlug: string }) {
 
       {state.formError && !pending ? (
         <ErrorToast message={state.formError} />
-      ) : null}
-      {state.successMessage ? (
-        <SuccessToast
-          key={state.successRevision}
-          message={state.successMessage}
-        />
       ) : null}
 
       <div className="grid gap-5">

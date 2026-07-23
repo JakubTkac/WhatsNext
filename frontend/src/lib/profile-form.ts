@@ -16,6 +16,7 @@ export type AvatarFormState = {
   fieldError?: string;
   formError?: string;
   successMessage?: string;
+  avatarUrl?: string | null;
 };
 
 export type ChangePasswordFieldErrors = {

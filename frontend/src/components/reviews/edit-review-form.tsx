@@ -17,9 +17,11 @@ const fieldClassName =
 export function EditReviewForm({
   review,
   className = "mt-5 border-t border-border pt-5",
+  onDirtyChange,
 }: {
   review: LatestReview;
   className?: string;
+  onDirtyChange?: (dirty: boolean) => void;
 }) {
   const [rating, setRating] = useState(String(review.rating));
   const [body, setBody] = useState(review.body);
@@ -35,6 +37,16 @@ export function EditReviewForm({
     setRating(String(review.rating));
     setBody(review.body);
   }, [review.rating, review.body]);
+
+  useEffect(() => {
+    onDirtyChange?.(hasChanges);
+  }, [hasChanges, onDirtyChange]);
+
+  useEffect(() => {
+    if (state.successRevision > 0) {
+      onDirtyChange?.(false);
+    }
+  }, [onDirtyChange, state.successRevision]);
 
   return (
     <form

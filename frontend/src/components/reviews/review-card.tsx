@@ -27,30 +27,29 @@ export function ReviewCard({
 
   return (
     <article
-      className={`relative flex min-h-80 flex-col rounded-2xl border border-border/80 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)] sm:p-6 ${
-        primaryAction
-          ? "transition-transform duration-150 hover:-translate-y-1"
-          : ""
-      }`}
+      className="relative flex min-h-80 flex-col rounded-2xl border border-border/80 bg-white p-5 shadow-[0_12px_30px_rgba(15,23,42,0.06)] sm:p-6"
     >
-      {primaryAction ? (
-        <Link
-          href={primaryAction.href}
-          aria-label={primaryAction.label}
-          className="absolute inset-0 z-10 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4"
-        />
-      ) : null}
-
       <div className="flex items-center justify-between gap-3">
         <span className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white">
           {review.rating}/10
         </span>
-        <time
-          dateTime={review.createdAt}
-          className="text-xs font-medium text-subtle"
-        >
-          {reviewDateFormatter.format(new Date(review.createdAt))}
-        </time>
+        <div className="flex items-center gap-2">
+          <time
+            dateTime={review.createdAt}
+            className="text-xs font-medium text-subtle"
+          >
+            {reviewDateFormatter.format(new Date(review.createdAt))}
+          </time>
+          {primaryAction ? (
+            <Link
+              href={primaryAction.href}
+              aria-label={primaryAction.label}
+              className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg border border-border bg-white px-3 text-xs font-semibold text-foreground outline-none transition-[background-color,border-color,color] duration-150 hover:border-blue-200 hover:bg-blue-50 hover:text-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              Edit
+            </Link>
+          ) : null}
+        </div>
       </div>
 
       <blockquote className="mt-5 line-clamp-5 text-base leading-7 text-foreground">
@@ -67,7 +66,7 @@ export function ReviewCard({
               height={36}
               loading="lazy"
               decoding="async"
-              unoptimized={review.author.avatarUrl.startsWith("data:")}
+              unoptimized
               className="h-9 w-9 rounded-full object-cover"
             />
           ) : (
@@ -87,7 +86,7 @@ export function ReviewCard({
           <Link
             href={`/movies/${review.movie.slug}`}
             aria-label={`View ${review.movie.title}`}
-            className="group/movie relative z-20 mt-1 block truncate rounded-sm text-xs text-muted outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="group/movie mt-1 block truncate rounded-sm text-xs text-muted outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             reviewed{" "}
             <span className="font-semibold text-blue-800 underline decoration-2 decoration-transparent underline-offset-2 transition-[color,text-decoration-color] duration-200 group-hover/movie:text-primary group-hover/movie:decoration-primary group-focus-visible/movie:text-primary group-focus-visible/movie:decoration-primary">
@@ -99,7 +98,7 @@ export function ReviewCard({
         <Link
           href={`/movies/${review.movie.slug}`}
           aria-label={`View ${review.movie.title}`}
-          className="group/poster relative z-20 aspect-[2/3] w-12 shrink-0 overflow-hidden rounded-lg bg-primary shadow-sm ring-2 ring-blue-100 outline-none transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:scale-[1.06] hover:shadow-[0_10px_24px_rgba(37,99,235,0.28)] hover:ring-primary/50 focus-visible:-translate-y-1 focus-visible:scale-[1.06] focus-visible:ring-primary/50 motion-reduce:transform-none"
+          className="group/poster aspect-[2/3] w-12 shrink-0 overflow-hidden rounded-lg bg-primary shadow-sm ring-2 ring-blue-100 outline-none transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:scale-[1.06] hover:shadow-[0_10px_24px_rgba(37,99,235,0.28)] hover:ring-primary/50 focus-visible:-translate-y-1 focus-visible:scale-[1.06] focus-visible:ring-primary/50 motion-reduce:transform-none"
         >
           {review.movie.posterUrl ? (
             <Image

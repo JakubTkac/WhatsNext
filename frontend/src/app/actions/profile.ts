@@ -6,6 +6,7 @@ import {
   isAuthUser,
   updateAuthSessionUser,
 } from "@/lib/auth";
+import { withAvatarRevision } from "@/lib/avatar-url";
 import type {
   AvatarFormState,
   ChangePasswordFieldErrors,
@@ -80,7 +81,10 @@ export async function updateProfileAction(
       };
     }
 
-    await updateAuthSessionUser(payload);
+    await updateAuthSessionUser({
+      ...payload,
+      avatarUrl: withAvatarRevision(payload.avatarUrl, Date.now()),
+    });
     revalidatePath("/", "layout");
     revalidatePath("/profile");
     return {
@@ -155,12 +159,18 @@ export async function updateAvatarAction(
       };
     }
 
-    await updateAuthSessionUser(payload);
+    const sessionUser = {
+      ...payload,
+      avatarUrl: withAvatarRevision(payload.avatarUrl, Date.now()),
+    };
+
+    await updateAuthSessionUser(sessionUser);
     revalidatePath("/", "layout");
     revalidatePath("/profile");
     return {
       successRevision: previousState.successRevision + 1,
       successMessage: removeAvatar ? "Avatar removed." : "Avatar updated.",
+      avatarUrl: sessionUser.avatarUrl,
     };
   } catch {
     return {

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ReviewCard } from "@/components/reviews/review-card";
 import { PublicReviewFilters } from "@/components/reviews/review-filters";
@@ -15,6 +16,12 @@ import {
   getReviewWorkspace,
   type ReviewsQuery,
 } from "@/lib/api";
+
+export const metadata: Metadata = {
+  title: "Movie Reviews",
+  description:
+    "Browse recent movie ratings and reviews from the WhatsNext community.",
+};
 
 type ReviewsPageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;

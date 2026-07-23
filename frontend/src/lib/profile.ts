@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
-import { getAccessToken } from "@/lib/auth";
+import { getAccessToken, getCurrentUser } from "@/lib/auth";
+import { ensureAvatarRevision } from "@/lib/avatar-url";
 
 export type ProfileMovie = {
   slug: string;
@@ -74,9 +75,26 @@ export const getProfile = cache(async (): Promise<ProfileConnection> => {
     }
 
     const value: unknown = await response.json();
-    return isProfile(value)
-      ? { status: "online", profile: value }
-      : { status: "unavailable" };
+
+    if (!isProfile(value)) {
+      return { status: "unavailable" };
+    }
+
+    const currentUser = await getCurrentUser();
+    const sessionAvatarMatchesProfileState =
+      currentUser?.id === value.id &&
+      Boolean(currentUser.avatarUrl) === Boolean(value.avatarUrl);
+    const avatarUrl = currentUser && sessionAvatarMatchesProfileState
+      ? currentUser.avatarUrl
+      : value.avatarUrl;
+
+    return {
+      status: "online",
+      profile: {
+        ...value,
+        avatarUrl: ensureAvatarRevision(avatarUrl, Date.now()),
+      },
+    };
   } catch {
     return { status: "unavailable" };
   }

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DeleteReviewModal } from "@/components/reviews/delete-review-modal";
 import { EditReviewForm } from "@/components/reviews/edit-review-form";
 import { OwnedReviewFilters } from "@/components/reviews/review-filters";
 import { OwnedReviewResultsSkeleton } from "@/components/reviews/reviews-page-skeleton";
+import { UnsavedReviewChangesModal } from "@/components/reviews/unsaved-review-changes-modal";
 import {
   DangerButton,
   PrimaryButtonLink,
@@ -25,6 +26,10 @@ import type {
 } from "@/lib/api";
 import { createAuthHref } from "@/lib/return-to";
 
+type PendingEditorChange =
+  | { type: "close" }
+  | { type: "switch"; reviewId: string };
+
 export function ReviewManager({
   connection,
   query,
@@ -38,6 +43,59 @@ export function ReviewManager({
 }) {
   const navigation = useListingNavigation();
   const connectionStatus = connection.status;
+  const [activeEditReviewId, setActiveEditReviewId] = useState<
+    string | null
+  >(initialEditReviewId ?? null);
+  const [activeEditorDirty, setActiveEditorDirty] = useState(false);
+  const [pendingEditorChange, setPendingEditorChange] =
+    useState<PendingEditorChange | null>(null);
+
+  const requestEditorChange = useCallback(
+    (reviewId: string) => {
+      const closingCurrentEditor = reviewId === activeEditReviewId;
+
+      if (activeEditReviewId && activeEditorDirty) {
+        setPendingEditorChange(
+          closingCurrentEditor
+            ? { type: "close" }
+            : { type: "switch", reviewId },
+        );
+        return;
+      }
+
+      setActiveEditReviewId(closingCurrentEditor ? null : reviewId);
+      setActiveEditorDirty(false);
+      setPendingEditorChange(null);
+    },
+    [activeEditReviewId, activeEditorDirty],
+  );
+
+  const reportEditorDirty = useCallback(
+    (reviewId: string, dirty: boolean) => {
+      if (reviewId === activeEditReviewId) {
+        setActiveEditorDirty(dirty);
+      }
+    },
+    [activeEditReviewId],
+  );
+
+  const cancelEditorChange = useCallback(() => {
+    setPendingEditorChange(null);
+  }, []);
+
+  const discardEditorChanges = useCallback(() => {
+    if (!pendingEditorChange) {
+      return;
+    }
+
+    setActiveEditReviewId(
+      pendingEditorChange.type === "switch"
+        ? pendingEditorChange.reviewId
+        : null,
+    );
+    setActiveEditorDirty(false);
+    setPendingEditorChange(null);
+  }, [pendingEditorChange]);
 
   useEffect(() => {
     if (connectionStatus !== "online" || !initialEditReviewId) {
@@ -91,6 +149,20 @@ export function ReviewManager({
       connection.meta.limit,
       displayedPage,
     ) || connection.meta.limit;
+  const activeEditingReview = connection.reviews.find(
+    (review) => review.id === activeEditReviewId,
+  );
+  const pendingEditingReview =
+    pendingEditorChange?.type === "switch"
+      ? connection.reviews.find(
+          (review) => review.id === pendingEditorChange.reviewId,
+        )
+      : undefined;
+  const deleteReturnTo = createOwnedReviewsReturnTo(
+    connection.meta.page,
+    query,
+    preservedQuery,
+  );
 
   return (
     <section
@@ -130,8 +202,11 @@ export function ReviewManager({
       ) : (
         <OwnedReviews
           reviews={connection.reviews}
-          initialEditReviewId={initialEditReviewId}
+          activeEditReviewId={activeEditReviewId}
           hasActiveFilters={Boolean(query.movie || query.rating)}
+          deleteReturnTo={deleteReturnTo}
+          onEditorDirtyChange={reportEditorDirty}
+          onRequestEditorChange={requestEditorChange}
         />
       )}
 
@@ -149,18 +224,33 @@ export function ReviewManager({
         pending={pending}
         onNavigate={navigation?.navigate}
       />
+
+      {pendingEditorChange && activeEditingReview ? (
+        <UnsavedReviewChangesModal
+          currentMovieTitle={activeEditingReview.movie.title}
+          nextMovieTitle={pendingEditingReview?.movie.title}
+          onCancel={cancelEditorChange}
+          onDiscard={discardEditorChanges}
+        />
+      ) : null}
     </section>
   );
 }
 
 function OwnedReviews({
   reviews,
-  initialEditReviewId,
+  activeEditReviewId,
   hasActiveFilters,
+  deleteReturnTo,
+  onEditorDirtyChange,
+  onRequestEditorChange,
 }: {
   reviews: LatestReview[];
-  initialEditReviewId?: string;
+  activeEditReviewId: string | null;
   hasActiveFilters: boolean;
+  deleteReturnTo: string;
+  onEditorDirtyChange: (reviewId: string, dirty: boolean) => void;
+  onRequestEditorChange: (reviewId: string) => void;
 }) {
   if (reviews.length === 0) {
     return (
@@ -180,7 +270,10 @@ function OwnedReviews({
         <OwnedReviewRow
           key={review.id}
           review={review}
-          initiallyEditing={review.id === initialEditReviewId}
+          editing={review.id === activeEditReviewId}
+          deleteReturnTo={deleteReturnTo}
+          onDirtyChange={onEditorDirtyChange}
+          onRequestEditorChange={onRequestEditorChange}
         />
       ))}
     </div>
@@ -189,13 +282,24 @@ function OwnedReviews({
 
 function OwnedReviewRow({
   review,
-  initiallyEditing,
+  editing,
+  deleteReturnTo,
+  onDirtyChange,
+  onRequestEditorChange,
 }: {
   review: LatestReview;
-  initiallyEditing: boolean;
+  editing: boolean;
+  deleteReturnTo: string;
+  onDirtyChange: (reviewId: string, dirty: boolean) => void;
+  onRequestEditorChange: (reviewId: string) => void;
 }) {
-  const [editing, setEditing] = useState(initiallyEditing);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const reportDirty = useCallback(
+    (dirty: boolean) => {
+      onDirtyChange(review.id, dirty);
+    },
+    [onDirtyChange, review.id],
+  );
 
   return (
     <article
@@ -207,7 +311,7 @@ function OwnedReviewRow({
           <h3 className="text-lg font-semibold">
             <Link
               href={`/movies/${review.movie.slug}`}
-              className="rounded-sm transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className="inline-flex min-h-12 items-center rounded-sm py-2 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
               {review.movie.title}
             </Link>
@@ -219,8 +323,8 @@ function OwnedReviewRow({
         <div className="flex gap-2">
           <SecondaryButton
             onClick={() => {
-              setEditing((current) => !current);
               setConfirmingDelete(false);
+              onRequestEditorChange(review.id);
             }}
             className="min-h-10 px-3 py-2"
           >
@@ -229,7 +333,6 @@ function OwnedReviewRow({
           <DangerButton
             onClick={() => {
               setConfirmingDelete(true);
-              setEditing(false);
             }}
             className="min-h-10 px-3 py-2"
           >
@@ -244,13 +347,42 @@ function OwnedReviewRow({
         </p>
       ) : null}
 
-      {editing ? <EditReviewForm review={review} /> : null}
+      {editing ? (
+        <EditReviewForm
+          review={review}
+          onDirtyChange={reportDirty}
+        />
+      ) : null}
       {confirmingDelete ? (
         <DeleteReviewModal
           review={review}
+          returnTo={deleteReturnTo}
           onClose={() => setConfirmingDelete(false)}
         />
       ) : null}
     </article>
   );
+}
+
+function createOwnedReviewsReturnTo(
+  currentPage: number,
+  query: ReviewsQuery,
+  preservedQuery: Record<string, string | number | undefined>,
+): string {
+  const searchParams = new URLSearchParams();
+  const values = {
+    ...preservedQuery,
+    myPage: currentPage > 1 ? currentPage : undefined,
+    myMovie: query.movie,
+    myRating: query.rating,
+  };
+
+  Object.entries(values).forEach(([name, value]) => {
+    if (value !== undefined && value !== "") {
+      searchParams.set(name, String(value));
+    }
+  });
+
+  const search = searchParams.toString();
+  return `/reviews${search ? `?${search}` : ""}#your-reviews-heading`;
 }

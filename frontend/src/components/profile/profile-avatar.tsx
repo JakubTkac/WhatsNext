@@ -33,20 +33,25 @@ export function ProfileAvatar({
   avatarUrl,
 }: ProfileAvatarProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [displayedAvatarUrl, setDisplayedAvatarUrl] = useState(avatarUrl);
   const [toast, setToast] = useState<{
     revision: number;
     message: string;
     tone: "success" | "error";
   }>({ revision: 0, message: "", tone: "success" });
   const initial = displayName.trim().charAt(0).toUpperCase();
-  const handleSuccess = useCallback((message: string) => {
-    setModalOpen(false);
-    setToast((current) => ({
-      revision: current.revision + 1,
-      message,
-      tone: "success",
-    }));
-  }, []);
+  const handleSuccess = useCallback(
+    (message: string, updatedAvatarUrl: string | null) => {
+      setModalOpen(false);
+      setDisplayedAvatarUrl(updatedAvatarUrl);
+      setToast((current) => ({
+        revision: current.revision + 1,
+        message,
+        tone: "success",
+      }));
+    },
+    [],
+  );
   const handleError = useCallback((message: string) => {
     setModalOpen(false);
     setToast((current) => ({
@@ -56,6 +61,10 @@ export function ProfileAvatar({
     }));
   }, []);
 
+  useEffect(() => {
+    setDisplayedAvatarUrl(avatarUrl);
+  }, [avatarUrl]);
+
   return (
     <>
       <UnstyledButton
@@ -63,9 +72,9 @@ export function ProfileAvatar({
         aria-label="Change profile photo"
         className="group relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-full bg-blue-100 text-4xl font-bold text-primary ring-8 ring-white focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-primary sm:h-32 sm:w-32"
       >
-        {avatarUrl ? (
+        {displayedAvatarUrl ? (
           <Image
-            src={avatarUrl}
+            src={displayedAvatarUrl}
             alt={`${displayName}'s avatar`}
             fill
             unoptimized
@@ -82,7 +91,7 @@ export function ProfileAvatar({
 
       {modalOpen ? (
         <AvatarActionsModal
-          hasAvatar={avatarUrl !== null}
+          hasAvatar={displayedAvatarUrl !== null}
           onClose={() => setModalOpen(false)}
           onError={handleError}
           onSuccess={handleSuccess}
@@ -109,7 +118,10 @@ function AvatarActionsModal({
   hasAvatar: boolean;
   onClose: () => void;
   onError: (message: string) => void;
-  onSuccess: (message: string) => void;
+  onSuccess: (
+    message: string,
+    avatarUrl: string | null,
+  ) => void;
 }) {
   const uploadFormRef = useRef<HTMLFormElement>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
@@ -120,9 +132,14 @@ function AvatarActionsModal({
 
   useEffect(() => {
     if (state.successRevision > 0 && state.successMessage) {
-      onSuccess(state.successMessage);
+      onSuccess(state.successMessage, state.avatarUrl ?? null);
     }
-  }, [onSuccess, state.successMessage, state.successRevision]);
+  }, [
+    onSuccess,
+    state.avatarUrl,
+    state.successMessage,
+    state.successRevision,
+  ]);
 
   useEffect(() => {
     if (state.formError) {

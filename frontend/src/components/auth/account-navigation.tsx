@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
+import { ensureAvatarRevision } from "@/lib/avatar-url";
 import {
   LoggedOutAccountActions,
   LogoutAction,
@@ -14,6 +15,7 @@ export async function AccountNavigation() {
   }
 
   const initial = user.displayName.trim().charAt(0).toUpperCase();
+  const avatarUrl = ensureAvatarRevision(user.avatarUrl, Date.now());
 
   return (
     <div className="flex items-center gap-2" aria-label="Account">
@@ -26,9 +28,9 @@ export async function AccountNavigation() {
         <span className="hidden max-w-32 truncate text-sm font-semibold text-foreground transition-colors duration-150 group-hover:text-primary xl:block">
           {user.displayName}
         </span>
-        {user.avatarUrl ? (
+        {avatarUrl ? (
           <Image
-            src={user.avatarUrl}
+            src={avatarUrl}
             alt=""
             width={36}
             height={36}

@@ -6,10 +6,7 @@ import {
   DangerButton,
   SecondaryButton,
 } from "@/components/ui/action-button";
-import {
-  ErrorToast,
-  SuccessToast,
-} from "@/components/ui/feedback-toast";
+import { ErrorToast } from "@/components/ui/feedback-toast";
 import { Modal } from "@/components/ui/modal";
 import type { LatestReview } from "@/lib/api";
 import type { ReviewFormState } from "@/lib/review-form";
@@ -18,9 +15,11 @@ const initialState: ReviewFormState = { successRevision: 0 };
 
 export function DeleteReviewModal({
   review,
+  returnTo,
   onClose,
 }: {
   review: LatestReview;
+  returnTo: string;
   onClose: () => void;
 }) {
   const [state, formAction, pending] = useActionState(
@@ -38,14 +37,9 @@ export function DeleteReviewModal({
       <form action={formAction} className="p-5 sm:p-6">
         <input type="hidden" name="reviewId" value={review.id} />
         <input type="hidden" name="movieSlug" value={review.movie.slug} />
+        <input type="hidden" name="returnTo" value={returnTo} />
         {state.formError && !pending ? (
           <ErrorToast message={state.formError} />
-        ) : null}
-        {state.successMessage ? (
-          <SuccessToast
-            key={state.successRevision}
-            message={state.successMessage}
-          />
         ) : null}
         <p className="text-base leading-7 text-muted">
           Are you sure you want to delete your review of{" "}

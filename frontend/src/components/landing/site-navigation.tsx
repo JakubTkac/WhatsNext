@@ -29,7 +29,7 @@ export function SiteNavigation() {
               key={item.href}
               href={item.href}
               aria-current={active ? "page" : undefined}
-              className={`inline-flex min-h-11 items-center justify-center border-b-2 px-1 text-xs font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-4 sm:text-sm ${
+              className={`inline-flex min-h-12 items-center justify-center border-b-2 px-1 text-xs font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:px-4 sm:text-sm ${
                 active
                   ? "border-primary text-primary"
                   : "border-transparent text-foreground hover:border-blue-200 hover:text-primary"

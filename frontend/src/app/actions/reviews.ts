@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { getAccessToken } from "@/lib/auth";
 import type {
   ReviewFieldErrors,
@@ -36,10 +37,12 @@ export async function createReviewAction(
   }
 
   revalidateReviewViews(movieSlug);
-  return {
-    successRevision: previousState.successRevision + 1,
-    successMessage: "Review published.",
-  };
+  redirect(
+    createReviewFeedbackHref(
+      `/movies/${encodeURIComponent(movieSlug)}`,
+      "review-published",
+    ),
+  );
 }
 
 export async function updateReviewAction(
@@ -92,6 +95,12 @@ export async function deleteReviewAction(
   const movieSlug = normalizeMovieSlug(
     readString(formData, "movieSlug"),
   );
+  const returnTo = normalizeReviewReturnTo(
+    readString(formData, "returnTo"),
+    movieSlug
+      ? `/movies/${encodeURIComponent(movieSlug)}`
+      : "/reviews",
+  );
 
   if (!isUuid(reviewId)) {
     return {
@@ -113,10 +122,7 @@ export async function deleteReviewAction(
   }
 
   revalidateReviewViews(movieSlug);
-  return {
-    successRevision: previousState.successRevision + 1,
-    successMessage: "Review deleted.",
-  };
+  redirect(createReviewFeedbackHref(returnTo, "review-deleted"));
 }
 
 async function sendReviewRequest(
@@ -149,7 +155,12 @@ async function sendReviewRequest(
     if (!response.ok) {
       const payload: unknown = await response.json().catch(() => null);
       return {
-        error: readApiError(payload, "We could not save your review."),
+        error: readApiError(
+          payload,
+          method === "DELETE"
+            ? "We could not delete your review."
+            : "We could not save your review.",
+        ),
       };
     }
 
@@ -214,6 +225,39 @@ function normalizeMovieSlug(value: string): string | undefined {
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(normalized)
     ? normalized
     : undefined;
+}
+
+function normalizeReviewReturnTo(value: string, fallback: string): string {
+  if (
+    !value ||
+    !value.startsWith("/") ||
+    value.startsWith("//") ||
+    /[\r\n]/.test(value)
+  ) {
+    return fallback;
+  }
+
+  try {
+    const url = new URL(value, "https://whatsnext.local");
+
+    if (url.origin !== "https://whatsnext.local") {
+      return fallback;
+    }
+
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return fallback;
+  }
+}
+
+function createReviewFeedbackHref(
+  returnTo: string,
+  feedback: "review-published" | "review-deleted",
+): string {
+  const url = new URL(returnTo, "https://whatsnext.local");
+  url.searchParams.set("feedback", feedback);
+  url.searchParams.set("feedbackRevision", String(Date.now()));
+  return `${url.pathname}${url.search}${url.hash}`;
 }
 
 function readApiError(value: unknown, fallback: string): string {
