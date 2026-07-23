@@ -130,6 +130,7 @@ export class ReviewsRepository {
         'review.updatedAt',
         'user.id',
         'user.displayName',
+        'user.updatedAt',
         'movie.id',
         'movie.slug',
         'movie.title',

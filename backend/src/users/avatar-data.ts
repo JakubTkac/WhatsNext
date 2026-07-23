@@ -62,6 +62,9 @@ export function isValidAvatarDataUrl(value: string): boolean {
 export function getPublicAvatarUrl(
   userId: string,
   hasAvatar: boolean,
+  updatedAt: Date,
 ): string | null {
-  return hasAvatar ? `/api/users/${userId}/avatar` : null;
+  return hasAvatar
+    ? `/api/users/${userId}/avatar?v=${updatedAt.getTime()}`
+    : null;
 }

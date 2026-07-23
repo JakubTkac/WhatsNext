@@ -77,6 +77,7 @@ export class MoviesService {
           avatarUrl: getPublicAvatarUrl(
             review.user.id,
             Boolean(review.user.avatarUrl),
+            review.user.updatedAt,
           ),
         },
       })),

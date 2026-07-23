@@ -126,7 +126,11 @@ export class UsersService {
       email: user.email,
       displayName: user.displayName,
       bio: user.bio,
-      avatarUrl: getPublicAvatarUrl(user.id, Boolean(user.avatarUrl)),
+      avatarUrl: getPublicAvatarUrl(
+        user.id,
+        Boolean(user.avatarUrl),
+        user.updatedAt,
+      ),
       createdAt: user.createdAt.toISOString(),
       stats: {
         watchlistCount,
@@ -260,7 +264,13 @@ export class UsersService {
   private createAuthUserQuery(): SelectQueryBuilder<User> {
     return this.userRepository
       .createQueryBuilder('user')
-      .select(['user.id', 'user.email', 'user.displayName', 'user.bio'])
+      .select([
+        'user.id',
+        'user.email',
+        'user.displayName',
+        'user.bio',
+        'user.updatedAt',
+      ])
       .addSelect('"user"."avatar_url" IS NOT NULL', 'user_has_avatar');
   }
 
@@ -274,6 +284,7 @@ export class UsersService {
           'user.displayName',
           'user.bio',
           'user.createdAt',
+          'user.updatedAt',
         ])
         .addSelect(
           '"user"."avatar_url" IS NOT NULL',

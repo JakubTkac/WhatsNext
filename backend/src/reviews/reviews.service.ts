@@ -224,7 +224,13 @@ export class ReviewsService {
       createdAt: review.createdAt.toISOString(),
       author: {
         displayName: author.displayName,
-        avatarUrl: getPublicAvatarUrl(author.id, Boolean(author.avatarUrl)),
+        avatarUrl: review.user
+          ? getPublicAvatarUrl(
+              review.user.id,
+              Boolean(review.user.avatarUrl),
+              review.user.updatedAt,
+            )
+          : (user?.avatarUrl ?? null),
       },
       movie: {
         slug: reviewedMovie.slug,

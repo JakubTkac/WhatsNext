@@ -39,7 +39,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       email: user.email,
       displayName: user.displayName,
       bio: user.bio,
-      avatarUrl: getPublicAvatarUrl(user.id, Boolean(user.avatarUrl)),
+      avatarUrl: getPublicAvatarUrl(
+        user.id,
+        Boolean(user.avatarUrl),
+        user.updatedAt,
+      ),
     };
   }
 }
