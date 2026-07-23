@@ -4,6 +4,7 @@ import { MovieFilters } from "@/components/movies/movie-filters";
 import { MovieGridCard } from "@/components/movies/movie-grid-card";
 import { MovieListingResults } from "@/components/movies/movie-listing-results";
 import { MovieListingPageSkeleton } from "@/components/movies/movie-listing-skeleton";
+import { RecentlyViewedMovies } from "@/components/movies/recently-viewed-movies";
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
 import { PageErrorState } from "@/components/ui/page-error-state";
 import { SectionEmptyState } from "@/components/ui/section-state";
@@ -75,6 +76,7 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
           currentPage={connection.meta.page}
           totalItems={connection.meta.totalItems}
           totalPages={connection.meta.totalPages}
+          pageSize={connection.meta.limit}
           pathname="/watchlist"
           query={createMoviePaginationQuery(query)}
         >
@@ -109,6 +111,8 @@ async function WatchlistListing({ query }: { query: MoviesQuery }) {
           )}
         </MovieListingResults>
       </ListingNavigationProvider>
+
+      <RecentlyViewedMovies className="mt-20" />
     </main>
   );
 }

@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { ReviewResultsSkeleton } from "@/components/reviews/reviews-page-skeleton";
 import {
+  getListingPageItemCount,
   readListingDestinationPage,
   useListingNavigation,
 } from "@/components/ui/listing-navigation";
@@ -13,6 +14,7 @@ type ReviewListingResultsProps = {
   currentPage: number;
   totalItems: number;
   totalPages: number;
+  pageSize: number;
   query: Record<string, string | number | undefined>;
 };
 
@@ -21,6 +23,7 @@ export function ReviewListingResults({
   currentPage,
   totalItems,
   totalPages,
+  pageSize,
   query,
 }: ReviewListingResultsProps) {
   const navigation = useListingNavigation();
@@ -28,6 +31,9 @@ export function ReviewListingResults({
   const displayedPage = pending
     ? readListingDestinationPage(navigation?.destination ?? null)
     : currentPage;
+  const skeletonItemCount =
+    getListingPageItemCount(totalItems, pageSize, displayedPage) ||
+    pageSize;
 
   return (
     <div aria-busy={pending}>
@@ -41,7 +47,11 @@ export function ReviewListingResults({
         </p>
       </div>
 
-      {pending ? <ReviewResultsSkeleton /> : children}
+      {pending ? (
+        <ReviewResultsSkeleton itemCount={skeletonItemCount} />
+      ) : (
+        children
+      )}
 
       <Pagination
         currentPage={displayedPage}

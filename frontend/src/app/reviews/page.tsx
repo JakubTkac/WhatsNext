@@ -93,6 +93,7 @@ async function PublicReviewResults({
       currentPage={connection.meta.page}
       totalItems={connection.meta.totalItems}
       totalPages={connection.meta.totalPages}
+      pageSize={connection.meta.limit}
       query={{
         movie: query.movie,
         rating: query.rating,

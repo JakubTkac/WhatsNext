@@ -1,7 +1,7 @@
 import { ReviewCardSkeleton } from "@/components/reviews/review-card";
 
-const publicReviewSkeletons = [0, 1, 2, 3, 4, 5];
-const ownedReviewSkeletons = [0, 1, 2, 3, 4];
+const defaultPublicReviewSkeletonCount = 12;
+const defaultOwnedReviewSkeletonCount = 5;
 
 export function ReviewsPageSkeleton() {
   return (
@@ -42,7 +42,11 @@ export function ReviewResultsBlockSkeleton() {
   );
 }
 
-export function ReviewResultsSkeleton() {
+export function ReviewResultsSkeleton({
+  itemCount = defaultPublicReviewSkeletonCount,
+}: {
+  itemCount?: number;
+}) {
   return (
     <div
       aria-busy="true"
@@ -53,8 +57,8 @@ export function ReviewResultsSkeleton() {
         className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3"
         aria-hidden="true"
       >
-        {publicReviewSkeletons.map((item) => (
-          <ReviewCardSkeleton key={item} />
+        {Array.from({ length: itemCount }, (_, index) => (
+          <ReviewCardSkeleton key={index} />
         ))}
       </div>
     </div>
@@ -101,7 +105,11 @@ export function OwnedReviewsSkeleton() {
   );
 }
 
-export function OwnedReviewResultsSkeleton() {
+export function OwnedReviewResultsSkeleton({
+  itemCount = defaultOwnedReviewSkeletonCount,
+}: {
+  itemCount?: number;
+}) {
   return (
     <div
       className="mt-8 divide-y divide-border border-y border-border"
@@ -109,19 +117,18 @@ export function OwnedReviewResultsSkeleton() {
       aria-label="Loading your reviews"
     >
       <span className="sr-only">Loading your reviews</span>
-      {ownedReviewSkeletons.map((item) => (
+      {Array.from({ length: itemCount }, (_, index) => (
         <div
-          key={item}
-          className="flex items-start justify-between gap-4 py-6"
+          key={index}
+          className="flex min-h-[8.75rem] items-start justify-between gap-4 py-6"
           aria-hidden="true"
         >
           <div className="min-w-0 flex-1">
             <div className="skeleton-surface h-5 w-56 max-w-full rounded-full" />
-            <div className="skeleton-surface mt-3 h-4 w-12 rounded-full" />
-            <div className="skeleton-surface mt-5 h-4 w-full max-w-3xl rounded-full" />
-            <div className="skeleton-surface mt-3 h-4 w-2/3 max-w-2xl rounded-full" />
+            <div className="skeleton-surface mt-2 h-4 w-12 rounded-full" />
+            <div className="skeleton-surface mt-4 h-6 w-2/3 max-w-3xl rounded-full" />
           </div>
-          <div className="hidden gap-2 sm:flex">
+          <div className="flex gap-2">
             <div className="skeleton-surface h-10 w-16 rounded-xl" />
             <div className="skeleton-surface h-10 w-20 rounded-xl" />
           </div>

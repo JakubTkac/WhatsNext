@@ -68,8 +68,6 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
         </p>
       </div>
 
-      <RecentlyViewedMovies className="mt-12 sm:mt-14" />
-
       <ListingNavigationProvider>
         <MovieFilters
           key={createMovieFiltersKey(query)}
@@ -82,6 +80,7 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
           currentPage={connection.meta.page}
           totalItems={connection.meta.totalItems}
           totalPages={connection.meta.totalPages}
+          pageSize={connection.meta.limit}
           pathname="/movies"
           query={createMoviePaginationQuery(query)}
         >
@@ -120,6 +119,8 @@ async function MoviesListing({ query }: { query: MoviesQuery }) {
           )}
         </MovieListingResults>
       </ListingNavigationProvider>
+
+      <RecentlyViewedMovies className="mt-20" />
     </main>
   );
 }

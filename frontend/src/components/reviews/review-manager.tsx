@@ -12,6 +12,7 @@ import {
   SecondaryButton,
 } from "@/components/ui/action-button";
 import {
+  getListingPageItemCount,
   readListingDestinationPage,
   useListingNavigation,
 } from "@/components/ui/listing-navigation";
@@ -84,6 +85,12 @@ export function ReviewManager({
         "myPage",
       )
     : connection.meta.page;
+  const skeletonItemCount =
+    getListingPageItemCount(
+      connection.meta.totalItems,
+      connection.meta.limit,
+      displayedPage,
+    ) || connection.meta.limit;
 
   return (
     <section
@@ -119,7 +126,7 @@ export function ReviewManager({
       />
 
       {pending ? (
-        <OwnedReviewResultsSkeleton />
+        <OwnedReviewResultsSkeleton itemCount={skeletonItemCount} />
       ) : (
         <OwnedReviews
           reviews={connection.reviews}
@@ -191,7 +198,10 @@ function OwnedReviewRow({
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
   return (
-    <article id={`review-${review.id}`} className="scroll-mt-28 py-6">
+    <article
+      id={`review-${review.id}`}
+      className="min-h-[8.75rem] scroll-mt-40 py-6"
+    >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h3 className="text-lg font-semibold">

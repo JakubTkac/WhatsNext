@@ -4,6 +4,7 @@ import {
   AccountNavigation,
   AccountNavigationSkeleton,
 } from "@/components/auth/account-navigation";
+import { SiteNavigation } from "@/components/landing/site-navigation";
 import { SearchForm } from "@/components/ui/search-form";
 
 export function SiteHeader() {
@@ -30,6 +31,7 @@ export function SiteHeader() {
           </Suspense>
         </div>
       </div>
+      <SiteNavigation />
     </header>
   );
 }

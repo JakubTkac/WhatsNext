@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { MovieResultsSkeleton } from "@/components/movies/movie-listing-skeleton";
 import {
+  getListingPageItemCount,
   readListingDestinationPage,
   useListingNavigation,
 } from "@/components/ui/listing-navigation";
@@ -13,6 +14,7 @@ type MovieListingResultsProps = {
   currentPage: number;
   totalItems: number;
   totalPages: number;
+  pageSize: number;
   pathname: string;
   query: Record<string, string | number | undefined>;
 };
@@ -22,6 +24,7 @@ export function MovieListingResults({
   currentPage,
   totalItems,
   totalPages,
+  pageSize,
   pathname,
   query,
 }: MovieListingResultsProps) {
@@ -30,6 +33,9 @@ export function MovieListingResults({
   const displayedPage = pending
     ? readListingDestinationPage(navigation?.destination ?? null)
     : currentPage;
+  const skeletonItemCount =
+    getListingPageItemCount(totalItems, pageSize, displayedPage) ||
+    pageSize;
 
   return (
     <div aria-busy={pending}>
@@ -43,7 +49,11 @@ export function MovieListingResults({
         </p>
       </div>
 
-      {pending ? <MovieResultsSkeleton /> : children}
+      {pending ? (
+        <MovieResultsSkeleton itemCount={skeletonItemCount} />
+      ) : (
+        children
+      )}
 
       <Pagination
         currentPage={displayedPage}

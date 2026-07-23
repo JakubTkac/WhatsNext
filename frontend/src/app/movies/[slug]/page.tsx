@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { MovieDetailHero } from "@/components/movies/movie-detail-hero";
+import { RecentlyViewedMovies } from "@/components/movies/recently-viewed-movies";
 import { RecentlyViewedMovieTracker } from "@/components/movies/recently-viewed-movie-tracker";
 import { MovieReviewAction } from "@/components/movies/movie-review-action";
 import { MovieWatchlistAction } from "@/components/movies/movie-watchlist-action";
@@ -102,6 +103,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
       </section>
 
       <MovieReviews movie={movie} />
+      <RecentlyViewedMovies className="mt-20" />
     </main>
   );
 }

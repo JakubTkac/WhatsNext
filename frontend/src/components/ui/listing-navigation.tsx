@@ -32,7 +32,7 @@ export function ListingNavigationProvider({
     (href: string) => {
       setDestination(href);
       startTransition(() => {
-        router.push(href);
+        router.push(href, { scroll: false });
       });
     },
     [router],
@@ -80,4 +80,17 @@ export function readListingDestinationPage(
   );
 
   return Number.isInteger(page) && page > 0 ? page : 1;
+}
+
+export function getListingPageItemCount(
+  totalItems: number,
+  pageSize: number,
+  page: number,
+): number {
+  if (totalItems <= 0 || pageSize <= 0 || page <= 0) {
+    return 0;
+  }
+
+  const remainingItems = totalItems - (page - 1) * pageSize;
+  return Math.max(0, Math.min(pageSize, remainingItems));
 }

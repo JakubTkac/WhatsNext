@@ -1,6 +1,6 @@
 import { MovieGridCardSkeleton } from "@/components/movies/movie-grid-card";
 
-const movieCardSkeletons = [0, 1, 2, 3, 4, 5];
+const defaultMovieSkeletonCount = 12;
 const filterSkeletons = [
   { labelWidth: "w-10", fieldWidth: "lg:min-w-72" },
   { labelWidth: "w-12", fieldWidth: "" },
@@ -37,7 +37,11 @@ export function MovieListingPageSkeleton() {
   );
 }
 
-export function MovieResultsSkeleton() {
+export function MovieResultsSkeleton({
+  itemCount = defaultMovieSkeletonCount,
+}: {
+  itemCount?: number;
+}) {
   return (
     <div
       aria-busy="true"
@@ -48,8 +52,8 @@ export function MovieResultsSkeleton() {
         className="mt-6 grid gap-5 lg:grid-cols-2"
         aria-hidden="true"
       >
-        {movieCardSkeletons.map((item) => (
-          <MovieGridCardSkeleton key={item} />
+        {Array.from({ length: itemCount }, (_, index) => (
+          <MovieGridCardSkeleton key={index} />
         ))}
       </div>
     </div>
