@@ -4,15 +4,9 @@ import { ReviewCard } from "@/components/reviews/review-card";
 import { PublicReviewFilters } from "@/components/reviews/review-filters";
 import { ReviewListingResults } from "@/components/reviews/review-listing-results";
 import { ReviewManager } from "@/components/reviews/review-manager";
-import {
-  OwnedReviewsSkeleton,
-  ReviewResultsBlockSkeleton,
-} from "@/components/reviews/reviews-page-skeleton";
+import { ReviewsPageSkeleton } from "@/components/reviews/reviews-page-skeleton";
 import { PageErrorState } from "@/components/ui/page-error-state";
-import {
-  ListingNavigationCompletion,
-  ListingNavigationProvider,
-} from "@/components/ui/listing-navigation";
+import { ListingNavigationProvider } from "@/components/ui/listing-navigation";
 import { SectionEmptyState } from "@/components/ui/section-state";
 import {
   getReviewsPage,
@@ -41,6 +35,40 @@ export default async function ReviewsPage({
   const editReviewId = readOptionalString(params.edit, 64);
 
   return (
+    <Suspense fallback={<ReviewsPageSkeleton />}>
+      <ReviewsListing
+        query={query}
+        ownedQuery={ownedQuery}
+        editReviewId={editReviewId}
+      />
+    </Suspense>
+  );
+}
+
+async function ReviewsListing({
+  query,
+  ownedQuery,
+  editReviewId,
+}: {
+  query: ReviewsQuery;
+  ownedQuery: ReviewsQuery;
+  editReviewId?: string;
+}) {
+  const [connection, workspace] = await Promise.all([
+    getReviewsPage(query),
+    getReviewWorkspace(ownedQuery),
+  ]);
+
+  if (!connection.online) {
+    return (
+      <PageErrorState
+        title="Reviews unavailable"
+        description="We could not load community reviews. Please try again."
+      />
+    );
+  }
+
+  return (
     <main className="page-shell">
       <div className="max-w-3xl">
         <h1 className="page-title">
@@ -58,117 +86,48 @@ export default async function ReviewsPage({
           preservedQuery={createOwnedReviewQueryParams(ownedQuery)}
         />
 
-        <Suspense fallback={<ReviewResultsBlockSkeleton />}>
-          <PublicReviewResults
-            query={query}
-            ownedQuery={ownedQuery}
-          />
-        </Suspense>
+        <ReviewListingResults
+          currentPage={connection.meta.page}
+          totalItems={connection.meta.totalItems}
+          totalPages={connection.meta.totalPages}
+          pageSize={connection.meta.limit}
+          query={{
+            movie: query.movie,
+            rating: query.rating,
+            ...createOwnedReviewQueryParams(ownedQuery),
+          }}
+        >
+          {connection.reviews.length === 0 ? (
+            <div className="mt-3">
+              <SectionEmptyState
+                title="No reviews match these filters"
+                description="Adjust the movie title or rating and try again."
+              />
+            </div>
+          ) : (
+            <div className="mt-3 grid gap-2.5 min-[36rem]:grid-cols-2 xl:grid-cols-4">
+              {connection.reviews.map((review) => (
+                <ReviewCard key={review.id} review={review} />
+              ))}
+            </div>
+          )}
+        </ReviewListingResults>
       </ListingNavigationProvider>
 
       <ListingNavigationProvider>
-        <Suspense
+        <ReviewManager
           key={`${ownedQuery.page}-${ownedQuery.movie ?? ""}-${ownedQuery.rating ?? ""}-${editReviewId ?? "reviews"}`}
-          fallback={<OwnedReviewsSkeleton />}
-        >
-          <OwnedReviewWorkspace
-            publicQuery={query}
-            query={ownedQuery}
-            editReviewId={editReviewId}
-          />
-        </Suspense>
+          connection={workspace}
+          query={ownedQuery}
+          initialEditReviewId={editReviewId}
+          preservedQuery={{
+            page: query.page > 1 ? query.page : undefined,
+            movie: query.movie,
+            rating: query.rating,
+          }}
+        />
       </ListingNavigationProvider>
     </main>
-  );
-}
-
-async function PublicReviewResults({
-  query,
-  ownedQuery,
-}: {
-  query: ReviewsQuery;
-  ownedQuery: ReviewsQuery;
-}) {
-  const connection = await getReviewsPage(query);
-  const completion = (
-    <ListingNavigationCompletion
-      navigationKey={createReviewsQueryKey(query)}
-    />
-  );
-
-  if (!connection.online) {
-    return (
-      <>
-        {completion}
-        <PageErrorState
-          title="Reviews unavailable"
-          description="We could not load community reviews. Please try again."
-        />
-      </>
-    );
-  }
-
-  return (
-    <>
-      {completion}
-      <ReviewListingResults
-        currentPage={connection.meta.page}
-        totalItems={connection.meta.totalItems}
-        totalPages={connection.meta.totalPages}
-        pageSize={connection.meta.limit}
-        query={{
-          movie: query.movie,
-          rating: query.rating,
-          ...createOwnedReviewQueryParams(ownedQuery),
-        }}
-      >
-        {connection.reviews.length === 0 ? (
-          <div className="mt-3">
-            <SectionEmptyState
-              title="No reviews match these filters"
-              description="Adjust the movie title or rating and try again."
-            />
-          </div>
-        ) : (
-          <div className="mt-3 grid gap-2.5 min-[36rem]:grid-cols-2 xl:grid-cols-4">
-            {connection.reviews.map((review) => (
-              <ReviewCard key={review.id} review={review} />
-            ))}
-          </div>
-        )}
-      </ReviewListingResults>
-    </>
-  );
-}
-
-async function OwnedReviewWorkspace({
-  publicQuery,
-  query,
-  editReviewId,
-}: {
-  publicQuery: ReviewsQuery;
-  query: ReviewsQuery;
-  editReviewId?: string;
-}) {
-  const workspace = await getReviewWorkspace(query);
-
-  return (
-    <>
-      <ListingNavigationCompletion
-        navigationKey={`${createReviewsQueryKey(query)}-${editReviewId ?? "reviews"}`}
-      />
-      <ReviewManager
-        key={`${query.page}-${query.movie ?? ""}-${query.rating ?? ""}-${editReviewId ?? "reviews"}`}
-        connection={workspace}
-        query={query}
-        initialEditReviewId={editReviewId}
-        preservedQuery={{
-          page: publicQuery.page > 1 ? publicQuery.page : undefined,
-          movie: publicQuery.movie,
-          rating: publicQuery.rating,
-        }}
-      />
-    </>
   );
 }
 
@@ -200,10 +159,6 @@ function createOwnedReviewQueryParams(
     myMovie: query.movie,
     myRating: query.rating,
   };
-}
-
-function createReviewsQueryKey(query: ReviewsQuery): string {
-  return `${query.page}-${query.movie ?? ""}-${query.rating ?? ""}`;
 }
 
 function readRating(
