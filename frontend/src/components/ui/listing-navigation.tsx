@@ -1,6 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 import {
   createContext,
   type ReactNode,
@@ -8,15 +12,22 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   useTransition,
 } from "react";
 
+const navigationRecoveryDelay = 8_000;
+
 type ListingNavigationValue = {
-  completeNavigation: () => void;
   destination: string | null;
   pending: boolean;
   navigate: (href: string) => void;
+};
+
+type ActiveListingNavigation = {
+  destination: string;
+  startLocation: string;
 };
 
 const ListingNavigationContext =
@@ -28,29 +39,114 @@ export function ListingNavigationProvider({
   children: ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const committedSearch = searchParams.toString();
+  const activeNavigation = useRef<ActiveListingNavigation | null>(
+    null,
+  );
+  const recoveryTimer = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const [destination, setDestination] = useState<string | null>(null);
   const [transitionPending, startTransition] = useTransition();
-  const completeNavigation = useCallback(() => {
-    setDestination(null);
+
+  const clearRecoveryTimer = useCallback(() => {
+    if (recoveryTimer.current !== null) {
+      clearTimeout(recoveryTimer.current);
+      recoveryTimer.current = null;
+    }
   }, []);
+
+  const completeNavigation = useCallback(() => {
+    clearRecoveryTimer();
+    activeNavigation.current = null;
+    setDestination(null);
+  }, [clearRecoveryTimer]);
+
   const navigate = useCallback(
     (href: string) => {
+      if (activeNavigation.current !== null) {
+        return;
+      }
+
+      const navigation = {
+        destination: href,
+        startLocation: window.location.href,
+      };
+
+      activeNavigation.current = navigation;
       setDestination(href);
       startTransition(() => {
         router.push(href, { scroll: false });
       });
+
+      recoveryTimer.current = setTimeout(() => {
+        if (activeNavigation.current !== navigation) {
+          return;
+        }
+
+        const currentUrl = new URL(window.location.href);
+        const startUrl = new URL(
+          navigation.startLocation,
+          currentUrl,
+        );
+        const destinationUrl = new URL(
+          navigation.destination,
+          currentUrl,
+        );
+        const recoveryUrl =
+          createLocationKey(currentUrl) !==
+          createLocationKey(startUrl)
+            ? currentUrl
+            : destinationUrl;
+
+        if (recoveryUrl.href === currentUrl.href) {
+          window.location.reload();
+          return;
+        }
+
+        window.location.replace(recoveryUrl.href);
+      }, navigationRecoveryDelay);
     },
     [router],
   );
-  const pending = transitionPending && destination !== null;
+
+  useEffect(() => {
+    const navigation = activeNavigation.current;
+
+    if (!navigation || transitionPending) {
+      return;
+    }
+
+    const target = new URL(
+      navigation.destination,
+      window.location.href,
+    );
+    const committedLocation = `${pathname}${committedSearch ? `?${committedSearch}` : ""}`;
+    const targetLocation = `${target.pathname}${target.search}`;
+
+    if (committedLocation === targetLocation) {
+      completeNavigation();
+    }
+  }, [
+    committedSearch,
+    completeNavigation,
+    destination,
+    pathname,
+    transitionPending,
+  ]);
+
+  useEffect(() => clearRecoveryTimer, [clearRecoveryTimer]);
+
+  const pending = destination !== null;
   const value = useMemo(
     () => ({
-      completeNavigation,
       destination,
       pending,
       navigate,
     }),
-    [completeNavigation, destination, navigate, pending],
+    [destination, navigate, pending],
   );
 
   return (
@@ -58,21 +154,6 @@ export function ListingNavigationProvider({
       {children}
     </ListingNavigationContext>
   );
-}
-
-export function ListingNavigationCompletion({
-  navigationKey,
-}: {
-  navigationKey: string;
-}) {
-  const completeNavigation =
-    useListingNavigation()?.completeNavigation;
-
-  useEffect(() => {
-    completeNavigation?.();
-  }, [completeNavigation, navigationKey]);
-
-  return null;
 }
 
 export function ListingPendingContent({
@@ -119,4 +200,8 @@ export function getListingPageItemCount(
 
   const remainingItems = totalItems - (page - 1) * pageSize;
   return Math.max(0, Math.min(pageSize, remainingItems));
+}
+
+function createLocationKey(url: URL): string {
+  return `${url.pathname}${url.search}${url.hash}`;
 }
