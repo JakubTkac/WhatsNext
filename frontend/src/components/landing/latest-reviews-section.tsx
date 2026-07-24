@@ -1,6 +1,9 @@
 import { ReviewCard } from "@/components/reviews/review-card";
 import { SecondaryButtonLink } from "@/components/ui/action-button";
-import { SectionErrorState } from "@/components/ui/section-state";
+import {
+  SectionEmptyState,
+  SectionErrorState,
+} from "@/components/ui/section-state";
 import { getLatestReviews } from "@/lib/api";
 
 export async function LatestReviewsSection() {
@@ -20,9 +23,7 @@ export async function LatestReviewsSection() {
     );
   }
 
-  if (connection.reviews.length === 0) {
-    return null;
-  }
+  const hasReviews = connection.reviews.length > 0;
 
   return (
     <section
@@ -36,16 +37,28 @@ export async function LatestReviewsSection() {
         >
           Latest reviews
         </h2>
-        <SecondaryButtonLink href="/reviews" className="shrink-0">
-          Browse all
+        <SecondaryButtonLink
+          href={hasReviews ? "/reviews" : "/movies"}
+          className="shrink-0"
+        >
+          {hasReviews ? "Browse all" : "Browse movies"}
         </SecondaryButtonLink>
       </div>
 
-      <div className="mt-3 grid gap-2 min-[36rem]:grid-cols-2 xl:grid-cols-4">
-        {connection.reviews.map((review) => (
-          <ReviewCard key={review.id} review={review} />
-        ))}
-      </div>
+      {hasReviews ? (
+        <div className="mt-3 grid gap-2 min-[36rem]:grid-cols-2 xl:grid-cols-4">
+          {connection.reviews.map((review) => (
+            <ReviewCard key={review.id} review={review} />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-3">
+          <SectionEmptyState
+            title="No reviews yet"
+            description="Be the first to share your thoughts on a released movie."
+          />
+        </div>
+      )}
     </section>
   );
 }
